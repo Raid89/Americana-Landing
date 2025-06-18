@@ -1,0 +1,89 @@
+---
+import ButtonContact from "./ButtonContact.astro";
+const navLinks = [
+  { href: "/conocenos", text: "Conócenos" },
+  { href: "/servicios", text: "Servicios" },
+  { href: "/opiniones", text: "Opiniones" },
+  { href: "/contacto", text: "Contactanos", isButton: true },
+];
+---
+
+<nav class="header-navigation">
+  {
+    navLinks.map((link) => (
+      link.isButton
+        ? <ButtonContact href={link.href} text={link.text} />
+        : <a href={link.href}>{link.text}</a>
+    ))
+  }
+</nav>
+
+<style>
+  .header-navigation {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+    font-size: 18px;
+  }
+
+  .header-navigation a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+    position: relative;
+  }
+
+  .header-navigation a::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    border-radius: 9999px;
+    background-color: #FF8282;
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .header-navigation a:hover:after {
+    transform: scaleX(1);
+  }
+
+  .header-navigation .header-navigation_contact {
+    background-color: #ff8282;
+    color: #fff;
+    width: 229px;
+    text-align: center;
+    border-radius: 9999px;
+    padding: 8px 0px;
+  }
+
+  .header-navigation .header-navigation_contact::after {
+    content: none;
+  }
+
+  @media screen and (max-width: 1280px) {
+    .header-navigation {
+      gap: 38px;
+      font-size: 16px;
+    }
+
+    .header-navigation .header-navigation_contact {
+      width: 200px;
+      padding: 5px 0px;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    .header-navigation {
+      gap: 24px;
+      font-size: 12px;
+    }
+
+    .header-navigation .header-navigation_contact {
+      width: 140px;
+      padding: 5px 0px;
+    }
+  }
+</style>

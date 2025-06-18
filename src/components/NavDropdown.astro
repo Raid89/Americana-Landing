@@ -1,0 +1,162 @@
+---
+import { Image } from "astro:assets";
+import Logotipo from "@images/logotipo-col.webp";
+import { Icon } from "astro-icon/components";
+import ButtonContact from "./ButtonContact.astro";
+
+const navLinks = [
+  { href: "/conocenos", text: "Conócenos" },
+  { href: "/servicios", text: "Servicios" },
+  { href: "/opiniones", text: "Opiniones" },
+  { href: "/contacto", text: "Contactanos", isButton: true },
+];
+---
+
+<div class="navigation_dropdown-button">
+  <Icon name="menu-hamburguesa" />
+</div>
+
+<div class="navigation_dropdown-container">
+  <div class="navigation_dropdown-close-button">
+    <Icon name="cruz-pequena" />
+  </div>
+  <div class="header-logo_container">
+    <Image
+      src={Logotipo}
+      widths={[142, Logotipo.width]}
+      sizes={`(max-width: 1000px) 142px, ${Logotipo.width}px`}
+      alt="Una descripción de mi imagen."
+    />
+  </div>
+  <nav class="header-navigation">
+    {
+      navLinks.map((link) => (
+        link.isButton
+          ? <ButtonContact href={link.href} text={link.text} />
+          : <a href={link.href}>{link.text}</a>
+      ))
+    }
+  </nav>
+</div>
+
+<script>
+  const dropdownButton = document.querySelector(".navigation_dropdown-button");
+  const dropdownContainer = document.querySelector(
+    ".navigation_dropdown-container"
+  );
+  const closeButton = document.querySelector(
+    ".navigation_dropdown-close-button"
+  );
+
+  if (dropdownButton && dropdownContainer && closeButton) {
+    // Función para cerrar el dropdown
+    const closeDropdown = () => {
+      dropdownContainer.classList.remove("open");
+      dropdownContainer.classList.add("closing");
+      
+      // Remover la clase 'closing' después de la animación
+      setTimeout(() => {
+        dropdownContainer.classList.remove("closing");
+      }, 300); // 300ms = duración de la animación
+    };
+
+    dropdownButton.addEventListener("click", () => {
+      if (dropdownContainer.classList.contains("open")) {
+        closeDropdown();
+      } else {
+        dropdownContainer.classList.remove("closing");
+        dropdownContainer.classList.add("open");
+      }
+    });
+
+    closeButton.addEventListener("click", () => {
+      closeDropdown();
+    });
+  }
+</script>
+
+<style>
+  .navigation_dropdown-close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+  }
+
+  .header-logo_container img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .navigation_dropdown-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: white;
+    width: 100dvw;
+    z-index: 1000;
+    overflow: hidden;
+    height: 0%;
+    transform-origin: top;
+  }
+
+  .navigation_dropdown-container.open {
+    animation: openDropdown 0.3s ease-out forwards;
+  }
+
+  .navigation_dropdown-container.closing {
+    animation: closeDropdown 0.3s ease-in forwards;
+  }
+
+  .header-navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: 20px;
+  }
+
+  .header-navigation a {
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .header-navigation .header-navigation_contact {
+    background-color: #ff8282;
+    color: #fff;
+    width: 229px;
+    text-align: center;
+    border-radius: 9999px;
+    padding: 8px 0px;
+  }
+
+  @media screen and (max-width: 1280px) {
+    .header-logo_container {
+      width: 120px;
+      margin: 16px auto;
+    }
+  }
+
+  @keyframes openDropdown {
+    from {
+      height: 0%;
+    }
+    to {
+      height: 100%;
+    }
+  }
+
+  @keyframes closeDropdown {
+    from {
+      height: 100%;
+    }
+    to {
+      height: 0%;
+    }
+  }
+</style>
