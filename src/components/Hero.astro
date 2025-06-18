@@ -1,5 +1,7 @@
 ---
 import ButtonContact from "./ButtonContact.astro";
+import { Image } from "astro:assets";
+import YoutubePreview from "@images/yt-preview.jpg";
 import "../styles/animations.css";
 
 
@@ -13,14 +15,12 @@ import "../styles/animations.css";
       <ButtonContact href="/contacto" text="Contáctanos" className="animate-pop-in in-viewport" data-animate />
     </div>
     <div class="hero-video animate-fade-in-delay" data-animate>
-      <iframe
-        width="899"
-        src="https://www.youtube.com/embed/Z6GGAQOMX8c"
-        title="Clase de Inglés para Principiantes | TODO LO ESENCIAL EN UN VIDEO | Aprende Inglés desde Cero"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen></iframe>
+      <div id="yt-facade" class="yt-facade" tabindex="0" role="button" aria-label="Reproducir video" style="position:relative;cursor:pointer;overflow:hidden;border-radius:14px;">
+        <Image src={YoutubePreview} alt="Clase de Inglés para Principiantes" style="width:100%;display:block;aspect-ratio:16/9;height:100%;object-fit:cover;"  loading={"eager"} />
+        <span class="yt-facade-play" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.6);border-radius:50%;padding:18px;display:flex;align-items:center;justify-content:center;">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="24" fill="#fff" fill-opacity="0.8"/><path d="M20 17V31L32 24L20 17Z" fill="#ff8282"/></svg>
+        </span>
+      </div>
     </div>
   </div>
 </section>
@@ -28,12 +28,12 @@ import "../styles/animations.css";
 <script>
 if (typeof window !== "undefined") {
   window.addEventListener("DOMContentLoaded", () => {
+    // Animaciones viewport
     document.querySelectorAll('[data-animate]').forEach((el) => {
       if (el.classList.contains("in-viewport")) return;
       const observer = new window.IntersectionObserver(function(entries, observer) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
-            // Elimina cualquier delay de animación inline para que inicie de inmediato
             entry.target.style.animationDelay = '0s';
             entry.target.classList.add("in-viewport");
             observer.unobserve(entry.target);
@@ -42,6 +42,30 @@ if (typeof window !== "undefined") {
       }, { threshold: 0.01 });
       observer.observe(el);
     });
+    // YouTube facade
+    const ytFacade = document.getElementById('yt-facade');
+    if (ytFacade) {
+      const loadIframe = () => {
+        if (ytFacade.dataset.loaded) return;
+        ytFacade.dataset.loaded = 'true';
+        const iframe = document.createElement('iframe');
+        iframe.width = '899';
+        iframe.src = 'https://www.youtube.com/embed/Z6GGAQOMX8c?autoplay=1';
+        iframe.title = 'Clase de Inglés para Principiantes | TODO LO ESENCIAL EN UN VIDEO | Aprende Inglés desde Cero';
+        iframe.frameBorder = '0';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        iframe.allowFullscreen = true;
+        iframe.style.width = '100%';
+        iframe.style.aspectRatio = '16/9';
+        iframe.style.borderRadius = '14px';
+        ytFacade.replaceWith(iframe);
+      };
+      ytFacade.addEventListener('click', loadIframe);
+      ytFacade.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') loadIframe();
+      });
+    }
   });
 }
 </script>
@@ -83,6 +107,21 @@ if (typeof window !== "undefined") {
       aspect-ratio: 16 / 9;
       border-radius: 14px;
     }
+  }
+
+  .yt-facade {
+    background: #000;
+    min-height: 200px;
+    position: relative;
+    aspect-ratio: 16/9;
+    display: block;
+  }
+  .yt-facade-play {
+    transition: background 0.2s;
+  }
+  .yt-facade:hover .yt-facade-play,
+  .yt-facade:focus .yt-facade-play {
+    background: rgba(255,130,130,0.9);
   }
 
   @media screen and (max-width: 1600px) {
