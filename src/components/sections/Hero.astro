@@ -1,0 +1,174 @@
+---
+import ButtonContact from "@components/shared/ButtonContact.astro";
+import YoutubePreview from "@images/yt-preview.jpg";
+import "@styles/animations.css";
+import Facade from "@components/shared/Facade.astro";
+
+const facadeVideoId = "dQw4w9WgXcQ"; // ID del video de YouTube
+const facadeTitle = "Clase de Inglés para Principiantes"; // Título del video
+const facadeAlt = "Clase de Inglés para Principiantes"; // Texto alternativo para la imagen del video
+---
+
+<section class="hero">
+  <div class="hero-content animate-fade-in" data-animate>
+    <div class="hero-text animate-slide-up" data-animate>
+      <h1>Aprender inglés online de forma práctica y con propósito</h1>
+      <h2>
+        Clases de inglés conversacional dinámicas, reales y personalizadas.
+        Aprende a hablar inglés con confianza y abre nuevas oportunidades.
+      </h2>
+      <ButtonContact
+        href="/contacto"
+        text="Contáctanos"
+        className="animate-pop-in in-viewport"
+        data-animate
+      />
+    </div>
+    <div class="hero-video animate-fade-in-delay" data-animate>
+      <Facade
+        PreviewImage={YoutubePreview}
+        Alt={facadeAlt}
+        VideoId={facadeVideoId}
+        Title={facadeTitle}
+      />
+    </div>
+  </div>
+</section>
+
+<script>
+  import { animateOnView } from "src/utils/intersectionObserver";
+  if (typeof window !== "undefined") {
+    window.addEventListener("DOMContentLoaded", () => {
+      animateOnView("[data-animate]");
+    });
+  }
+</script>
+
+<style>
+  .hero-content {
+    display: flex;
+    align-items: center;
+    gap: 70px;
+    justify-content: space-between;
+    padding: 70px 100px;
+  }
+
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 706px;
+    min-width: 706px;
+
+    h1 {
+      font-size: 71px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 20px;
+      line-height: 30px;
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+
+  .hero-video {
+    width: 100%;
+    iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+    }
+  }
+
+  @media screen and (max-width: 1600px) {
+    .hero-content {
+      padding: 60px 40px;
+    }
+
+    .hero-text {
+      width: 100%;
+      min-width: unset;
+      align-items: start;
+
+      h1 {
+        font-size: 50px;
+      }
+
+      h2 {
+        font-size: 18px;
+        line-height: 28px;
+      }
+    }
+
+    .hero-video {
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 1600px) {
+    .hero-text {
+      gap: 20px;
+      h1 {
+        font-size: 40px;
+      }
+
+      h2 {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1300px){
+    .hero-content {
+      padding: 120px 40px;
+    }
+
+    .hero-video {
+      width: 150%;
+    }
+
+    .hero-text {
+      gap: 30px;
+
+      h1 {
+        font-size: 40px;
+      }
+
+      h2 {
+        font-size: 18px;
+        line-height: 28px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .hero-content {
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .hero-text {
+      width: 100%;
+      align-items: center;
+      text-align: center;
+
+      h1 {
+        font-size: 32px;
+      }
+
+      h2 {
+        font-size: 14px;
+        line-height: 22px;
+      }
+    }
+
+    .hero-video {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,9 +1,17 @@
 ---
+/**
+ * Botón de contacto reutilizable para navegación y llamadas a la acción.
+ * Props:
+ * - href: URL de destino
+ * - text: Texto del botón
+ * - className: Clases adicionales opcionales
+ */
 export interface Props {
   href: string;
   text: string;
   className?: string;
 }
+
 const { href, text, className = "" } = Astro.props;
 ---
 <a href={href} class={`header-navigation_contact ${className}`}>{text}</a>
@@ -21,6 +29,10 @@ const { href, text, className = "" } = Astro.props;
     display: inline-block;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
     transition: background 0.2s;
+  }
+  .header-navigation_contact:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
   }
   .header-navigation_contact:hover {
     background-color: rgb(235, 122, 122);

@@ -1,0 +1,125 @@
+---
+
+const statistics = [
+    {
+        title: "Estudiantes impactados",
+        value: 10000,
+        text: "Estudiantes de más de 15 países confiaron en Voice Lab para transformar su relación con los idiomas y ganar confianza al comunicarse."
+    },
+    {
+        title: "Horas de clase impartidas",
+        value: 250000,
+        text: "Sesiones dinámicas, personalizadas y enfocadas en resultados reales. Cada clase cuenta y deja huella."
+    },
+    {
+        title: "Certificaciones en el último año",
+        value: 1200,
+        text: "Respaldamos el esfuerzo de nuestras estudiantes con avales reales para su desarrollo académico y profesional."
+    },
+]
+---
+
+
+
+
+<section class="statistics">
+  {statistics.map((stat, i) => (
+    <div class="statistic-details">
+      <span class="statistic-value" data-value={stat.value} id={`stat-value-${i}`}>+ 0</span>
+      <h3>{stat.title}</h3>
+      <p>{stat.text}</p>
+    </div>
+  ))}
+</section>
+
+<script>
+  import { animateOnView } from "src/utils/intersectionObserver";
+  import { animateCountOnView } from "src/utils/animateCount";
+
+  if (typeof window !== "undefined") {
+    window.addEventListener("DOMContentLoaded", () => {
+      animateOnView(".statistic-value");
+      animateCountOnView({ selector: ".statistic-value", duration: 2500, threshold: 0.5 });
+    });
+  }
+</script>
+
+<style>
+.statistics {
+    margin-top: 150px;
+    background-color: #FF8282;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 95px;
+    padding: 20px 50px;
+}
+
+.statistic-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #FFF;
+    gap: 14px;
+
+    .statistic-value {
+        font-size: 34px;
+        font-weight: 600;
+    }
+
+    h3 {
+        font-size: 26px;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 24px;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .statistics {
+        gap: 50px;
+        padding: 20px 30px;
+    }
+
+    .statistic-details {
+        h3 {
+            font-size: 22px;
+        }
+        p {
+            font-size: 16px;
+        }
+        .statistic-value {
+            font-size: 28px;
+        }
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .statistics {
+        gap: 30px;
+        padding: 20px 20px;
+        margin-top: 100px;
+    }
+
+    .statistic-details {
+        gap: 10px;
+        h3 {
+            font-size: 18px;
+        }
+        p {
+            font-size: 14px;
+            line-height: 18px;
+        }
+        .statistic-value {
+            font-size: 24px;
+        }
+    }
+}
+</style>

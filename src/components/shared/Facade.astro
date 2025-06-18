@@ -1,0 +1,95 @@
+---
+import { Image } from "astro:assets";
+
+const { PreviewImage, Alt, VideoId, Title } = Astro.props;
+---
+
+<div class="hero-video animate-fade-in-delay" data-animate>
+  <div
+    id="yt-facade"
+    class="yt-facade"
+    data-video-id={VideoId}
+    data-video-title={Title}
+    tabindex="0"
+    role="button"
+    aria-label="Reproducir video"
+    style="position:relative;cursor:pointer;overflow:hidden;border-radius:14px;"
+  >
+    <Image
+      src={PreviewImage}
+      alt={Alt}
+      style="width:100%;display:block;aspect-ratio:16/9;height:100%;object-fit:cover;"
+      loading={"eager"}
+    />
+    <span
+      class="yt-facade-play"
+      style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.6);border-radius:50%;padding:18px;display:flex;align-items:center;justify-content:center;"
+    >
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
+        ><circle cx="24" cy="24" r="24" fill="#fff" fill-opacity="0.8"
+        ></circle><path d="M20 17V31L32 24L20 17Z" fill="#ff8282"></path></svg
+      >
+    </span>
+  </div>
+</div>
+
+<script>
+  const loadFacade = () => {
+    const ytFacade = document.getElementById("yt-facade");
+    if (!ytFacade || ytFacade.dataset.loaded) return;
+    const videoId = ytFacade.dataset.videoId;
+    const title = ytFacade.dataset.videoTitle;
+
+    ytFacade.addEventListener("click", () => {
+      loadIframe(ytFacade, videoId, title);
+    });
+
+    ytFacade.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        loadIframe(ytFacade, videoId, title);
+      }
+    });
+  };
+
+  const loadIframe = (ytFacade: HTMLElement, videoId = "", title = "") => {
+    if (ytFacade.dataset.loaded) return;
+    ytFacade.dataset.loaded = "true";
+    const iframe = document.createElement("iframe");
+    iframe.width = "899";
+    iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+    iframe.title = title;
+    iframe.frameBorder = "0";
+    iframe.allow =
+      "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.referrerPolicy = "strict-origin-when-cross-origin";
+    iframe.allowFullscreen = true;
+    iframe.style.width = "100%";
+    iframe.style.aspectRatio = "16/9";
+    iframe.style.borderRadius = "14px";
+    ytFacade.replaceWith(iframe);
+  };
+
+  if (typeof window !== "undefined") {
+    window.addEventListener("DOMContentLoaded", () => {
+      loadFacade();
+    });
+  }
+</script>
+
+<style>
+  .yt-facade {
+    background: #000;
+    min-height: 200px;
+    position: relative;
+    aspect-ratio: 16/9;
+    display: block;
+  }
+  .yt-facade-play {
+    transition: background 0.2s;
+  }
+  .yt-facade:hover .yt-facade-play,
+  .yt-facade:focus .yt-facade-play {
+    background: rgba(255, 130, 130, 0.9);
+  }
+</style>
