@@ -1,14 +1,20 @@
 ---
 import { Image } from "astro:assets";
+import ButtonContact from "@components/shared/ButtonContact.astro";
 import ProfesoraIngles from "@images/profesora-ingles.webp";
 import ProfesorIngles from "@images/profesor-ingles.jpg";
 import TorreDeLibros from "@images/torre-de-libros.jpg";
+import eeuuFlag from "@images/eeuu.png";
+import excelencia from "@images/excelencia.png";
+import tierra from "@images/planeta-tierra.png";
+import "@styles/animations.css";
 
 const InformationItems = [
   {
     title: "Sobre Nosotros",
-    subtitle: `Somos Americana Academy<span style="color:#FF6363">.</span>`,
+    subtitle: `<span>Somos Americana Academy<span style="color:#FF6363">.</span></span>`,
     image: ProfesoraIngles,
+    icon: eeuuFlag,
     paragraph: `
         <p style="margin-bottom: 0px"><span style="color:#FF6363">Americana Academy</span> nació en 2018 con una misión clara: enseñar inglés de forma dinámica, auténtica y personalizada.</p>
         <p style="margin-bottom: 0px">Creemos que todos pueden aprender un inglés real, útil y conversacional. Nuestro método pone al estudiante en el centro del proceso, con clases prácticas adaptadas a sus necesidades y objetivos.</p>
@@ -17,8 +23,9 @@ const InformationItems = [
   },
   {
     title: "Nuestra Misión",
-    subtitle: `Tu <span style="color:#FF6363">Éxito</span>, Nuestra Meta<span style="color:#FF6363">.</span>`,
+    subtitle: `<span>Tu <span style="color:#FF6363">Éxito</span>, Nuestra Meta<span style="color:#FF6363">.</span></span>`,
     image: ProfesorIngles,
+    icon: excelencia,
     paragraph: `
         <p style="margin-bottom: 0px"><span style="color:#FF6363">Americana Academy</span> nace con una misión clara: empoderar a profesionales, emprendedores y creativos para dominar el inglés de forma real, práctica y auténtica.</p>
         <p style="margin-bottom: 0px">Nos enfocamos en formar comunicadores seguros, conscientes y preparados para los desafíos del mundo actual, ofreciendo experiencias de aprendizaje dinámicas y personalizadas.</p>
@@ -27,8 +34,9 @@ const InformationItems = [
   },
   {
     title: "Nuestra Visión",
-    subtitle: `Inglés con Futuro<span style="color:#FF6363">.</span>`,
+    subtitle: `<span>Inglés con Futuro<span style="color:#FF6363">.</span></span>`,
     image: TorreDeLibros,
+    icon: tierra,
     paragraph: `
         <p style="margin-bottom: 0px">Aspiramos a ser la academia de inglés de referencia para quienes buscan <span style="color:#FF6363">avanzar, destacar y transformar</span> su futuro a través del lenguaje.</p>
         <p style="margin-bottom: 0px">Queremos liderar una nueva forma de aprender inglés: auténtica, flexible y conectada con las exigencias del mundo moderno.</p>
@@ -38,12 +46,13 @@ const InformationItems = [
 ];
 ---
 
-<div id="information-active" class="information-item view-transition-target"></div>
+<div id="information-active" class="information-item view-transition-target">
+</div>
 <!-- Items ocultos que vamos a clonar -->
-<div id="information-templates" style="display: none;">
+<div id="information-templates" style="display: none;" data-animate>
   {
     InformationItems.map((item, index) => (
-      <div class="information-item" data-index={index}>
+      <div class="information-item animate-fade-in" data-index={index}>
         <div class="information-image_dots">
           <div class="information-image_container">
             <Image
@@ -68,8 +77,14 @@ const InformationItems = [
 
         <div class="information-text_container">
           <h2 class="information-title">{item.title}</h2>
-          <div class="information-subtitle" set:html={item.subtitle} />
+          <div class="information-subtitle" set:html={item.subtitle}>
+            <Image src={item.icon} alt={item.title} width={64} height={64} />
+          </div>
           <div class="information-paragraph" set:html={item.paragraph} />
+          <ButtonContact 
+            href="#contactanos" 
+            text="Contactanos" 
+          />
         </div>
       </div>
     ))
@@ -86,15 +101,22 @@ const InformationItems = [
     margin: auto;
   }
 
+  @media (max-width: 1500px) {
+    .information-item {
+      gap: 70px;
+      padding: 120px 80px;
+    }
+  }
+
   @media (max-width: 1300px) {
-    .information-item  {
+    .information-item {
       gap: 70px;
       padding: 120px 80px;
     }
   }
 
   @media (max-width: 1000px) {
-    .information-item  {
+    .information-item {
       gap: 35px;
       flex-direction: column;
       align-items: center;
@@ -103,7 +125,7 @@ const InformationItems = [
   }
 
   @media (max-width: 600px) or (max-height: 500px) {
-    .information-item  {
+    .information-item {
       flex-direction: column-reverse;
       padding: 0px 40px;
       gap: 0px;
@@ -120,6 +142,11 @@ const InformationItems = [
     .information-image_dots,
     .information-text_container {
       width: 100%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .information-text_container {
       text-align: center;
     }
   }
@@ -133,11 +160,22 @@ const InformationItems = [
   .information-subtitle {
     font-size: 40px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    text-wrap: nowrap;
+    gap: 10px;
+    margin-bottom: 25px;
+
+    & > img {
+      width: 35px;
+      height: 35px;
+    }
   }
 
   .information-paragraph {
     font-size: 18px;
     font-weight: 400;
+    margin-bottom: 30px;
   }
 
   @media (max-width: 1300px) {
@@ -154,12 +192,6 @@ const InformationItems = [
     }
   }
 
-  @media (max-width: 1100px) {
-    .information-paragraph {
-      font-size: 14px;
-    }
-  }
-
   @media (max-width: 1300px) {
     .information-title {
       font-size: 36px;
@@ -171,6 +203,18 @@ const InformationItems = [
 
     .information-paragraph {
       font-size: 18px;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .information-paragraph {
+      font-size: 14px;
+    }
+  }
+
+    @media (max-width: 1000px) {
+    .information-subtitle {
+      flex-direction: column;
     }
   }
 
@@ -205,7 +249,7 @@ const InformationItems = [
     width: 18px;
     height: 18px;
     border-radius: 9999px;
-    background-color: #FFF;
+    background-color: #fff;
     border: 3px solid #ff6363;
     z-index: 1000;
     cursor: pointer;
@@ -218,63 +262,65 @@ const InformationItems = [
 </style>
 
 <script type="module">
-const templates = document.querySelectorAll('#information-templates .information-item');
-const active = document.getElementById('information-active');
-let currentIndex = 0;
+  const templates = document.querySelectorAll(
+    "#information-templates .information-item"
+  );
+  const active = document.getElementById("information-active");
+  let currentIndex = 0;
 
-function getClone(index) {
-  return templates[index].cloneNode(true);
-}
-
-function addDotsListeners() {
-  // Seleccionar los dots del contenido activo
-  const activeDots = active.querySelectorAll('.information-dot');
-  
-  activeDots.forEach(dot => {
-    dot.addEventListener('click', () => {
-      const index = parseInt(dot.dataset.index, 10);
-      if (index !== currentIndex) {
-        updateSlide(index);
-      }
-    });
-  });
-}
-
-function updateSlide(nextIndex) {
-  const nextContent = getClone(nextIndex);
-
-  const doUpdate = () => {
-    active.replaceChildren(...nextContent.children);
-    
-    // Actualizar estado activo de los dots
-    const activeDots = active.querySelectorAll('.information-dot');
-    activeDots.forEach((dot, index) => {
-      if (index === nextIndex) {
-        dot.classList.add('active');
-      } else {
-        dot.classList.remove('active');
-      }
-    });
-    
-    currentIndex = nextIndex;
-    
-    // Agregar event listeners a los nuevos dots
-    addDotsListeners();
-  };
-
-  if ('startViewTransition' in document) {
-    document.startViewTransition(doUpdate);
-  } else {
-    doUpdate();
+  function getClone(index) {
+    return templates[index].cloneNode(true);
   }
-}
 
-// 🧩 Inicializa primer slide correctamente
-updateSlide(0);
+  function addDotsListeners() {
+    // Seleccionar los dots del contenido activo
+    const activeDots = active.querySelectorAll(".information-dot");
 
-// ⏱ Intervalo automático
-setInterval(() => {
-  const nextIndex = (currentIndex + 1) % templates.length;
-  updateSlide(nextIndex);
-}, 5000);
+    activeDots.forEach((dot) => {
+      dot.addEventListener("click", () => {
+        const index = parseInt(dot.dataset.index, 10);
+        if (index !== currentIndex) {
+          updateSlide(index);
+        }
+      });
+    });
+  }
+
+  function updateSlide(nextIndex) {
+    const nextContent = getClone(nextIndex);
+
+    const doUpdate = () => {
+      active.replaceChildren(...nextContent.children);
+
+      // Actualizar estado activo de los dots
+      const activeDots = active.querySelectorAll(".information-dot");
+      activeDots.forEach((dot, index) => {
+        if (index === nextIndex) {
+          dot.classList.add("active");
+        } else {
+          dot.classList.remove("active");
+        }
+      });
+
+      currentIndex = nextIndex;
+
+      // Agregar event listeners a los nuevos dots
+      addDotsListeners();
+    };
+
+    if ("startViewTransition" in document) {
+      document.startViewTransition(doUpdate);
+    } else {
+      doUpdate();
+    }
+  }
+
+  // 🧩 Inicializa primer slide correctamente
+  updateSlide(0);
+
+  // ⏱ Intervalo automático
+  setInterval(() => {
+    const nextIndex = (currentIndex + 1) % templates.length;
+    updateSlide(nextIndex);
+  }, 10000);
 </script>
