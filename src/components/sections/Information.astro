@@ -1,0 +1,280 @@
+---
+import { Image } from "astro:assets";
+import ProfesoraIngles from "@images/profesora-ingles.webp";
+import ProfesorIngles from "@images/profesor-ingles.jpg";
+import TorreDeLibros from "@images/torre-de-libros.jpg";
+
+const InformationItems = [
+  {
+    title: "Sobre Nosotros",
+    subtitle: `Somos Americana Academy<span style="color:#FF6363">.</span>`,
+    image: ProfesoraIngles,
+    paragraph: `
+        <p style="margin-bottom: 0px"><span style="color:#FF6363">Americana Academy</span> nació en 2018 con una misión clara: enseñar inglés de forma dinámica, auténtica y personalizada.</p>
+        <p style="margin-bottom: 0px">Creemos que todos pueden aprender un inglés real, útil y conversacional. Nuestro método pone al estudiante en el centro del proceso, con clases prácticas adaptadas a sus necesidades y objetivos.</p>
+        <p style="margin-bottom: 0px">Enseñamos con <span style="color:#FF6363">pasión, creatividad y cercanía</span> porque entendemos que cada estudiante es único, y cada avance es un paso hacia nuevas oportunidades.</p>
+    `,
+  },
+  {
+    title: "Nuestra Misión",
+    subtitle: `Tu <span style="color:#FF6363">Éxito</span>, Nuestra Meta<span style="color:#FF6363">.</span>`,
+    image: ProfesorIngles,
+    paragraph: `
+        <p style="margin-bottom: 0px"><span style="color:#FF6363">Americana Academy</span> nace con una misión clara: empoderar a profesionales, emprendedores y creativos para dominar el inglés de forma real, práctica y auténtica.</p>
+        <p style="margin-bottom: 0px">Nos enfocamos en formar comunicadores seguros, conscientes y preparados para los desafíos del mundo actual, ofreciendo experiencias de aprendizaje dinámicas y personalizadas.</p>
+        <p style="margin-bottom: 0px">Enseñar es una responsabilidad que asumimos con compromiso y cercanía. Cada clase es una herramienta práctica para el crecimiento personal y profesional de quienes confían en nosotros.</p>
+    `,
+  },
+  {
+    title: "Nuestra Visión",
+    subtitle: `Inglés con Futuro<span style="color:#FF6363">.</span>`,
+    image: TorreDeLibros,
+    paragraph: `
+        <p style="margin-bottom: 0px">Aspiramos a ser la academia de inglés de referencia para quienes buscan <span style="color:#FF6363">avanzar, destacar y transformar</span> su futuro a través del lenguaje.</p>
+        <p style="margin-bottom: 0px">Queremos liderar una nueva forma de aprender inglés: auténtica, flexible y conectada con las exigencias del mundo moderno.</p>
+        <p style="margin-bottom: 0px">Imaginamos un entorno desde donde nuestros estudiantes usen el idioma como una herramienta para crear oportunidades, construir puentes globales y alcanzar sus metras con seguridad y propósito</p>
+    `,
+  },
+];
+---
+
+<div id="information-active" class="information-item view-transition-target"></div>
+<!-- Items ocultos que vamos a clonar -->
+<div id="information-templates" style="display: none;">
+  {
+    InformationItems.map((item, index) => (
+      <div class="information-item" data-index={index}>
+        <div class="information-image_dots">
+          <div class="information-image_container">
+            <Image
+              src={item.image}
+              alt={item.title}
+              width={1000}
+              height={667}
+              class="information-image"
+            />
+          </div>
+
+          <div class="information-dots-container">
+            {InformationItems.map((_, index) => (
+              <button
+                class="information-dot"
+                data-index={index}
+                aria-label={`Ir al slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div class="information-text_container">
+          <h2 class="information-title">{item.title}</h2>
+          <div class="information-subtitle" set:html={item.subtitle} />
+          <div class="information-paragraph" set:html={item.paragraph} />
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .information-item {
+    padding: 120px 0px;
+    display: flex;
+    justify-content: center;
+    max-width: 1280px;
+    gap: 170px;
+    margin: auto;
+  }
+
+  @media (max-width: 1300px) {
+    .information-item  {
+      gap: 70px;
+      padding: 120px 80px;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .information-item  {
+      gap: 35px;
+      flex-direction: column;
+      align-items: center;
+      padding: 120px 30px;
+    }
+  }
+
+  @media (max-width: 600px) or (max-height: 500px) {
+    .information-item  {
+      flex-direction: column-reverse;
+      padding: 0px 40px;
+      gap: 0px;
+      height: 100dvh;
+    }
+  }
+
+  .information-image_dots,
+  .information-text_container {
+    width: 50%;
+  }
+
+  @media (max-width: 1300px) {
+    .information-image_dots,
+    .information-text_container {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .information-title {
+    margin-top: 0px;
+    font-size: 64px;
+    font-weight: 600;
+  }
+
+  .information-subtitle {
+    font-size: 40px;
+    font-weight: 500;
+  }
+
+  .information-paragraph {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  @media (max-width: 1300px) {
+    .information-title {
+      font-size: 34px;
+    }
+
+    .information-subtitle {
+      font-size: 24px;
+    }
+
+    .information-paragraph {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .information-paragraph {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 1300px) {
+    .information-title {
+      font-size: 36px;
+    }
+
+    .information-subtitle {
+      font-size: 26px;
+    }
+
+    .information-paragraph {
+      font-size: 18px;
+    }
+  }
+
+  .information-image_container {
+    aspect-ratio: 555/496;
+    border-radius: 38px;
+    overflow: hidden;
+    box-shadow: 0px 0px 17px 6px #00000047;
+  }
+
+  .information-image_container > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 100% 10%;
+  }
+
+  @media (max-width: 600px) or (max-height: 500px) {
+    .information-image_container {
+      display: none;
+    }
+  }
+
+  .information-dots-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 40px;
+  }
+
+  .information-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 9999px;
+    background-color: #FFF;
+    border: 3px solid #ff6363;
+    z-index: 1000;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .information-dot.active {
+    background-color: #ff6363;
+  }
+</style>
+
+<script type="module">
+const templates = document.querySelectorAll('#information-templates .information-item');
+const active = document.getElementById('information-active');
+let currentIndex = 0;
+
+function getClone(index) {
+  return templates[index].cloneNode(true);
+}
+
+function addDotsListeners() {
+  // Seleccionar los dots del contenido activo
+  const activeDots = active.querySelectorAll('.information-dot');
+  
+  activeDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const index = parseInt(dot.dataset.index, 10);
+      if (index !== currentIndex) {
+        updateSlide(index);
+      }
+    });
+  });
+}
+
+function updateSlide(nextIndex) {
+  const nextContent = getClone(nextIndex);
+
+  const doUpdate = () => {
+    active.replaceChildren(...nextContent.children);
+    
+    // Actualizar estado activo de los dots
+    const activeDots = active.querySelectorAll('.information-dot');
+    activeDots.forEach((dot, index) => {
+      if (index === nextIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+    
+    currentIndex = nextIndex;
+    
+    // Agregar event listeners a los nuevos dots
+    addDotsListeners();
+  };
+
+  if ('startViewTransition' in document) {
+    document.startViewTransition(doUpdate);
+  } else {
+    doUpdate();
+  }
+}
+
+// 🧩 Inicializa primer slide correctamente
+updateSlide(0);
+
+// ⏱ Intervalo automático
+setInterval(() => {
+  const nextIndex = (currentIndex + 1) % templates.length;
+  updateSlide(nextIndex);
+}, 5000);
+</script>

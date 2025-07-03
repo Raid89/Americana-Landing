@@ -1,0 +1,91 @@
+---
+const { value, title, text, index } = Astro.props;
+---
+
+
+
+<div class="statistic-details">
+      <span class="statistic-value" data-value={value} id={`stat-value-${index}`}>+ 0</span>
+      <h3>{title}</h3>
+      <p>{text}</p>
+</div>
+
+<style>
+.statistics {
+    margin-top: 150px;
+    background-color: #FF8282;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 95px;
+    padding: 20px 50px;
+}
+
+.statistic-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #FFF;
+    gap: 14px;
+
+    .statistic-value {
+        font-size: 34px;
+        font-weight: 600;
+    }
+
+    h3 {
+        font-size: 26px;
+        font-weight: 500;
+        margin: 0;
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 24px;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .statistics {
+        gap: 50px;
+        padding: 20px 30px;
+    }
+
+    .statistic-details {
+        h3 {
+            font-size: 22px;
+        }
+        p {
+            font-size: 16px;
+        }
+        .statistic-value {
+            font-size: 28px;
+        }
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .statistics {
+        gap: 30px;
+        padding: 20px 20px;
+        margin-top: 100px;
+    }
+
+    .statistic-details {
+        gap: 10px;
+        h3 {
+            font-size: 18px;
+        }
+        p {
+            font-size: 14px;
+            line-height: 18px;
+        }
+        .statistic-value {
+            font-size: 24px;
+        }
+    }
+}
+</style>

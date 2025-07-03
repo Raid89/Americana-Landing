@@ -1,20 +1,101 @@
 ---
+// SEO Configuration
+const siteConfig = {
+  title: "Americana Academy - Clases de Inglés Online Conversacional",
+  description: "Aprende inglés online con clases conversacionales dinámicas y personalizadas. ✓ 10,000+ estudiantes ✓ Enfoque práctico ✓ Profesores expertos. ¡Contáctanos hoy!",
+  canonical: Astro.url.href,
+  siteName: "Americana Academy",
+  locale: "es_ES",
+  type: "website"
+};
 
+const openGraph = {
+  title: "Americana Academy - Inglés Conversacional Online",
+  description: "Transforma tu futuro con clases de inglés online personalizadas. Método dinámico y práctico para profesionales y emprendedores.",
+  image: "/logotipo.webp",
+  url: Astro.url.href
+};
+
+const twitter = {
+  card: "summary_large_image",
+  title: siteConfig.title,
+  description: siteConfig.description,
+  image: "/logotipo.webp"
+};
 ---
 
-
-
 <head>
+  <!-- Essential Meta Tags -->
   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="generator" content={Astro.generator} />
+  
+  <!-- SEO Meta Tags -->
+  <title>{siteConfig.title}</title>
+  <meta name="description" content={siteConfig.description} />
+  <meta name="keywords" content="clases de inglés online, inglés conversacional, academia de inglés, aprender inglés, curso de inglés, inglés para profesionales, inglés dinámico, clases personalizadas" />
+  <meta name="author" content="Americana Academy" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={siteConfig.canonical} />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content={siteConfig.type} />
+  <meta property="og:url" content={openGraph.url} />
+  <meta property="og:title" content={openGraph.title} />
+  <meta property="og:description" content={openGraph.description} />
+  <meta property="og:image" content={openGraph.image} />
+  <meta property="og:site_name" content={siteConfig.siteName} />
+  <meta property="og:locale" content={siteConfig.locale} />
+  
+  <!-- Twitter -->
+  <meta property="twitter:card" content={twitter.card} />
+  <meta property="twitter:url" content={openGraph.url} />
+  <meta property="twitter:title" content={twitter.title} />
+  <meta property="twitter:description" content={twitter.description} />
+  <meta property="twitter:image" content={twitter.image} />
+  
+  <!-- Additional SEO -->
+  <meta name="theme-color" content="#FF6363" />
+  <meta name="msapplication-TileColor" content="#FF6363" />
+  
+  <!-- Business/Organization Schema -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "Americana Academy",
+      "description": "Academia de inglés online especializada en clases conversacionales dinámicas y personalizadas",
+      "url": "https://americana-academy.com",
+      "logo": "https://americana-academy.com/logotipo.webp",
+      "foundingDate": "2018",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "Online"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "availableLanguage": ["Spanish", "English"]
+      },
+      "offers": {
+        "@type": "Offer",
+        "name": "Clases de Inglés Conversacional Online",
+        "description": "Clases personalizadas de inglés conversacional para profesionales y emprendedores"
+      }
+    }
+  </script>
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet"
-    media="print" onload="this.media='all'"
+    media="print" 
+    onload="this.media='all'"
   />
+  
+  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <meta name="viewport" content="width=device-width" />
-  <meta name="generator" content={Astro.generator} />
-  <title>Astro</title>
+  <link rel="apple-touch-icon" href="/favicon.svg" />
 </head>

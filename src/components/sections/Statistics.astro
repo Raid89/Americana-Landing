@@ -1,4 +1,7 @@
 ---
+import StaticsBlock from "@components/shared/StaticsBlock.astro";
+import Test from "@components/shared/Test.astro";
+
 
 const statistics = [
     {
@@ -24,14 +27,9 @@ const statistics = [
 
 <section class="statistics">
   {statistics.map((stat, i) => (
-    <div class="statistic-details">
-      <span class="statistic-value" data-value={stat.value} id={`stat-value-${i}`}>+ 0</span>
-      <h3>{stat.title}</h3>
-      <p>{stat.text}</p>
-    </div>
+    <StaticsBlock value={stat.value} title={stat.title} text={stat.text} index={i} />
   ))}
 </section>
-
 <script>
   import { animateOnView } from "src/utils/intersectionObserver";
   import { animateCountOnView } from "src/utils/animateCount";
@@ -120,6 +118,34 @@ const statistics = [
         .statistic-value {
             font-size: 24px;
         }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .statistics {
+        gap: 30px;
+        padding: 20px 20px;
+        margin-top: 100px;
+    }
+
+    .statistic-details {
+        gap: 10px;
+        h3 {
+            font-size: 14px;
+        }
+        p {
+            font-size: 12px;
+            line-height: 16px;
+        }
+        .statistic-value {
+            font-size: 20px;
+        }
+    }
+}
+
+@media screen and (max-width: 800px)  {
+    .statistics {
+        flex-direction: column;
     }
 }
 </style>
