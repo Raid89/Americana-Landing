@@ -10,7 +10,7 @@ export const createIntersectionObserver = (callback: IntersectionObserverCallbac
  * @param selector - Selector CSS para los elementos a animar (ej: '[data-animate]')
  * @param options - Opciones de IntersectionObserver (opcional)
  */
-export function animateOnView(selector: string, options: IntersectionObserverInit = { threshold: 0.01 }) {
+export function animateOnView(selector: string, options: IntersectionObserverInit = { threshold: 0.3 }) {
   if (typeof window === "undefined") return;
   document.querySelectorAll<HTMLElement>(selector).forEach((el) => {
     if (el.classList.contains("in-viewport")) return;

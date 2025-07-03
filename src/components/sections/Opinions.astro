@@ -1,0 +1,199 @@
+---
+import { Image } from "astro:assets";
+import "@styles/animations.css";
+import Opinion1 from "@images/opinion1.png";
+import Opinion2 from "@images/opinion2.png";
+import Opinion3 from "@images/opinion3.png";
+
+const opinions = [
+  {
+    opinion:
+      "“Aprender aquí me ha abierto muchas puertas. ¡Una experiencia espectacular!” ",
+    name: "Laura Garzón",
+    location: "Bogotá D.C.",
+    photo: Opinion1,
+  },
+  {
+    opinion:
+      "“Las clases son dinámicas y efectivas. Los profesores realmente se preocupan por tu progreso.”",
+    name: "Gabriela Mosquera",
+    location: "Santiago de Chile",
+    photo: Opinion2,
+  },
+  {
+    opinion:
+      "“Sin lugar a dudas la mejor academia de ingles. He escalado laboralmente gracias a Americana Academy” ",
+    name: "Erick Garcia",
+    location: "La Plata",
+    photo: Opinion3,
+  },
+];
+---
+
+<div class="opinions-main_container">
+  <h3 class="opinions-title">Lo que dicen nuestros <br /> estudiantes</h3>
+  <div class="opinions-carousel">
+    {
+      opinions.map((opinion) => (
+        <div class="opinions-item animate-slide-up" data-animate>
+          <div>
+            <Image
+              src={opinion.photo}
+              alt={opinion.name}
+              width={200}
+              height={200}
+            />
+            <p class="opinions-paragraph">{opinion.opinion}</p>
+          </div>
+
+          <div>
+            <p class="opinions-name">{opinion.name}</p>
+            <p class="opinions-location">{opinion.location}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .opinions-title {
+    font-size: 71px;
+    text-align: center;
+    width: 100%;
+  }
+
+  p {
+    margin: 0px;
+  }
+
+  .opinions-carousel {
+    display: flex;
+    padding: 30px 120px;
+    gap: 60px;
+    align-items: start;
+    justify-content: space-between;
+  }
+
+  .opinions-item {
+    width: 350px;
+    height: 500px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 50px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 5px 10px 8px 0px #00000045;
+  }
+
+  .opinions-paragraph {
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .opinions-name {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .opinions-location {
+    margin-top: 4px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 1500px) {
+    .opinions-carousel {
+      padding: 30px 60px;
+    }
+
+    .opinions-item {
+      height: 400px;
+      padding: 30px 30px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 5px 10px 8px 0px #00000045;
+    }
+
+    .opinions-item > div > img {
+      width: 150px;
+      height: 150px;
+    }
+
+    .opinions-paragraph {
+      margin-top: 15px;
+      font-size: 18px;
+    }
+
+    .opinions-name {
+      font-size: 20px;
+    }
+
+    .opinions-location {
+      margin-top: 4px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 1100px) {
+    .opinions-title {
+      font-size: 50px;
+    }
+
+    .opinions-carousel {
+      overflow: auto;
+      max-width: 100%;
+      scroll-snap-type: x mandatory;
+      gap: 50px;
+    }
+
+    .opinions-item {
+      min-width: 300px;
+      height: 400px;
+      padding: 30px 30px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 5px 10px 8px 0px #00000045;
+      scroll-snap-align: center;
+    }
+
+    .opinions-item > div > img {
+      width: 150px;
+      height: 150px;
+    }
+
+    .opinions-paragraph {
+      margin-top: 15px;
+      font-size: 18px;
+    }
+
+    .opinions-name {
+      font-size: 20px;
+    }
+
+    .opinions-location {
+      margin-top: 4px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .opinions-title {
+      font-size: 34px;
+    }
+  }
+</style>
+
+<script>
+  import { animateOnView } from "src/utils/intersectionObserver";
+  if (typeof window !== "undefined") {
+    window.addEventListener("DOMContentLoaded", () => {
+      animateOnView("[data-animate]");
+    });
+  }
+</script>

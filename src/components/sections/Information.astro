@@ -81,10 +81,7 @@ const InformationItems = [
             <Image src={item.icon} alt={item.title} width={64} height={64} />
           </div>
           <div class="information-paragraph" set:html={item.paragraph} />
-          <ButtonContact 
-            href="#contactanos" 
-            text="Contactanos" 
-          />
+          <ButtonContact href="#contactanos" text="Contactanos" />
         </div>
       </div>
     ))
@@ -99,6 +96,11 @@ const InformationItems = [
     max-width: 1280px;
     gap: 170px;
     margin: auto;
+  }
+
+  .information-image_dots {
+    width: 50%;
+    max-width: 516px;
   }
 
   @media (max-width: 1500px) {
@@ -133,7 +135,6 @@ const InformationItems = [
     }
   }
 
-  .information-image_dots,
   .information-text_container {
     width: 50%;
   }
@@ -212,7 +213,7 @@ const InformationItems = [
     }
   }
 
-    @media (max-width: 1000px) {
+  @media (max-width: 1000px) {
     .information-subtitle {
       flex-direction: column;
     }
@@ -220,6 +221,7 @@ const InformationItems = [
 
   .information-image_container {
     aspect-ratio: 555/496;
+    max-width: 516px;
     border-radius: 38px;
     overflow: hidden;
     box-shadow: 0px 0px 17px 6px #00000047;
