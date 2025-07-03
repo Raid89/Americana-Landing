@@ -10,6 +10,7 @@ import NavDropdown from "@components/shared/NavDropdown.astro";
     <div class="header-logo_container">
       <Image
         src={Logotipo}
+        loading="eager"
         widths={[142, Logotipo.width]}
         sizes={`(max-width: 1000px) 142px, ${Logotipo.width}px`}
         alt="Una descripción de mi imagen."
