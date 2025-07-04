@@ -1,9 +1,49 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-
 import icon from 'astro-icon';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [icon()]
+  integrations: [icon()],
+  
+  // Optimizaciones de build para performance
+  build: {
+    // Inlining small assets to reduce HTTP requests
+    inlineStylesheets: 'auto'
+  },
+  
+  // Optimizaciones de vite
+  vite: {
+    build: {
+      // Minificación agresiva
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true
+        }
+      },
+      // Optimizar chunks
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            // Separar dependencias vendor
+            vendor: ['astro'],
+            // Separar utilidades
+            utils: ['src/utils/intersectionObserver', 'src/utils/animateCount']
+          }
+        }
+      }
+    },
+    // Optimizar assets
+    assetsInclude: ['**/*.webp', '**/*.jpg', '**/*.png']
+  },
+  
+  // Configuración de imagen optimizada
+  image: {
+    // Habilitar optimización de imágenes
+    service: {
+      entrypoint: 'astro/assets/services/sharp'
+    }
+  }
 });

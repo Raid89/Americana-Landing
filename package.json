@@ -11,6 +11,7 @@
   "dependencies": {
     "astro": "^5.9.2",
     "astro-icon": "^1.1.5",
-    "plyr": "^3.7.8"
+    "plyr": "^3.7.8",
+    "terser": "^5.43.1"
   }
 }

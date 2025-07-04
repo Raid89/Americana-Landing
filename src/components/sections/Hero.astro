@@ -1,7 +1,6 @@
 ---
 import ButtonContact from "@components/shared/ButtonContact.astro";
 import YoutubePreview from "@images/yt-preview.jpg";
-import "@styles/animations.css";
 import Facade from "@components/shared/Facade.astro";
 
 const facadeVideoId = "dQw4w9WgXcQ"; // ID del video de YouTube
@@ -45,6 +44,8 @@ const facadeAlt = "Clase de Inglés para Principiantes"; // Texto alternativo pa
 </script>
 
 <style>
+  @import "@styles/animations.css";
+
   .hero-content {
     display: flex;
     align-items: center;
