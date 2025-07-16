@@ -9,7 +9,7 @@ export async function POST({ request }: any) {
   try {
     await resend.emails.send({
       from: 'Landing Contact <gerencia.general@slyfox.com.co>',
-      to: 'nicolas.cr0603@gmail.com',
+      to: 'americanvoicelab@gmail.com',
       subject: `Mensaje de ${name}`,
       html: `
         <h2>Mensaje nuevo desde la landing</h2>
