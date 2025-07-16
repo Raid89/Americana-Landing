@@ -29,17 +29,6 @@ const statistics = [
     <StaticsBlock value={stat.value} title={stat.title} text={stat.text} index={i} />
   ))}
 </section>
-<script>
-  import { animateOnView } from "src/utils/intersectionObserver";
-  import { animateCountOnView } from "src/utils/animateCount";
-
-  if (typeof window !== "undefined") {
-    window.addEventListener("DOMContentLoaded", () => {
-      animateOnView(".statistic-value");
-      animateCountOnView({ selector: ".statistic-value", duration: 2500, threshold: 0.5 });
-    });
-  }
-</script>
 
 <style>
 .statistics {
