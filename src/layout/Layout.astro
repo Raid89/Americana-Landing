@@ -1,21 +1,26 @@
 ---
-import Header from "@components/sections/Header.astro"
-import Hero from "@components/sections/Hero.astro"
-import Information from "@components/sections/Information.astro"
-import Opinions from "@components/sections/Opinions.astro"
-import Statistics from "@components/sections/Statistics.astro"
+import Contact from "@components/sections/Contact.astro";
+import Header from "@components/sections/Header.astro";
+import Hero from "@components/sections/Hero.astro";
+import Information from "@components/sections/Information.astro";
+import Opinions from "@components/sections/Opinions.astro";
+import Statistics from "@components/sections/Statistics.astro";
 ---
 
-<body>
-    <Header />
-    <Hero />
-    <Statistics />
-    <Information />
-    <Opinions />
-
-    <br>
-    <br>
-    <br>
-    <br>
+<body >
+  <Header />
+  <div style="max-width: 1920px; margin: auto">
+      <Hero />
+  </div>
+  <Statistics />
+  <div style="max-width: 1920px; margin: auto">
+      <Information />
+      <Opinions />
+      <Contact />
+  </div>
+  <br />
+  <br />
+  <br />
+  <br />
 </body>
 

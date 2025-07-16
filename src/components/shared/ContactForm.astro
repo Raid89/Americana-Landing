@@ -1,0 +1,151 @@
+---
+import { Icon } from "astro-icon/components"
+import Whatsapp from "@images/whatsapp-red.svg"
+import Facebook from "@images/facebook-red.svg"
+import Instagram from "@images/instagram-red.svg"
+import { Image } from "astro:assets"
+
+
+const socialNetworks = [
+    {
+        href: "",
+        icon: Whatsapp,
+        alt: "Icono de Whatsapp",
+        title: "Icono de Whatsapp"
+    },
+    {
+        href: "",
+        icon: Facebook,
+        alt: "Icono de Facebook",
+        title: "Icono de Facebook"
+    },
+    {
+        href: "",
+        icon: Instagram,
+        alt: "Icono de Instagram",
+        title: "Icono de Instagram"
+    }
+]
+
+---
+
+
+
+<form id="contactForm" class="contact-form">
+  <input class="contact-input" name="name" placeholder="Nombre" required />
+  <input class="contact-input" name="email" placeholder="Correo" required type="email" />
+  <textarea class="contact-input" name="message" placeholder="Tu mensaje" required></textarea>
+  <button type="submit" class="contact-button">Contáctanos</button>
+  <div class="contact-divider">
+    <div class="divider-line"></div>
+    <span>Da el primer paso</span>
+    <div class="divider-line"></div>
+  </div>
+  <div class="social-networks">
+    {
+        socialNetworks.map(network => (
+            <a href="" class="network-item">
+                <Image width={20} height={20} src={network.icon} alt={network.alt} title={network.title} />
+
+            </a>
+        ))
+    }
+  </div>
+</form>
+
+<style>
+    .contact-form {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .contact-input {
+        display: flex;
+        align-items: center;
+        height: auto;
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1px solid #D9D9D9;
+    }
+
+    .contact-button {
+        border-radius: 8px;
+        border: none;
+        background-color: #FF8282;
+        color: #FFF;
+        padding: 17px;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 500;
+        cursor: pointer;
+        box-shadow: 2px 4px 5px 1px #00000050;
+        transition: background-color .3s;
+    }
+
+    .contact-button:hover {
+        background-color: #f07b7f;
+    }
+
+    .contact-divider {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+
+        span {
+            min-width: fit-content;
+            color: #686868;
+            font-size: 14px;
+        }
+    }
+
+    .divider-line {
+        width: 100%;
+        height: 1px;
+        background-color: #686868;
+        border-radius: 9999px;
+    }
+
+    .social-networks {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 36px;
+    }
+
+    .network-item {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 9999px;
+        background-color: #FFF;
+        box-shadow: 0px 0px 6px 0px #00000038;
+    }
+</style>
+
+<script>
+  const contactForm = document.querySelector("#contactForm");
+  if (contactForm) {
+    contactForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target as HTMLFormElement;
+      const data = Object.fromEntries(new FormData(form));
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      console.log(res);
+
+      if (res.ok) {
+        alert("Mensaje enviado 🎉");
+        form.reset();
+      } else {
+        alert("Error al enviar 😓");
+      }
+    });
+  }
+</script>

@@ -1,0 +1,129 @@
+---
+import ContactForm from "@components/shared/ContactForm.astro";
+import Check from "@images/check.svg";
+import { Image } from "astro:assets";
+
+const ourBenefits = [
+  "Método personalizado que se adapta a tu ritmo.",
+  "Clases dinámicas con enfoque conversacional.",
+  "Profesores certificados y cercanos.",
+  "Flexibilidad horaria (online o presencial).",
+  "Resultados reales y acompañamiento constante.",
+];
+---
+
+<section class="contact-section">
+  <div class="form-container">
+    <h4>¿Listo para empezar?</h4>
+    <h5>Estamos aquí para ayudarte a dar el siguiente paso.</h5>
+    <div class="form-inputs-container">
+      <ContactForm />
+    </div>
+  </div>
+  <div class="out-benefits">
+    <h4>Beneficios de aprender con nosotros</h4>
+    <ul class="benefits-list">
+      {
+        ourBenefits.map((benefit) => (
+          <li>
+            <Image src={Check} alt="icono de checkeado" />
+            {benefit}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    padding: 30px 60px;
+    gap: 80px;
+    max-width: 1920px;
+    margin: auto;
+  }
+
+  @media (max-width: 1000px) {
+    .contact-section {
+      margin-top: 100px;
+      flex-direction: column-reverse;
+    }
+  }
+
+  @media (max-width: 850px) {
+    .contact-section {
+      padding: 30px 20px;
+    }
+  }
+
+  .form-container {
+    width: 100%;
+
+    h4 {
+      font-size: 64px;
+      font-weight: 600;
+      color: #131929;
+      margin: 0;
+    }
+
+    h5 {
+      font-size: 24px;
+      font-weight: 500;
+      color: #131929;
+      margin: 20px 0px 40px 0px;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .form-container {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 650px) {
+    .form-container {
+      h4 {
+        font-size: 40px;
+      }
+
+      h5 {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .out-benefits {
+    width: 100%;
+
+    h4 {
+      font-size: 54px;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 40px;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .out-benefits {
+      text-align: center;
+    }
+  }
+
+  .benefits-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .benefits-list > li {
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+</style>
