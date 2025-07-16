@@ -12,7 +12,6 @@ export const createIntersectionObserver = (callback) => {
  */
 export function animateOnView(selector, options = { threshold: 0.3 }) {
     if (typeof window === "undefined") return;
-    debugger
     document.querySelectorAll(selector).forEach((el) => {
         if (el.classList.contains("in-viewport")) return;
         const observer = new IntersectionObserver(
