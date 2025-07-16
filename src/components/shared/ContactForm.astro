@@ -8,19 +8,19 @@ import { Image } from "astro:assets"
 
 const socialNetworks = [
     {
-        href: "",
+        href: "https://api.whatsapp.com/send/?phone=%2B573217631101&text&type=phone_number&app_absent=0",
         icon: Whatsapp,
         alt: "Icono de Whatsapp",
         title: "Icono de Whatsapp"
     },
     {
-        href: "",
+        href: "https://www.facebook.com/share/15fVDjX8DL/?mibextid=wwXIfr",
         icon: Facebook,
         alt: "Icono de Facebook",
         title: "Icono de Facebook"
     },
     {
-        href: "",
+        href: "https://www.instagram.com/americana.academy?igsh=cDQ3cTF4bDZpcTkx&utm_source=qr",
         icon: Instagram,
         alt: "Icono de Instagram",
         title: "Icono de Instagram"
@@ -44,7 +44,7 @@ const socialNetworks = [
   <div class="social-networks">
     {
         socialNetworks.map(network => (
-            <a href="" class="network-item">
+            <a href={network.href} target="_blank" class="network-item">
                 <Image width={20} height={20} src={network.icon} alt={network.alt} title={network.title} />
 
             </a>
