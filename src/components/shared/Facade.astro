@@ -20,6 +20,7 @@ const { PreviewImage, Alt, VideoId, Title } = Astro.props;
       alt={Alt}
       style="width:100%;display:block;aspect-ratio:16/9;height:100%;object-fit:cover;"
       loading={"eager"}
+      fetchpriority="high"
     />
     <span
       class="yt-facade-play"
