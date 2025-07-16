@@ -8,12 +8,14 @@ import NavDropdown from "@components/shared/NavDropdown.astro";
 <header>
   <div class="header-main_container">
     <div class="header-logo_container">
-      <Image
-        src={Logotipo}
-        loading="lazy"
-        widths={[142, Logotipo.width]}
-        sizes={`(max-width: 1000px) 142px, ${Logotipo.width}px`}
-        alt="Una descripción de mi imagen."
+      <img
+        src={Logotipo.src}
+        width={Logotipo.width}
+        height={Logotipo.height}
+        alt="Logo Voice Lab"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
       />
     </div>
 

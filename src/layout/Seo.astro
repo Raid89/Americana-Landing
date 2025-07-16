@@ -1,4 +1,6 @@
 ---
+import Logotipo from "@images/logotipo.webp";
+
 // SEO Configuration
 const siteConfig = {
   title: "Americana Academy - Clases de Inglés Online Conversacional",
@@ -84,7 +86,8 @@ const twitter = {
       }
     }
   </script>
-  
+  <script type="module" src="/animations-init.js" async></script>
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -93,6 +96,12 @@ const twitter = {
     rel="stylesheet"
     media="print" 
     onload="this.media='all'"
+  />
+  <link
+    rel="preload"
+    as="image"
+    href={Logotipo.src}
+    type="image/webp"
   />
   
   <!-- Favicon -->
