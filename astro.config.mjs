@@ -13,7 +13,7 @@ export default defineConfig({
   // Optimizaciones de build para performance
   build: {
     // Inlining small assets to reduce HTTP requests
-    inlineStylesheets: 'auto'
+    inlineStylesheets: 'always'
   },
   
   // Optimizaciones de vite
