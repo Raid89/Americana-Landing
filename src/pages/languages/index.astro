@@ -1,0 +1,29 @@
+---
+import Layout from "src/layout/Layout.astro";
+import LayoutLanguages from "src/layout/LayoutLanguages.astro";
+import Seo from "src/layout/Seo.astro";
+---
+
+<html lang="en">
+  <Seo />
+  <LayoutLanguages />
+</html>
+
+<style is:inline>
+  * {
+    font-family: "Work Sans", sans-serif;
+    ;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #FDFBFA;
+    color: #212529;
+    scroll-behavior: smooth;
+}
+
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
