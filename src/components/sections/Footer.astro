@@ -1,0 +1,247 @@
+---
+import LogoTipo from "@images/logotipo-col.webp";
+import Youtube from "@images/youtube-white.png";
+import Facebook from "@images/facebook-white.png";
+import Instagram from "@images/instagram-white.png";
+import { Image } from "astro:assets";
+---
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-logo">
+      <Image src={LogoTipo} alt="Logo" />
+      <div class="footer-social-networks logo-section">
+        <p>Síguenos:</p>
+
+        <div class="social-icons">
+          <a href="https://www.youtube.com/@americana.academy" target="_blank">
+            <Image src={Youtube} alt="Youtube" />
+          </a>
+          <a
+            href="https://www.facebook.com/share/15fVDjX8DL/?mibextid=wwXIfr"
+            target="_blank"
+          >
+            <Image src={Facebook} alt="Facebook" />
+          </a>
+          <a
+            href="https://www.instagram.com/americana.academy?igsh=cDQ3cTF4bDZpcTkx&utm_source=qr"
+            target="_blank"
+          >
+            <Image src={Instagram} alt="Instagram" />
+          </a>
+        </div>
+        <p class="footer-copyright">
+          Copyright © 2025 Americana Academy.<br />Todos los derechos
+          reservados.
+        </p>
+      </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="footer-links">
+      <ul class="footer-list">
+        <h3>Nuestros Servicios</h3>
+        <li><a href="#hero">Inicio</a></li>
+        <li><a href="#statistics">Clases de inglés</a></li>
+        <li><a href="#information">Clases de música</a></li>
+      </ul>
+      <ul class="footer-list">
+        <h3>Compañía</h3>
+        <li><a href="#information-active">Nosotros</a></li>
+        <li><a href="#statistics">Términos y Condiciones</a></li>
+        <li><a href="#information">Politica de privacidad</a></li>
+      </ul>
+      <ul class="footer-list">
+        <h3>Contáctanos</h3>
+        <li><a href="#contactSection">Formulario de contacto</a></li>
+        <li><a href="https://wa.me/+573217631101" target="_blank">Whatsapp</a></li>
+      </ul>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="footer-social-networks only-section">
+      <p>Síguenos:</p>
+      <div class="social-icons">
+        <a href="https://www.youtube.com/@americana.academy" target="_blank">
+          <Image src={Youtube} alt="Youtube" />
+        </a>
+        <a
+          href="https://www.facebook.com/share/15fVDjX8DL/?mibextid=wwXIfr"
+          target="_blank"
+        >
+          <Image src={Facebook} alt="Facebook" />
+        </a>
+        <a
+          href="https://www.instagram.com/americana.academy?igsh=cDQ3cTF4bDZpcTkx&utm_source=qr"
+          target="_blank"
+        >
+          <Image src={Instagram} alt="Instagram" />
+        </a>
+      </div>
+      <p class="footer-copyright">
+        Copyright © 2025 Americana Academy.<br />Todos los derechos reservados.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-content {
+    display: flex;
+    gap: 30px;
+    padding: 30px 30px;
+    background-color: #ff8282;
+    align-items: center;
+    justify-content: center;
+    margin-top: 150px;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .footer-content {
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    .footer-logo > img {
+      width: 150px;
+      height: auto;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .footer-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+    }
+  }
+
+  .footer-social-networks.logo-section {
+    display: none;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .footer-social-networks.logo-section {
+      display: block;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .footer-social-networks.logo-section {
+      display: none;
+    }
+  }
+
+  .footer-links {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    max-width: 800px;
+  }
+
+  @media screen and (max-width: 1300px) {
+    .footer-links {
+      max-width: 600px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .footer-links {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+    }
+  }
+
+  .footer-list {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+  }
+
+  .footer-list > h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0px;
+  }
+
+  @media screen and (max-width: 1300px) {
+    .footer-list > h3 {
+      font-size: 16px;
+    }
+  }
+
+  .footer-list > li > a {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  @media screen and (max-width: 1300px) {
+    .footer-list > li > a {
+      font-size: 12px;
+    }
+  }
+
+  .separator {
+    width: 1px;
+    height: 100px;
+    background-color: #fff;
+    opacity: 0.2;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .separator {
+      width: 90%;
+      height: 2px;
+    }
+  }
+
+  .footer-social-networks > p {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 1000px) {
+    .footer-social-networks.only-section {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .footer-social-networks > p {
+      text-align: center;
+    }
+
+    .footer-social-networks.only-section {
+      display: block;
+    }
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 20px;
+  }
+
+  @media screen and (max-width: 600px) {
+    .social-icons {
+      justify-content: center;
+    }
+  }
+
+  .footer-social-networks > .footer-copyright {
+    color: #d4d4d4;
+    font-size: 12px;
+    font-weight: 400;
+  }
+</style>
