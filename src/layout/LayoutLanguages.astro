@@ -12,6 +12,201 @@ import Opinions from "@components/sections/Opinions.astro";
 
 <head>
   <script type="module" src="/animations-init.js"></script>
+  <script>
+    // Cargar GSAP y ScrollTrigger secuencialmente
+    (function() {
+      // Cargar GSAP primero
+      const gsapScript = document.createElement('script');
+      gsapScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js';
+      gsapScript.onload = function() {
+        // Una vez cargado GSAP, cargar ScrollTrigger
+        const scrollTriggerScript = document.createElement('script');
+        scrollTriggerScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js';
+        scrollTriggerScript.onload = function() {
+          // Inicializar animaciones cuando ambos estén cargados
+          if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLanguagesGSAPAnimations);
+          } else {
+            initLanguagesGSAPAnimations();
+          }
+        };
+        document.head.appendChild(scrollTriggerScript);
+      };
+      document.head.appendChild(gsapScript);
+    })();
+
+    function initLanguagesGSAPAnimations() {
+      try {
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+          console.error('GSAP o ScrollTrigger no están disponibles');
+          return;
+        }
+
+        gsap.registerPlugin(ScrollTrigger);
+        
+        ScrollTrigger.defaults({
+          start: "top 80%",
+          end: "bottom top",
+          toggleActions: "play none none reverse"
+        });
+
+        initLanguagesPageAnimations();
+        
+        console.log('✅ GSAP y ScrollTrigger inicializados correctamente para página de idiomas');
+      } catch (error) {
+        console.error('Error al inicializar GSAP:', error);
+      }
+    }
+
+    function initLanguagesPageAnimations() {
+      try {
+        // Animación del Hero de Idiomas
+        const heroSection = document.querySelector('[data-animate="hero"]');
+        if (heroSection) {
+          const textElements = heroSection.querySelectorAll('h1, h2, p, .language-badge, .language-features, .cta, button');
+          
+          if (textElements.length > 0) {
+            gsap.set(textElements, { 
+              opacity: 0, 
+              y: 60,
+              scale: 0.95
+            });
+
+            gsap.to(textElements, {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.8,
+              ease: "power2.out",
+              stagger: 0.15,
+              scrollTrigger: {
+                trigger: heroSection,
+                start: "top 90%"
+              }
+            });
+          }
+        }
+
+        // Animación de Estadísticas de Idiomas
+        const statsSection = document.querySelector('[data-animate="stats"]');
+        if (statsSection) {
+          const statCards = statsSection.querySelectorAll('[data-stats="card"]');
+          
+          if (statCards.length > 0) {
+            gsap.set(statCards, { 
+              opacity: 0, 
+              y: 80,
+              scale: 0.9
+            });
+
+            gsap.to(statCards, {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.8,
+              ease: "power2.out",
+              stagger: 0.2,
+              scrollTrigger: {
+                trigger: statsSection,
+                start: "top 80%"
+              }
+            });
+          }
+        }
+
+        // Animación de Beneficios de Idiomas
+        const benefitsSection = document.querySelector('[data-animate="benefits"]');
+        if (benefitsSection) {
+          const formContainer = benefitsSection.querySelector('[data-benefit="form"]');
+          const listContainer = benefitsSection.querySelector('[data-benefit="list"]');
+          
+          if (formContainer) {
+            const formElements = formContainer.querySelectorAll('[data-benefit="title"], [data-benefit="subtitle"], [data-benefit="content"]');
+            
+            if (formElements.length > 0) {
+              gsap.set(formElements, { 
+                opacity: 0,
+                x: -80,
+                scale: 0.95
+              });
+
+              gsap.to(formElements, {
+                opacity: 1,
+                x: 0,
+                scale: 1,
+                duration: 0.8,
+                ease: "power2.out",
+                stagger: 0.15,
+                scrollTrigger: {
+                  trigger: formContainer,
+                  start: "top 80%"
+                }
+              });
+            }
+          }
+
+          if (listContainer) {
+            const benefitItems = listContainer.querySelectorAll('[data-benefit="item"]');
+            
+            if (benefitItems.length > 0) {
+              gsap.set(benefitItems, { 
+                opacity: 0,
+                x: 60,
+                scale: 0.9
+              });
+
+              gsap.to(benefitItems, {
+                opacity: 1,
+                x: 0,
+                scale: 1,
+                duration: 0.6,
+                ease: "power2.out",
+                stagger: 0.1,
+                scrollTrigger: {
+                  trigger: listContainer,
+                  start: "top 80%"
+                }
+              });
+            }
+          }
+        }
+
+        // Animación de Niveles de Inglés (Grid)
+        const levelsSection = document.querySelector('[data-animate="grid"]');
+        if (levelsSection) {
+          const levelCards = levelsSection.querySelectorAll('[data-grid="item"]');
+          
+          if (levelCards.length > 0) {
+            gsap.set(levelCards, { 
+              opacity: 0, 
+              y: 80,
+              scale: 0.9
+            });
+
+            gsap.to(levelCards, {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.8,
+              ease: "power2.out",
+              stagger: 0.15,
+              scrollTrigger: {
+                trigger: levelsSection,
+                start: "top 80%"
+              }
+            });
+          }
+        }
+
+        setTimeout(function() {
+          ScrollTrigger.refresh();
+        }, 100);
+        
+      } catch (error) {
+        console.error('Error en initLanguagesPageAnimations:', error);
+      }
+    }
+  </script>
 </head>
 
 <body class="languages-layout">
@@ -31,15 +226,6 @@ import Opinions from "@components/sections/Opinions.astro";
       <Contact />
   </div>
   <Footer />
-  
-  <script type="module">
-    import('/src/scripts/gsapAnimations.js').then(module => {
-      console.log('GSAP animations loaded');
-    }).catch(error => {
-      console.error('Error loading GSAP animations:', error);
-    });
-  </script>
-  <script src="/debug-gsap.js" is:inline></script>
 </body>
 
 <style>
