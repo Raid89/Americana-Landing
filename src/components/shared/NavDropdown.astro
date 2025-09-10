@@ -8,156 +8,523 @@ const navLinks = [
   { href: "#information-active", text: "Conócenos" },
   { href: "/music", text: "Música" },
   { href: "/languages", text: "Idiomas" },
-  { href: "#opinionsSection", text: "Opiniones" },
+  { href: "/#opinionsSection", text: "Opiniones" },
   { href: "#contactSection", text: "Contactanos", isButton: true },
 ];
 ---
 
-<div class="navigation_dropdown-button">
-  <Icon name="menu-hamburguesa" />
-</div>
+<!-- Backdrop para cerrar el dropdown al hacer click fuera -->
+<div class="navigation_backdrop" aria-hidden="true"></div>
 
-<div class="navigation_dropdown-container">
-  <div class="navigation_dropdown-close-button">
-    <Icon name="cruz-pequena" />
+<!-- Botón para abrir el dropdown -->
+<button 
+  class="navigation_dropdown-button" 
+  type="button" 
+  aria-label="Abrir menú de navegación"
+  aria-expanded="false"
+  aria-controls="dropdown-menu"
+>
+  <Icon name="menu-hamburguesa" />
+</button>
+
+<!-- Container del dropdown -->
+<div 
+  class="navigation_dropdown-container" 
+  id="dropdown-menu"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="dropdown-title"
+>
+  <!-- Header del dropdown -->
+  <div class="dropdown-header">
+    <div class="header-logo_container">
+      <Image
+        src={Logotipo}
+        widths={[142, Logotipo.width]}
+        sizes={`(max-width: 1000px) 142px, ${Logotipo.width}px`}
+        alt="Logo Americana Academia"
+      />
+    </div>
+    <button 
+      class="navigation_dropdown-close-button" 
+      type="button"
+      aria-label="Cerrar menú de navegación"
+    >
+      <Icon name="cruz-pequena" />
+    </button>
   </div>
-  <div class="header-logo_container">
-    <Image
-      src={Logotipo}
-      widths={[142, Logotipo.width]}
-      sizes={`(max-width: 1000px) 142px, ${Logotipo.width}px`}
-      alt="Una descripción de mi imagen."
-    />
-  </div>
-  <nav class="header-navigation">
+
+  <!-- Navegación principal -->
+  <nav class="header-navigation" aria-label="Navegación principal">
+    <h2 id="dropdown-title" class="sr-only">Menú de navegación</h2>
     {
       navLinks.map((link) => (
-        link.isButton
-          ? <ButtonContact href={link.href} text={link.text} />
-          : <a href={link.href}>{link.text}</a>
+        <div class="nav-item">
+          {link.isButton ? (
+            <ButtonContact href={link.href} text={link.text} className="dropdown-cta" />
+          ) : (
+            <a 
+              href={link.href} 
+              class="nav-link"
+              data-dropdown-link
+            >
+              {link.text}
+            </a>
+          )}
+        </div>
       ))
     }
   </nav>
 </div>
 
 <script>
-  const dropdownButton = document.querySelector(".navigation_dropdown-button");
-  const dropdownContainer = document.querySelector(
-    ".navigation_dropdown-container"
-  );
-  const closeButton = document.querySelector(
-    ".navigation_dropdown-close-button"
-  );
+  // Elementos del DOM
+  const dropdownButton = document.querySelector(".navigation_dropdown-button") as HTMLButtonElement;
+  const dropdownContainer = document.querySelector(".navigation_dropdown-container") as HTMLElement;
+  const closeButton = document.querySelector(".navigation_dropdown-close-button") as HTMLButtonElement;
+  const backdrop = document.querySelector(".navigation_backdrop") as HTMLElement;
+  const navLinks = document.querySelectorAll("[data-dropdown-link]") as NodeListOf<HTMLAnchorElement>;
+  
+  // Estado del dropdown
+  let isOpen = false;
 
-  if (dropdownButton && dropdownContainer && closeButton) {
+  if (dropdownButton && dropdownContainer && closeButton && backdrop) {
+    
+    // Función para abrir el dropdown
+    const openDropdown = () => {
+      if (isOpen) return;
+      
+      isOpen = true;
+      dropdownContainer.classList.add("open");
+      backdrop.classList.add("open");
+      dropdownButton.setAttribute("aria-expanded", "true");
+      
+      // Prevenir scroll del body
+      document.body.style.overflow = "hidden";
+      
+      // Trap focus dentro del dropdown
+      trapFocus(dropdownContainer);
+    };
+
     // Función para cerrar el dropdown
     const closeDropdown = () => {
+      if (!isOpen) return;
+      
+      isOpen = false;
       dropdownContainer.classList.remove("open");
       dropdownContainer.classList.add("closing");
+      backdrop.classList.remove("open");
+      dropdownButton.setAttribute("aria-expanded", "false");
+      
+      // Restaurar scroll del body
+      document.body.style.overflow = "";
       
       // Remover la clase 'closing' después de la animación
       setTimeout(() => {
         dropdownContainer.classList.remove("closing");
-      }, 300); // 300ms = duración de la animación
+      }, 300);
     };
 
-    dropdownButton.addEventListener("click", () => {
-      if (dropdownContainer.classList.contains("open")) {
+    // Event listeners
+    dropdownButton.addEventListener("click", (e: Event) => {
+      e.preventDefault();
+      e.stopPropagation();
+      isOpen ? closeDropdown() : openDropdown();
+    });
+
+    closeButton.addEventListener("click", (e: Event) => {
+      e.preventDefault();
+      closeDropdown();
+    });
+
+    // Cerrar al hacer click en el backdrop
+    backdrop.addEventListener("click", closeDropdown);
+
+    // Cerrar al hacer click en los enlaces de navegación
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        // Pequeño delay para permitir la navegación antes de cerrar
+        setTimeout(closeDropdown, 150);
+      });
+    });
+
+    // Cerrar al hacer click en el botón de contacto también
+    const contactButton = dropdownContainer.querySelector('.dropdown-cta');
+    if (contactButton) {
+      contactButton.addEventListener("click", () => {
+        setTimeout(closeDropdown, 150);
+      });
+    }
+
+    // Cerrar con la tecla Escape
+    document.addEventListener("keydown", (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
         closeDropdown();
-      } else {
-        dropdownContainer.classList.remove("closing");
-        dropdownContainer.classList.add("open");
       }
     });
 
-    closeButton.addEventListener("click", () => {
-      closeDropdown();
-    });
+    // Función para manejar el focus trap
+    function trapFocus(element: HTMLElement) {
+      const focusableElements = element.querySelectorAll(
+        'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
+      ) as NodeListOf<HTMLElement>;
+      const firstFocusableElement = focusableElements[0];
+      const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+      element.addEventListener("keydown", (e: KeyboardEvent) => {
+        if (e.key === "Tab") {
+          if (e.shiftKey) {
+            if (document.activeElement === firstFocusableElement) {
+              lastFocusableElement.focus();
+              e.preventDefault();
+            }
+          } else {
+            if (document.activeElement === lastFocusableElement) {
+              firstFocusableElement.focus();
+              e.preventDefault();
+            }
+          }
+        }
+      });
+    }
   }
 </script>
 
 <style>
-  .navigation_dropdown-close-button {
+  /* Clase para screen readers */
+  .sr-only {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Botón de hamburguesa */
+  .navigation_dropdown-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
     cursor: pointer;
-    color: #000;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    color: #000000;
+    position: relative;
+    z-index: 1001;
+  }
+
+  .navigation_dropdown-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(1.05);
+  }
+
+  .navigation_dropdown-button:focus-visible {
+    outline: 2px solid #FF8282;
+    outline-offset: 2px;
+  }
+
+  .navigation_dropdown-button:active {
+    transform: scale(0.95);
+  }
+
+  /* Ocultar botón hamburguesa cuando dropdown está abierto */
+  .navigation_backdrop.open + .navigation_dropdown-button {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Backdrop para cerrar al hacer click fuera */
+  .navigation_backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .navigation_backdrop.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Container principal del dropdown */
+  .navigation_dropdown-container {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: min(400px, 90vw);
+    height: 100vh;
+    background: #ffffff;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .navigation_dropdown-container.open {
+    right: 0;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .navigation_dropdown-container.closing {
+    right: -100%;
+    box-shadow: none;
+  }
+
+  /* Header del dropdown */
+  .dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  /* Logo container */
+  .header-logo_container {
+    flex-shrink: 0;
   }
 
   .header-logo_container img {
     display: block;
-    max-width: 100%;
+    max-width: 120px;
     height: auto;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
   }
 
-  .navigation_dropdown-container {
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: white;
-    width: 100dvw;
-    z-index: 1000;
-    overflow: hidden;
-    height: 0%;
-    transform-origin: top;
-  }
-
-  .navigation_dropdown-container.open {
-    animation: openDropdown 0.3s ease-out forwards;
-  }
-
-  .navigation_dropdown-container.closing {
-    animation: closeDropdown 0.3s ease-in forwards;
-  }
-
-  .header-navigation {
+  /* Botón de cerrar */
+  .navigation_dropdown-close-button {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    font-size: 20px;
+    background: rgba(255, 130, 130, 0.1);
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+    color: #000000;
+    width: 40px;
+    height: 40px;
   }
 
-  .header-navigation a {
-    color: #000;
+  .navigation_dropdown-close-button:hover {
+    background-color: rgba(255, 130, 130, 0.2);
+    color: #FF8282;
+    transform: scale(1.1);
+  }
+
+  .navigation_dropdown-close-button:focus-visible {
+    outline: 2px solid #FF8282;
+    outline-offset: 2px;
+  }
+
+  .navigation_dropdown-close-button:active {
+    transform: scale(0.9);
+  }
+
+  /* Navegación */
+  .header-navigation {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 32px 24px;
+    justify-content: flex-start;
+  }
+
+  .nav-item {
+    width: 100%;
+  }
+
+  /* Enlaces de navegación */
+  .nav-link {
+    display: block;
+    color: #000000;
     text-decoration: none;
     font-weight: 500;
+    font-size: 18px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    position: relative;
+    background: transparent;
+    border: 1px solid transparent;
   }
 
-  .header-navigation .header-navigation_contact {
-    background-color: #ff8282;
-    color: #fff;
-    width: 229px;
-    text-align: center;
-    border-radius: 9999px;
-    padding: 8px 0px;
+  .nav-link:hover {
+    background: #f9fafb;
+    color: #000000;
+    transform: translateX(4px);
+    border-color: rgba(255, 130, 130, 0.3);
   }
 
-  @media screen and (max-width: 1280px) {
-    .header-logo_container {
-      width: 120px;
-      margin: 16px auto;
-    }
+  .nav-link:focus-visible {
+    outline: 2px solid #FF8282;
+    outline-offset: 2px;
+    background: #f9fafb;
   }
 
-  @keyframes openDropdown {
+  .nav-link:active {
+    transform: translateX(2px) scale(0.98);
+  }
+
+  /* Botón CTA en el dropdown */
+  .header-navigation :global(.dropdown-cta) {
+    margin-top: 16px;
+    width: calc(100% - 8px) !important;
+    max-width: 300px !important;
+    padding: 16px 20px !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 8px 25px rgba(255, 130, 130, 0.3) !important;
+    transform: none !important;
+    transition: all 0.3s ease !important;
+    word-wrap: break-word !important;
+    white-space: normal !important;
+    text-align: center !important;
+  }
+
+  .header-navigation :global(.dropdown-cta:hover) {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 12px 35px rgba(255, 130, 130, 0.4) !important;
+  }
+
+  .header-navigation :global(.dropdown-cta:active) {
+    transform: translateY(0px) !important;
+  }
+
+  /* Animaciones adicionales */
+  @keyframes slideInFromRight {
     from {
-      height: 0%;
+      opacity: 0;
+      transform: translateX(20px);
     }
     to {
-      height: 100%;
+      opacity: 1;
+      transform: translateX(0);
     }
   }
 
-  @keyframes closeDropdown {
-    from {
-      height: 100%;
+  .navigation_dropdown-container.open .nav-item {
+    animation: slideInFromRight 0.4s ease forwards;
+  }
+
+  .navigation_dropdown-container.open .nav-item:nth-child(1) { animation-delay: 0.1s; }
+  .navigation_dropdown-container.open .nav-item:nth-child(2) { animation-delay: 0.15s; }
+  .navigation_dropdown-container.open .nav-item:nth-child(3) { animation-delay: 0.2s; }
+  .navigation_dropdown-container.open .nav-item:nth-child(4) { animation-delay: 0.25s; }
+  .navigation_dropdown-container.open .nav-item:nth-child(5) { animation-delay: 0.3s; }
+
+  /* Responsive design */
+  @media screen and (max-width: 480px) {
+    .navigation_dropdown-container {
+      width: 100vw;
+      right: -100vw;
     }
-    to {
-      height: 0%;
+    
+    .dropdown-header {
+      padding: 16px 20px;
+    }
+    
+    .header-navigation {
+      padding: 24px 20px;
+    }
+    
+    .nav-link {
+      font-size: 16px;
+      padding: 14px 16px;
+    }
+    
+    .header-logo_container img {
+      max-width: 100px;
+    }
+
+    .header-navigation :global(.dropdown-cta) {
+      font-size: 14px !important;
+      padding: 14px 16px !important;
+      margin-left: 4px !important;
+      margin-right: 4px !important;
+    }
+  }
+
+  /* Mejoras para modo oscuro */
+  @media (prefers-color-scheme: dark) {
+    .navigation_dropdown-container {
+      background: #FDFBFA;
+      border-left-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .navigation_dropdown-container.open {
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .dropdown-header {
+      background: #FDFBFA;
+      border-bottom-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .navigation_dropdown-button,
+    .navigation_dropdown-close-button {
+      color: #000000;
+    }
+    
+    .navigation_dropdown-button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .navigation_dropdown-close-button {
+      background: rgba(255, 130, 130, 0.1);
+    }
+    
+    .nav-link {
+      /* color: #f9fafb; */
+    }
+    
+    .nav-link:hover {
+      background: #374151;
+      color: #ffffff;
+      border-color: rgba(255, 130, 130, 0.3);
+    }
+
+    .nav-link:focus-visible {
+      outline-color: #FF8282;
+      background: #374151;
+    }
+  }
+
+  /* Animación de reducción de movimiento */
+  @media (prefers-reduced-motion: reduce) {
+    .navigation_dropdown-container,
+    .navigation_backdrop,
+    .nav-link,
+    .navigation_dropdown-button,
+    .navigation_dropdown-close-button {
+      transition: none;
+    }
+    
+    .navigation_dropdown-container.open .nav-item {
+      animation: none;
     }
   }
 </style>

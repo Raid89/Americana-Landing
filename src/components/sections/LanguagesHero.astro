@@ -1,0 +1,386 @@
+---
+import ButtonContact from "@components/shared/ButtonContact.astro";
+import YoutubePreview from "@images/yt-preview.jpg";
+import Facade from "@components/shared/Facade.astro";
+
+const { title, description } = Astro.props;
+
+const facadeVideoId = "dQw4w9WgXcQ"; // ID del video de YouTube - cambiar por un video de inglés
+const facadeTitle = "Clase de Inglés Conversacional en Americana Academy"; 
+const facadeAlt = "Estudiantes aprendiendo inglés conversacional";
+---
+
+<section id="languages-hero" class="languages-hero" data-animate="hero">
+  <div class="languages-hero-content" data-hero="bg">
+    <div class="languages-hero-text" data-hero="text">
+      <div class="language-badge">
+        <!-- <span class="flag">🇺🇸</span> -->
+        <span class="text">English Academy</span>
+      </div>
+      <h1>{title}</h1>
+      <h2 set:html={description} />
+      <div class="language-features">
+        <div class="feature">
+          <span class="feature-icon">💬</span>
+          <p>Conversacional</p>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">🌍</span>
+          <p>Online</p>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">⚡</span>
+          <p>Resultados rápidos</p>
+        </div>
+      </div>
+      <div class="cta">
+        <ButtonContact
+          href="#contactSection"
+          text="Empezar mi clase gratuita"
+          className="language-cta"
+        />
+      </div>
+    </div>
+    <div class="languages-hero-video" data-hero="media">
+      <Facade
+        PreviewImage={YoutubePreview}
+        Alt={facadeAlt}
+        VideoId={facadeVideoId}
+        Title={facadeTitle}
+      />
+      <div class="video-badges">
+        <div class="badge live">
+          <span>🔴</span>
+          <p>Clases en vivo</p>
+        </div>
+        <div class="badge level">
+          <span>📈</span>
+          <p>Todos los niveles</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @import "@styles/animations.css";
+
+  .languages-hero {
+    background: linear-gradient(135deg, #FDFBFA 0%, #F0F8FF 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .languages-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="10" y="30" font-family="Arial" font-size="8" fill="%23FF6363" opacity="0.05">Hello</text><text x="60" y="50" font-family="Arial" font-size="6" fill="%2366B2FF" opacity="0.05">World</text><text x="20" y="70" font-family="Arial" font-size="7" fill="%23FFB366" opacity="0.05">Learn</text><text x="70" y="20" font-family="Arial" font-size="5" fill="%23A366FF" opacity="0.05">English</text></svg>') repeat;
+    pointer-events: none;
+  }
+
+  .languages-hero-content {
+    display: flex;
+    align-items: center;
+    gap: 70px;
+    justify-content: space-between;
+    padding: 70px 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .languages-hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 706px;
+    min-width: 706px;
+  }
+
+  .language-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 99, 99, 0.1);
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: 2px solid rgba(255, 99, 99, 0.2);
+    width: fit-content;
+    margin-bottom: 10px;
+
+    .flag {
+      font-size: 24px;
+    }
+
+    .text {
+      font-weight: 600;
+      color: #FF6363;
+      font-size: 16px;
+    }
+  }
+
+  .languages-hero-text h1 {
+    font-size: 71px;
+    font-weight: 600;
+    margin: 0;
+    background: linear-gradient(135deg, #212529, #FF6363, #4A90E2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .languages-hero-text h2 {
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 500;
+    margin: 0;
+    color: #555;
+  }
+
+  .language-features {
+    display: flex;
+    gap: 30px;
+    margin: 15px 0;
+  }
+
+  .feature {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    padding: 12px 18px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border: 1px solid rgba(255, 99, 99, 0.1);
+
+    .feature-icon {
+      font-size: 18px;
+    }
+
+    p {
+      margin: 0;
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+  }
+
+  .languages-hero-video {
+    width: 100%;
+    position: relative;
+    
+    iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+  }
+
+  .video-badges {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .badge {
+    background: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 2px solid #FF6363;
+
+    span {
+      font-size: 14px;
+    }
+
+    p {
+      margin: 0;
+      color: #FF6363;
+    }
+  }
+
+  .badge.live {
+    border-color: #FF6363;
+  }
+
+  .badge.level {
+    border-color: #4A90E2;
+    
+    p {
+      color: #4A90E2;
+    }
+  }
+
+  .language-cta {
+    background: linear-gradient(135deg, #FF6363, #4A90E2) !important;
+    border: none !important;
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(255, 99, 99, 0.3);
+    animation: pulse-gentle 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-gentle {
+    0%, 100% { transform: scale(1.1); }
+    50% { transform: scale(1.15); }
+  }
+
+  @media screen and (max-width: 1600px) {
+    .languages-hero-content {
+      padding: 60px 40px;
+      gap: 50px;
+    }
+
+    .languages-hero-text {
+      width: 100%;
+      min-width: unset;
+
+      h1 {
+        font-size: 50px;
+      }
+
+      h2 {
+        font-size: 18px;
+        line-height: 28px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    .languages-hero-content {
+      padding: 80px 40px;
+      gap: 40px;
+    }
+
+    .languages-hero-text {
+      gap: 20px;
+
+      h1 {
+        font-size: 42px;
+      }
+
+      h2 {
+        font-size: 17px;
+        line-height: 26px;
+      }
+    }
+
+    .language-features {
+      gap: 15px;
+    }
+
+    .feature {
+      padding: 10px 14px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .languages-hero-content {
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 30px;
+      gap: 30px;
+    }
+
+    .languages-hero-text {
+      width: 100%;
+      align-items: center;
+      text-align: center;
+
+      h1 {
+        font-size: 36px;
+        line-height: 1.1;
+      }
+
+      h2 {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+
+    .language-features {
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .video-badges {
+      position: static;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: 15px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .languages-hero-content {
+      padding: 40px 20px;
+    }
+
+    .languages-hero-text h1 {
+      font-size: 28px;
+    }
+
+    .languages-hero-text h2 {
+      font-size: 14px;
+      line-height: 22px;
+    }
+
+    .language-badge {
+      padding: 10px 16px;
+      margin-bottom: 8px;
+      
+      .flag {
+        font-size: 20px;
+      }
+      
+      .text {
+        font-size: 14px;
+      }
+    }
+
+    .feature {
+      padding: 8px 12px;
+      
+      p {
+        font-size: 12px;
+      }
+    }
+
+    .badge {
+      padding: 6px 10px;
+      font-size: 10px;
+      
+      span {
+        font-size: 12px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .languages-hero-content {
+      padding: 30px 15px;
+    }
+
+    .languages-hero-text h1 {
+      font-size: 24px;
+    }
+
+    .language-features {
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+</style>

@@ -2,27 +2,63 @@
 import Contact from "@components/sections/Contact.astro";
 import Footer from "@components/sections/Footer.astro";
 import Header from "@components/sections/Header.astro";
-import Hero from "@components/sections/Hero.astro";
-import Information from "@components/sections/Information.astro";
+import MusicHero from "@components/sections/MusicHero.astro";
+import MusicInstruments from "@components/sections/MusicInstruments.astro";
+import MusicTeachers from "@components/sections/MusicTeachers.astro";
+import MusicStatistics from "@components/sections/MusicStatistics.astro";
+import MusicBenefits from "@components/sections/MusicBenefits.astro";
 import Opinions from "@components/sections/Opinions.astro";
-import Statistics from "@components/sections/Statistics.astro";
-//Aprender idiomas online de forma práctica y con propósito
-//Clases de inglés conversacional dinámicas, reales y personalizadas. <br> Aprende a hablar inglés con confianza y abre nuevas oportunidades.
 ---
 
 <head>
   <script type="module" src="/animations-init.js"></script>
 </head>
 
-<body >
+<body class="music-layout">
   <Header />
   <div style="max-width: 1920px; margin: auto">
-      <Hero title="Clases de música para niños, jóvenes y adultos" description="Aprende a tocar guitarra, piano, violín, batería y más. <br> Profesores especializados que se adaptan a tu ritmo y estilo."/>
+      <MusicHero 
+        title="Descubre tu Talento Musical" 
+        description="Clases personalizadas de piano, guitarra, violín, batería y más. <br> Profesores especializados que despiertan la pasión por la música en cada estudiante."
+      />
   </div>
-  <Statistics />
-  <div style="max-width: 1920px; margin: auto;">
+  <MusicStatistics />
+  <div style="max-width: 1920px; margin: auto">
+      <MusicInstruments />
+      <MusicBenefits />
+      <!-- <MusicTeachers /> -->
+      <Opinions />
       <Contact />
   </div>
   <Footer />
+  
+  <script type="module">
+    import('/src/scripts/gsapAnimations.js').then(module => {
+      console.log('GSAP animations loaded');
+    }).catch(error => {
+      console.error('Error loading GSAP animations:', error);
+    });
+  </script>
+  <script src="/debug-gsap.js" is:inline></script>
 </body>
+
+<style>
+  .music-layout {
+    padding-top: 90px;
+    transition: padding-top 0.3s ease;
+    background: #FDFBFA;
+  }
+
+  @media screen and (max-width: 1280px) {
+    .music-layout {
+      padding-top: 80px;
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    .music-layout {
+      padding-top: 70px;
+    }
+  }
+</style>
 

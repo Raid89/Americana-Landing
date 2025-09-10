@@ -10,9 +10,12 @@ import Statistics from "@components/sections/Statistics.astro";
 
 <head>
   <script type="module" src="/animations-init.js"></script>
+  <script type="module">
+    import '/src/scripts/gsapAnimations.js';
+  </script>
 </head>
 
-<body >
+<body class="main-layout">
   <Header />
   <div style="max-width: 1920px; margin: auto">
       <Hero title={'Aprende online con una academia moderna y flexible'} description={'Cursos y talleres en múltiples áreas. <br> Formación de calidad para impulsar tu desarrollo personal y profesional.'} />
@@ -25,4 +28,23 @@ import Statistics from "@components/sections/Statistics.astro";
   </div>
   <Footer />
 </body>
+
+<style>
+  .main-layout {
+    padding-top: 90px; /* Altura aproximada del header */
+    transition: padding-top 0.3s ease;
+  }
+
+  @media screen and (max-width: 1280px) {
+    .main-layout {
+      padding-top: 80px;
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    .main-layout {
+      padding-top: 70px;
+    }
+  }
+</style>
 

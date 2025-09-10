@@ -1,0 +1,561 @@
+---
+import ButtonContact from "@components/shared/ButtonContact.astro";
+
+const englishLevels = [
+  {
+    level: "A1",
+    name: "Principiante",
+    description: "Perfecto para comenzar desde cero. Aprende vocabulario básico, frases esenciales y fundamentos de gramática.",
+    duration: "3-4 meses",
+    skills: ["Saludos y presentaciones", "Números y fechas", "Familia y trabajo", "Compras básicas"],
+    color: "#66FFB2",
+    icon: "🌱"
+  },
+  {
+    level: "A2",
+    name: "Elemental",
+    description: "Desarrolla confianza en conversaciones cotidianas. Expande vocabulario y mejora la comprensión auditiva.",
+    duration: "4-5 meses",
+    skills: ["Descripciones simples", "Experiencias pasadas", "Planes futuros", "Opiniones básicas"],
+    color: "#66B2FF",
+    icon: "🚀"
+  },
+  {
+    level: "B1",
+    name: "Intermedio",
+    description: "Comunícate con fluidez en situaciones familiares. Maneja conversaciones más complejas y naturales.",
+    duration: "5-6 meses",
+    skills: ["Debates y discusiones", "Textos complejos", "Trabajo y estudios", "Viajes y cultura"],
+    color: "#FFB366",
+    icon: "💪"
+  },
+  {
+    level: "B2",
+    name: "Intermedio Alto",
+    description: "Domina conversaciones profesionales y académicas. Comprende textos técnicos y participa en debates.",
+    duration: "6-7 meses",
+    skills: ["Presentaciones formales", "Negociaciones", "Literatura y medios", "Expresión de emociones"],
+    color: "#FF6363",
+    icon: "🎯"
+  },
+  {
+    level: "C1",
+    name: "Avanzado",
+    description: "Expresa ideas complejas con precisión. Comprende matices culturales y referencias implícitas.",
+    duration: "7-8 meses",
+    skills: ["Comunicación sofisticada", "Análisis crítico", "Liderazgo en inglés", "Escritura profesional"],
+    color: "#A366FF",
+    icon: "👑"
+  },
+  {
+    level: "C2",
+    name: "Experto",
+    description: "Dominio nativo del idioma. Comprende todo tipo de textos y se expresa con naturalidad en cualquier contexto.",
+    duration: "8+ meses",
+    skills: ["Fluidez nativa", "Sutilezas lingüísticas", "Excelencia académica", "Maestría comunicativa"],
+    color: "#FF66B2",
+    icon: "🏆"
+  }
+];
+---
+
+<section id="english-levels" class="english-levels" data-animate="grid">
+  <div class="levels-header" data-grid="header">
+    <h2>Niveles de Inglés</h2>
+    <p>Encuentra tu nivel perfecto y avanza a tu propio ritmo</p>
+    <div class="framework-badge">
+      <span>📚</span>
+      <p>Basado en el Marco Común Europeo (CEFR)</p>
+    </div>
+  </div>
+
+  <div class="levels-grid">
+    {englishLevels.map((level, index) => (
+      <div 
+        class="level-card" 
+        data-grid="item"
+        style={`--accent-color: ${level.color}`}
+      >
+        <div class="level-header">
+          <div class="level-icon">
+            <span>{level.icon}</span>
+          </div>
+          <div class="level-info">
+            <div class="level-badge">{level.level}</div>
+            <h3>{level.name}</h3>
+          </div>
+        </div>
+
+        <p class="level-description">{level.description}</p>
+
+        <div class="level-duration">
+          <span class="duration-icon">⏱️</span>
+          <span class="duration-text">Duración estimada: {level.duration}</span>
+        </div>
+
+        <div class="level-skills">
+          <h4>Aprenderás a:</h4>
+          <ul>
+            {level.skills.map(skill => (
+              <li>
+                <span class="skill-check">✓</span>
+                {skill}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <ButtonContact 
+          href="#contactSection" 
+          text={`Empezar nivel ${level.level}`}
+          className="level-btn"
+        />
+      </div>
+    ))}
+  </div>
+
+  <div class="levels-footer" data-grid="cta">
+    <div class="placement-test">
+      <div class="test-content">
+        <span class="test-icon">🎯</span>
+        <div class="test-text">
+          <h3>¿No estás seguro de tu nivel?</h3>
+          <p>Realiza nuestro test de nivelación gratuito y descubre por dónde empezar</p>
+        </div>
+        <ButtonContact 
+          href="#contactSection" 
+          text="Hacer test gratuito"
+          className="test-btn"
+        />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @import "@styles/animations.css";
+
+  .english-levels {
+    padding: 120px 100px;
+    background: linear-gradient(180deg, #F8F6F5 0%, #FDFBFA 50%, #F0F8FF 100%);
+    position: relative;
+  }
+
+  .levels-header {
+    text-align: center;
+    margin-bottom: 80px;
+
+    h2 {
+      font-size: 64px;
+      font-weight: 600;
+      margin: 0 0 20px 0;
+      background: linear-gradient(135deg, #212529, #FF6363, #4A90E2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      font-size: 20px;
+      color: #666;
+      margin: 0 0 30px 0;
+      font-weight: 500;
+    }
+  }
+
+  .framework-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(74, 144, 226, 0.1);
+    color: #4A90E2;
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: 2px solid rgba(74, 144, 226, 0.2);
+    font-weight: 600;
+
+    span {
+      font-size: 18px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+
+  .levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 30px;
+    margin-bottom: 80px;
+  }
+
+  .level-card {
+    background: white;
+    border-radius: 25px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    animation-delay: var(--delay);
+  }
+
+  .level-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--accent-color);
+  }
+
+  .level-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    border-color: var(--accent-color);
+  }
+
+  .level-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+  }
+
+  .level-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+    span {
+      font-size: 30px;
+    }
+  }
+
+  .level-info {
+    flex: 1;
+  }
+
+  .level-badge {
+    background: var(--accent-color);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    width: fit-content;
+    margin-bottom: 8px;
+  }
+
+  .level-info h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    color: #212529;
+  }
+
+  .level-description {
+    font-size: 16px;
+    line-height: 24px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+
+  .level-duration {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 99, 99, 0.05);
+    padding: 10px 15px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 99, 99, 0.1);
+
+    .duration-icon {
+      font-size: 16px;
+    }
+
+    .duration-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #FF6363;
+    }
+  }
+
+  .level-skills {
+    margin-bottom: 30px;
+
+    h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 15px 0;
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #555;
+
+      .skill-check {
+        color: var(--accent-color);
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .level-btn {
+    width: 100%;
+    background: var(--accent-color) !important;
+    border: none !important;
+    transition: transform 0.2s ease;
+  }
+
+  .level-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .levels-footer {
+    text-align: center;
+  }
+
+  .placement-test {
+    background: linear-gradient(135deg, #4A90E2, #66B2FF);
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(74, 144, 226, 0.2);
+  }
+
+  .test-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 40px;
+    color: white;
+    position: relative;
+  }
+
+  .test-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="70" r="2.5" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+    pointer-events: none;
+  }
+
+  .test-icon {
+    font-size: 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .test-text {
+    flex: 1;
+    text-align: left;
+    position: relative;
+    z-index: 1;
+
+    h3 {
+      font-size: 28px;
+      font-weight: 600;
+      margin: 0 0 10px 0;
+    }
+
+    p {
+      font-size: 16px;
+      margin: 0;
+      opacity: 0.95;
+    }
+  }
+
+  .test-btn {
+    background: white !important;
+    color: #4A90E2 !important;
+    border: none !important;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+  }
+
+  .test-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+  }
+
+  @media screen and (max-width: 1600px) {
+    .english-levels {
+      padding: 100px 60px;
+    }
+
+    .levels-grid {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 25px;
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    .english-levels {
+      padding: 80px 40px;
+    }
+
+    .levels-header h2 {
+      font-size: 48px;
+    }
+
+    .levels-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .level-card {
+      padding: 30px;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    .english-levels {
+      padding: 60px 30px;
+    }
+
+    .levels-header h2 {
+      font-size: 36px;
+    }
+
+    .levels-header p {
+      font-size: 18px;
+    }
+
+    .levels-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .test-content {
+      flex-direction: column;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .test-text {
+      text-align: center;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .english-levels {
+      padding: 60px 20px;
+    }
+
+    .levels-header h2 {
+      font-size: 32px;
+    }
+
+    .levels-header p {
+      font-size: 16px;
+    }
+
+    .levels-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .level-card {
+      padding: 25px;
+    }
+
+    .level-header {
+      gap: 15px;
+    }
+
+    .level-icon {
+      width: 50px;
+      height: 50px;
+      
+      span {
+        font-size: 25px;
+      }
+    }
+
+    .level-info h3 {
+      font-size: 20px;
+    }
+
+    .level-description {
+      font-size: 15px;
+    }
+
+    .test-content {
+      padding: 25px 15px;
+    }
+
+    .test-text h3 {
+      font-size: 24px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .english-levels {
+      padding: 40px 15px;
+    }
+
+    .levels-header h2 {
+      font-size: 28px;
+    }
+
+    .framework-badge {
+      padding: 10px 16px;
+      
+      span {
+        font-size: 16px;
+      }
+      
+      p {
+        font-size: 12px;
+      }
+    }
+
+    .level-card {
+      padding: 20px;
+    }
+
+    .level-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
+
+    .test-content {
+      padding: 20px 10px;
+    }
+
+    .test-icon {
+      font-size: 40px;
+    }
+
+    .test-text h3 {
+      font-size: 20px;
+    }
+  }
+</style>

@@ -1,0 +1,161 @@
+---
+import StaticsBlock from "@components/shared/StaticsBlock.astro";
+
+const languageStatistics = [
+    {
+        title: "Estudiantes de inglés activos",
+        value: 2400,
+        text: "Estudiantes han mejorado significativamente su inglés conversacional, ganando confianza para comunicarse en entornos académicos y profesionales."
+    },
+    {
+        title: "Horas de conversación",
+        value: 85000,
+        text: "Sesiones de práctica conversacional en inglés, donde cada estudiante desarrolla fluidez y naturalidad al comunicarse en situaciones reales."
+    },
+    {
+        title: "Certificaciones CEFR obtenidas",
+        value: 580,
+        text: "Estudiantes han obtenido certificaciones oficiales de inglés, validando su progreso con estándares internacionales reconocidos."
+    },
+]
+---
+
+<section class="language-statistics" data-animate="stats">
+  {languageStatistics.map((stat, i) => (
+    <div data-stat="block">
+      <StaticsBlock value={stat.value} title={stat.title} text={stat.text} index={i} />
+    </div>
+  ))}
+</section>
+
+<style>
+.language-statistics {
+    margin-top: 150px;
+    background: linear-gradient(135deg, #4A90E2, #66B2FF, #FF6363);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 95px;
+    padding: 40px 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.language-statistics::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="10" y="20" font-family="Arial" font-size="6" fill="rgba(255,255,255,0.1)">Hello</text><text x="60" y="40" font-family="Arial" font-size="5" fill="rgba(255,255,255,0.1)">World</text><text x="20" y="60" font-family="Arial" font-size="4" fill="rgba(255,255,255,0.1)">Learn</text><text x="70" y="80" font-family="Arial" font-size="5" fill="rgba(255,255,255,0.1)">English</text></svg>') repeat;
+    pointer-events: none;
+}
+
+.statistic-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #FFF;
+    gap: 14px;
+    position: relative;
+    z-index: 1;
+
+    .statistic-value {
+        font-size: 34px;
+        font-weight: 600;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h3 {
+        font-size: 26px;
+        font-weight: 500;
+        margin: 0;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 24px;
+        margin: 0;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .language-statistics {
+        gap: 50px;
+        padding: 30px 30px;
+    }
+
+    .statistic-details {
+        h3 {
+            font-size: 22px;
+        }
+        p {
+            font-size: 16px;
+        }
+        .statistic-value {
+            font-size: 28px;
+        }
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .language-statistics {
+        gap: 30px;
+        padding: 25px 20px;
+        margin-top: 100px;
+    }
+
+    .statistic-details {
+        gap: 10px;
+        h3 {
+            font-size: 18px;
+        }
+        p {
+            font-size: 14px;
+            line-height: 18px;
+        }
+        .statistic-value {
+            font-size: 24px;
+        }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .language-statistics {
+        gap: 30px;
+        padding: 25px 20px;
+        margin-top: 100px;
+    }
+
+    .statistic-details {
+        gap: 10px;
+        h3 {
+            font-size: 14px;
+        }
+        p {
+            font-size: 12px;
+            line-height: 16px;
+        }
+        .statistic-value {
+            font-size: 20px;
+        }
+    }
+}
+
+@media screen and (max-width: 800px)  {
+    .language-statistics {
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 40px;
+    }
+
+    .statistic-details {
+        max-width: 300px;
+    }
+}
+</style>

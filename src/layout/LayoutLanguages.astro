@@ -2,27 +2,63 @@
 import Contact from "@components/sections/Contact.astro";
 import Footer from "@components/sections/Footer.astro";
 import Header from "@components/sections/Header.astro";
-import Hero from "@components/sections/Hero.astro";
-import Information from "@components/sections/Information.astro";
+import LanguagesHero from "@components/sections/LanguagesHero.astro";
+import EnglishLevels from "@components/sections/EnglishLevels.astro";
+import EnglishMethodology from "@components/sections/EnglishMethodology.astro";
+import EnglishBenefits from "@components/sections/EnglishBenefits.astro";
+import LanguageStatistics from "@components/sections/LanguageStatistics.astro";
 import Opinions from "@components/sections/Opinions.astro";
-import Statistics from "@components/sections/Statistics.astro";
-//Aprender idiomas online de forma práctica y con propósito
-//Clases de inglés conversacional dinámicas, reales y personalizadas. <br> Aprende a hablar inglés con confianza y abre nuevas oportunidades.
 ---
 
 <head>
   <script type="module" src="/animations-init.js"></script>
 </head>
 
-<body >
+<body class="languages-layout">
   <Header />
   <div style="max-width: 1920px; margin: auto">
-      <Hero title="Domina nuevos idiomas online desde cualquier lugar" description="Lecciones prácticas con profesores expertos. <br> Aprende a hablar, escuchar y pensar en otro idioma de forma natural y sin estrés."/>
+      <LanguagesHero 
+        title="Domina el Inglés con Confianza" 
+        description="Clases conversacionales dinámicas y personalizadas. <br> Aprende inglés práctico que realmente usarás en la vida real."
+      />
   </div>
-  <Statistics />
-  <div style="max-width: 1920px; margin: auto;">
+  <LanguageStatistics />
+  <div style="max-width: 1920px; margin: auto">
+      <EnglishBenefits />
+      <EnglishLevels />
+      <!-- <EnglishMethodology /> -->
+      <Opinions />
       <Contact />
   </div>
   <Footer />
+  
+  <script type="module">
+    import('/src/scripts/gsapAnimations.js').then(module => {
+      console.log('GSAP animations loaded');
+    }).catch(error => {
+      console.error('Error loading GSAP animations:', error);
+    });
+  </script>
+  <script src="/debug-gsap.js" is:inline></script>
 </body>
+
+<style>
+  .languages-layout {
+    padding-top: 90px;
+    transition: padding-top 0.3s ease;
+    background: #FDFBFA;
+  }
+
+  @media screen and (max-width: 1280px) {
+    .languages-layout {
+      padding-top: 80px;
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    .languages-layout {
+      padding-top: 70px;
+    }
+  }
+</style>
 

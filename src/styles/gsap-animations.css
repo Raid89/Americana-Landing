@@ -1,0 +1,46 @@
+/* Estilos base para animaciones GSAP - Simplificado */
+
+/* Smooth scrolling y optimizaciones de rendimiento */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Configuración base para elementos animados */
+[data-animate] {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Efectos de hover simples para cards */
+[data-benefit="card"]:hover,
+[data-grid="item"]:hover {
+  transition: transform 0.3s ease;
+}
+
+/* Optimizaciones para dispositivos móviles */
+@media (max-width: 768px) {
+  [data-animate] {
+    will-change: auto;
+  }
+}
+
+/* Soporte para movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  [data-animate] {
+    will-change: auto !important;
+  }
+  
+  [data-animate] * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Efectos de focus para accesibilidad */
+[data-animate]:focus-visible {
+  outline: 2px solid #FF6363;
+  outline-offset: 4px;
+}

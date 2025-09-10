@@ -1,0 +1,302 @@
+---
+import ButtonContact from "@components/shared/ButtonContact.astro";
+import YoutubePreview from "@images/yt-preview.jpg";
+import Facade from "@components/shared/Facade.astro";
+
+const { title, description } = Astro.props;
+
+const facadeVideoId = "dQw4w9WgXcQ"; // ID del video de YouTube - cambiar por un video de música
+const facadeTitle = "Clase de Música en Americana Academy"; 
+const facadeAlt = "Estudiantes aprendiendo música";
+---
+
+<section id="music-hero" class="music-hero" data-animate="hero">
+  <div class="music-hero-content" data-hero="bg">
+    <div class="music-hero-text" data-hero="text">
+      <div class="language-badge">
+        <span class="music-icon">🎵</span>
+        <span class="text">Music Academy</span>
+      </div>
+      <h1>{title}</h1>
+      <h2 set:html={description} />
+      <div class="music-highlight">
+        <span class="music-icon">🎵</span>
+        <p>Descubre tu talento musical con profesores especializados</p>
+      </div>
+      <div class="cta">
+        <ButtonContact
+          href="#contactSection"
+          text="Reserva tu clase de prueba"
+          className="music-cta"
+        />
+      </div>
+    </div>
+    <div class="music-hero-video" data-hero="media">
+      <Facade
+        PreviewImage={YoutubePreview}
+        Alt={facadeAlt}
+        VideoId={facadeVideoId}
+        Title={facadeTitle}
+      />
+      <div class="music-badge">
+        <span>🏆</span>
+        <p>+5 años enseñando música</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @import "@styles/animations.css";
+
+  .music-hero {
+    background: linear-gradient(135deg, #FDFBFA 0%, #F8F6F5 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .music-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%23FF6363" opacity="0.1"/><circle cx="80" cy="40" r="1.5" fill="%23FF6363" opacity="0.1"/><circle cx="60" cy="70" r="2.5" fill="%23FF6363" opacity="0.1"/><circle cx="30" cy="80" r="1" fill="%23FF6363" opacity="0.1"/></svg>') repeat;
+    pointer-events: none;
+  }
+
+  .music-hero-content {
+    display: flex;
+    align-items: center;
+    gap: 70px;
+    justify-content: space-between;
+    padding: 70px 100px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .music-hero-text {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 706px;
+    min-width: 706px;
+  }
+
+  .language-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #FF6363, #FF8282);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    width: fit-content;
+    box-shadow: 0 4px 15px rgba(255, 99, 99, 0.3);
+
+    .music-icon {
+      font-size: 16px;
+    }
+  }
+
+  .music-hero-text {
+    h1 {
+      font-size: 71px;
+      font-weight: 600;
+      margin: 0;
+      background: linear-gradient(135deg, #212529, #FF6363);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    h2 {
+      font-size: 20px;
+      line-height: 30px;
+      font-weight: 500;
+      margin: 0;
+      color: #555;
+    }
+  }
+
+  .music-highlight {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 99, 99, 0.1);
+    padding: 20px;
+    border-radius: 15px;
+    border-left: 4px solid #FF6363;
+
+    .music-icon {
+      font-size: 24px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    p {
+      margin: 0;
+      font-weight: 500;
+      color: #FF6363;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .music-hero-video {
+    width: 100%;
+    position: relative;
+    
+    iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+  }
+
+  .music-badge {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    background: #FF6363;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 5px 15px rgba(255, 99, 99, 0.3);
+
+    span {
+      font-size: 16px;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .music-cta {
+    background: linear-gradient(135deg, #FF6363, #FF8282) !important;
+    border: none !important;
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(255, 99, 99, 0.3);
+  }
+
+  @media screen and (max-width: 1600px) {
+    .music-hero-content {
+      padding: 60px 40px;
+      gap: 50px;
+    }
+
+    .music-hero-text {
+      width: 100%;
+      min-width: unset;
+
+      h1 {
+        font-size: 50px;
+      }
+
+      h2 {
+        font-size: 18px;
+        line-height: 28px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    .music-hero-content {
+      padding: 80px 40px;
+      gap: 40px;
+    }
+
+    .music-hero-text {
+      gap: 25px;
+
+      h1 {
+        font-size: 42px;
+      }
+
+      h2 {
+        font-size: 17px;
+        line-height: 26px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .music-hero-content {
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 30px;
+      gap: 30px;
+    }
+
+    .music-hero-text {
+      width: 100%;
+      align-items: center;
+      text-align: center;
+
+      h1 {
+        font-size: 36px;
+        line-height: 1.1;
+      }
+
+      h2 {
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+
+    .music-highlight {
+      flex-direction: column;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .music-badge {
+      position: static;
+      margin-top: 15px;
+      align-self: center;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .music-hero-content {
+      padding: 40px 20px;
+    }
+
+    .music-hero-text h1 {
+      font-size: 28px;
+    }
+
+    .music-hero-text h2 {
+      font-size: 14px;
+      line-height: 22px;
+    }
+
+    .music-highlight {
+      padding: 12px;
+    }
+
+    .music-badge {
+      padding: 8px 12px;
+      
+      span {
+        font-size: 14px;
+      }
+      
+      p {
+        font-size: 12px;
+      }
+    }
+  }
+</style>

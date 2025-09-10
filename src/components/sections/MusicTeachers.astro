@@ -1,0 +1,548 @@
+---
+import { Image } from "astro:assets";
+import ProfesoraIngles from "@images/profesora-ingles.webp";
+import ProfesorIngles from "@images/profesor-ingles.jpg";
+
+const musicTeachers = [
+  {
+    name: "María González",
+    specialty: "Piano y Teoría Musical",
+    experience: "12 años de experiencia",
+    education: "Conservatorio Nacional de Música",
+    description: "Especialista en piano clásico y contemporáneo. Ha formado a más de 200 estudiantes y participado en numerosos conciertos.",
+    image: ProfesoraIngles,
+    instruments: ["Piano", "Teclado", "Teoría Musical"],
+    achievements: ["Concertista profesional", "Profesora certificada", "Directora de coro"]
+  },
+  {
+    name: "Carlos Rodríguez",
+    specialty: "Guitarra y Composición",
+    experience: "8 años de experiencia",
+    education: "Berklee College of Music",
+    description: "Guitarrista versátil con experiencia en rock, jazz y música latina. Compositor de bandas sonoras y productor musical.",
+    image: ProfesorIngles,
+    instruments: ["Guitarra Eléctrica", "Guitarra Acústica", "Bajo"],
+    achievements: ["Productor musical", "3 álbumes publicados", "Giras internacionales"]
+  },
+  {
+    name: "Ana Martínez",
+    specialty: "Canto y Técnica Vocal",
+    experience: "10 años de experiencia",
+    education: "Academia de Artes Vocales",
+    description: "Soprano lírica con amplia experiencia en ópera y música popular. Especialista en técnica vocal y preparación de audiciones.",
+    image: ProfesoraIngles,
+    instruments: ["Canto", "Técnica Vocal", "Preparación Audiciones"],
+    achievements: ["Soprano principal", "Coach vocal certificada", "Jurado en competencias"]
+  }
+];
+---
+
+<section id="music-teachers" class="music-teachers" data-animate="showcase">
+  <div class="teachers-header" data-grid="header">
+    <h2>Nuestros Profesores de Música</h2>
+    <p>Aprende con profesionales apasionados y experimentados</p>
+  </div>
+
+  <div class="teachers-container">
+    {musicTeachers.map((teacher, index) => (
+      <div 
+        class={`teacher-card ${index % 2 === 1 ? 'reverse' : ''}`} 
+        data-showcase="item"
+      >
+        <div class="teacher-image-container">
+          <Image
+            src={teacher.image}
+            alt={teacher.name}
+            width={400}
+            height={400}
+            class="teacher-image"
+          />
+          <div class="teacher-badge">
+            <span>🎵</span>
+            <p>{teacher.experience}</p>
+          </div>
+        </div>
+
+        <div class="teacher-content">
+          <div class="teacher-header">
+            <h3>{teacher.name}</h3>
+            <p class="teacher-specialty">{teacher.specialty}</p>
+            <p class="teacher-education">🎓 {teacher.education}</p>
+          </div>
+
+          <p class="teacher-description">{teacher.description}</p>
+
+          <div class="teacher-instruments">
+            <h4>Instrumentos que enseña:</h4>
+            <div class="instruments-list">
+              {teacher.instruments.map(instrument => (
+                <span class="instrument-tag">{instrument}</span>
+              ))}
+            </div>
+          </div>
+
+          <div class="teacher-achievements">
+            <h4>Logros destacados:</h4>
+            <ul>
+              {teacher.achievements.map(achievement => (
+                <li>✨ {achievement}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="teacher-cta">
+            <button class="schedule-btn">
+              <span>📅</span>
+              Agendar clase con {teacher.name.split(' ')[0]}
+            </button>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="teachers-footer animate-fade-in" data-animate>
+    <div class="footer-highlight">
+      <h3>🌟 Todos nuestros profesores</h3>
+      <div class="features-grid">
+        <div class="feature">
+          <span class="feature-icon">🎯</span>
+          <p>Metodología personalizada</p>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">💪</span>
+          <p>Años de experiencia</p>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">🏆</span>
+          <p>Formación profesional</p>
+        </div>
+        <div class="feature">
+          <span class="feature-icon">❤️</span>
+          <p>Pasión por enseñar</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @import "@styles/animations.css";
+
+  .music-teachers {
+    padding: 120px 100px;
+    background: #FDFBFA;
+  }
+
+  .teachers-header {
+    text-align: center;
+    margin-bottom: 80px;
+
+    h2 {
+      font-size: 64px;
+      font-weight: 600;
+      margin: 0 0 20px 0;
+      background: linear-gradient(135deg, #212529, #FF6363);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      font-size: 20px;
+      color: #666;
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+
+  .teachers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    margin-bottom: 80px;
+  }
+
+  .teacher-card {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    background: white;
+    border-radius: 30px;
+    padding: 50px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    animation-delay: var(--delay);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .teacher-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #FF6363, #FFB366, #66B2FF);
+  }
+
+  .teacher-card.reverse {
+    flex-direction: row-reverse;
+  }
+
+  .teacher-image-container {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .teacher-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  .teacher-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #FF6363;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    box-shadow: 0 5px 15px rgba(255, 99, 99, 0.3);
+
+    span {
+      font-size: 16px;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .teacher-content {
+    flex: 1;
+  }
+
+  .teacher-header {
+    margin-bottom: 25px;
+
+    h3 {
+      font-size: 36px;
+      font-weight: 600;
+      margin: 0 0 10px 0;
+      color: #212529;
+    }
+
+    .teacher-specialty {
+      font-size: 20px;
+      color: #FF6363;
+      font-weight: 600;
+      margin: 0 0 8px 0;
+    }
+
+    .teacher-education {
+      font-size: 16px;
+      color: #666;
+      margin: 0;
+      font-style: italic;
+    }
+  }
+
+  .teacher-description {
+    font-size: 16px;
+    line-height: 26px;
+    color: #555;
+    margin-bottom: 30px;
+  }
+
+  .teacher-instruments, .teacher-achievements {
+    margin-bottom: 25px;
+
+    h4 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 15px 0;
+      color: #333;
+    }
+  }
+
+  .instruments-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .instrument-tag {
+    background: rgba(255, 99, 99, 0.1);
+    color: #FF6363;
+    padding: 6px 15px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 99, 99, 0.2);
+  }
+
+  .teacher-achievements ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .teacher-achievements li {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 8px;
+  }
+
+  .teacher-cta {
+    margin-top: 30px;
+  }
+
+  .schedule-btn {
+    background: linear-gradient(135deg, #FF6363, #FF8282);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 99, 99, 0.3);
+  }
+
+  .schedule-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 99, 99, 0.4);
+  }
+
+  .teachers-footer {
+    text-align: center;
+  }
+
+  .footer-highlight {
+    background: linear-gradient(135deg, #FF6363, #FF8282);
+    color: white;
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(255, 99, 99, 0.2);
+
+    h3 {
+      font-size: 32px;
+      font-weight: 600;
+      margin: 0 0 40px 0;
+    }
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+  }
+
+  .feature {
+    text-align: center;
+
+    .feature-icon {
+      font-size: 40px;
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 16px;
+      font-weight: 500;
+      margin: 0;
+    }
+  }
+
+  @media screen and (max-width: 1600px) {
+    .music-teachers {
+      padding: 100px 60px;
+    }
+
+    .teacher-card {
+      gap: 40px;
+      padding: 40px;
+    }
+
+    .teacher-image {
+      width: 250px;
+      height: 250px;
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    .music-teachers {
+      padding: 80px 40px;
+    }
+
+    .teachers-header h2 {
+      font-size: 48px;
+    }
+
+    .teacher-card {
+      flex-direction: column !important;
+      text-align: center;
+      gap: 30px;
+      padding: 35px;
+    }
+
+    .teacher-image {
+      width: 200px;
+      height: 200px;
+    }
+
+    .teacher-header h3 {
+      font-size: 28px;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    .music-teachers {
+      padding: 60px 30px;
+    }
+
+    .teachers-header h2 {
+      font-size: 36px;
+    }
+
+    .teachers-header p {
+      font-size: 18px;
+    }
+
+    .teacher-card {
+      padding: 30px;
+      gap: 25px;
+    }
+
+    .teacher-image {
+      width: 180px;
+      height: 180px;
+    }
+
+    .teacher-header h3 {
+      font-size: 24px;
+    }
+
+    .teacher-specialty {
+      font-size: 18px !important;
+    }
+
+    .teacher-description {
+      font-size: 15px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .music-teachers {
+      padding: 60px 20px;
+    }
+
+    .teachers-header h2 {
+      font-size: 32px;
+    }
+
+    .teachers-header p {
+      font-size: 16px;
+    }
+
+    .teacher-card {
+      padding: 25px;
+    }
+
+    .teacher-image {
+      width: 160px;
+      height: 160px;
+    }
+
+    .teacher-header h3 {
+      font-size: 22px;
+    }
+
+    .teacher-specialty {
+      font-size: 16px !important;
+    }
+
+    .teacher-education {
+      font-size: 14px !important;
+    }
+
+    .teacher-description {
+      font-size: 14px;
+    }
+
+    .teacher-instruments h4,
+    .teacher-achievements h4 {
+      font-size: 16px;
+    }
+
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .footer-highlight {
+      padding: 30px 20px;
+    }
+
+    .footer-highlight h3 {
+      font-size: 24px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .music-teachers {
+      padding: 40px 15px;
+    }
+
+    .teachers-header h2 {
+      font-size: 28px;
+    }
+
+    .teacher-card {
+      padding: 20px;
+    }
+
+    .teacher-image {
+      width: 140px;
+      height: 140px;
+    }
+
+    .teacher-badge {
+      top: -5px;
+      right: -5px;
+      padding: 6px 10px;
+      font-size: 10px;
+      
+      span {
+        font-size: 12px;
+      }
+    }
+
+    .schedule-btn {
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+
+    .footer-highlight {
+      padding: 25px 15px;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+  }
+</style>

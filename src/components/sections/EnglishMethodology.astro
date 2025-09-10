@@ -1,0 +1,509 @@
+---
+import { Image } from "astro:assets";
+import ProfesoraIngles from "@images/profesora-ingles.webp";
+import ProfesorIngles from "@images/profesor-ingles.jpg";
+import TorreDeLibros from "@images/torre-de-libros.jpg";
+
+const methodologySteps = [
+  {
+    step: "01",
+    title: "Evaluación Inicial",
+    subtitle: "Conocemos tu nivel actual",
+    description: "Realizamos un diagnóstico completo de tus habilidades en inglés para crear un plan de estudio personalizado que se adapte a tus necesidades específicas.",
+    image: ProfesoraIngles,
+    features: ["Test de nivelación", "Análisis de objetivos", "Plan personalizado"],
+    color: "#FF6363"
+  },
+  {
+    step: "02", 
+    title: "Método Conversacional",
+    subtitle: "Practica desde el primer día",
+    description: "Nuestro enfoque comunicativo te sumerge en conversaciones reales desde la primera clase, desarrollando confianza y fluidez de manera natural.",
+    image: ProfesorIngles,
+    features: ["Conversación constante", "Situaciones reales", "Corrección inmediata"],
+    color: "#4A90E2"
+  },
+  {
+    step: "03",
+    title: "Seguimiento Continuo",
+    subtitle: "Monitoreo de tu progreso",
+    description: "Evaluamos constantemente tu avance y ajustamos la metodología para garantizar que alcances tus objetivos en el tiempo establecido.",
+    image: TorreDeLibros,
+    features: ["Evaluaciones regulares", "Feedback personalizado", "Ajuste de metodología"],
+    color: "#66FFB2"
+  }
+];
+---
+
+<section id="english-methodology" class="english-methodology" data-animate="showcase">
+  <div class="methodology-header" data-grid="header">
+    <h2>Nuestra Metodología</h2>
+    <p>Un enfoque probado que te llevará del nivel básico a la fluidez</p>
+  </div>
+
+  <div class="methodology-container">
+    {methodologySteps.map((method, index) => (
+      <div 
+        class={`methodology-item ${index % 2 === 1 ? 'reverse' : ''}`}
+        data-showcase="item"
+        style={`--accent-color: ${method.color}`}
+      >
+        <div class="method-content">
+          <div class="method-step">
+            <span class="step-number">{method.step}</span>
+          </div>
+          
+          <div class="method-text">
+            <h3>{method.title}</h3>
+            <h4>{method.subtitle}</h4>
+            <p>{method.description}</p>
+            
+            <div class="method-features">
+              <h5>Características clave:</h5>
+              <ul>
+                {method.features.map(feature => (
+                  <li>
+                    <span class="feature-bullet">●</span>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="method-image-container">
+          <Image
+            src={method.image}
+            alt={method.title}
+            width={400}
+            height={400}
+            class="method-image"
+          />
+          <div class="image-overlay">
+            <div class="overlay-content">
+              <span class="overlay-icon">
+                {index === 0 ? '🎯' : index === 1 ? '💬' : '📈'}
+              </span>
+              <p>{method.subtitle}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="methodology-footer animate-fade-in" data-animate>
+    <div class="footer-stats">
+      <div class="stat-item">
+        <span class="stat-number">95%</span>
+        <p>De estudiantes alcanzan sus objetivos</p>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">3x</span>
+        <p>Más rápido que métodos tradicionales</p>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">100%</span>
+        <p>Clases conversacionales</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @import "@styles/animations.css";
+
+  .english-methodology {
+    padding: 120px 100px;
+    background: #FDFBFA;
+    position: relative;
+  }
+
+  .methodology-header {
+    text-align: center;
+    margin-bottom: 80px;
+
+    h2 {
+      font-size: 64px;
+      font-weight: 600;
+      margin: 0 0 20px 0;
+      background: linear-gradient(135deg, #212529, #FF6363, #4A90E2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      font-size: 20px;
+      color: #666;
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+
+  .methodology-container {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    margin-bottom: 80px;
+  }
+
+  .methodology-item {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    animation-delay: var(--delay);
+  }
+
+  .methodology-item.reverse {
+    flex-direction: row-reverse;
+  }
+
+  .method-content {
+    flex: 1;
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+  }
+
+  .method-step {
+    flex-shrink: 0;
+  }
+
+  .step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: var(--accent-color);
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+    border-radius: 50%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+
+  .method-text {
+    flex: 1;
+
+    h3 {
+      font-size: 36px;
+      font-weight: 600;
+      margin: 0 0 10px 0;
+      color: #212529;
+    }
+
+    h4 {
+      font-size: 20px;
+      color: var(--accent-color);
+      font-weight: 600;
+      margin: 0 0 20px 0;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 26px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+  }
+
+  .method-features {
+    h5 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 15px 0;
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+      font-size: 15px;
+      color: #555;
+
+      .feature-bullet {
+        color: var(--accent-color);
+        font-size: 18px;
+      }
+    }
+  }
+
+  .method-image-container {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .method-image {
+    width: 350px;
+    height: 350px;
+    border-radius: 25px;
+    object-fit: cover;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  }
+
+  .image-overlay {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 15px 20px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 2px solid var(--accent-color);
+  }
+
+  .overlay-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .overlay-icon {
+      font-size: 24px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-color);
+    }
+  }
+
+  .methodology-footer {
+    text-align: center;
+  }
+
+  .footer-stats {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    background: linear-gradient(135deg, #FF6363, #4A90E2);
+    padding: 50px;
+    border-radius: 25px;
+    color: white;
+    box-shadow: 0 15px 35px rgba(255, 99, 99, 0.2);
+  }
+
+  .stat-item {
+    text-align: center;
+
+    .stat-number {
+      display: block;
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    p {
+      font-size: 16px;
+      margin: 0;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+  }
+
+  @media screen and (max-width: 1600px) {
+    .english-methodology {
+      padding: 100px 60px;
+    }
+
+    .methodology-item {
+      gap: 60px;
+    }
+
+    .method-image {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    .english-methodology {
+      padding: 80px 40px;
+    }
+
+    .methodology-header h2 {
+      font-size: 48px;
+    }
+
+    .methodology-item {
+      flex-direction: column !important;
+      text-align: center;
+      gap: 40px;
+    }
+
+    .method-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .method-image {
+      width: 280px;
+      height: 280px;
+    }
+
+    .footer-stats {
+      gap: 40px;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    .english-methodology {
+      padding: 60px 30px;
+    }
+
+    .methodology-header h2 {
+      font-size: 36px;
+    }
+
+    .methodology-header p {
+      font-size: 18px;
+    }
+
+    .methodology-container {
+      gap: 60px;
+    }
+
+    .method-image {
+      width: 250px;
+      height: 250px;
+    }
+
+    .method-text h3 {
+      font-size: 30px;
+    }
+
+    .footer-stats {
+      gap: 30px;
+      padding: 40px 30px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .english-methodology {
+      padding: 60px 20px;
+    }
+
+    .methodology-header h2 {
+      font-size: 32px;
+    }
+
+    .methodology-header p {
+      font-size: 16px;
+    }
+
+    .methodology-container {
+      gap: 50px;
+    }
+
+    .method-content {
+      gap: 20px;
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+    }
+
+    .method-text h3 {
+      font-size: 24px;
+    }
+
+    .method-text h4 {
+      font-size: 18px;
+    }
+
+    .method-text p {
+      font-size: 15px;
+    }
+
+    .method-image {
+      width: 220px;
+      height: 220px;
+    }
+
+    .image-overlay {
+      top: 10px;
+      right: 10px;
+      padding: 10px 15px;
+    }
+
+    .footer-stats {
+      flex-direction: column;
+      gap: 30px;
+      padding: 30px 20px;
+    }
+
+    .stat-item .stat-number {
+      font-size: 36px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .english-methodology {
+      padding: 40px 15px;
+    }
+
+    .methodology-header h2 {
+      font-size: 28px;
+    }
+
+    .methodology-container {
+      gap: 40px;
+    }
+
+    .step-number {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+    }
+
+    .method-text h3 {
+      font-size: 20px;
+    }
+
+    .method-image {
+      width: 180px;
+      height: 180px;
+    }
+
+    .image-overlay {
+      padding: 8px 12px;
+      
+      .overlay-icon {
+        font-size: 18px;
+      }
+      
+      p {
+        font-size: 12px;
+      }
+    }
+
+    .footer-stats {
+      padding: 25px 15px;
+    }
+
+    .stat-item .stat-number {
+      font-size: 30px;
+    }
+
+    .stat-item p {
+      font-size: 14px;
+    }
+  }
+</style>

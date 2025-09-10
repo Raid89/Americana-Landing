@@ -4,7 +4,7 @@ import Navigation from "@components/shared/Navigation.astro";
 import NavDropdown from "@components/shared/NavDropdown.astro";
 ---
 
-<header>
+<header id="main-header" class="header-sticky">
   <div class="header-main_container">
     <div class="header-logo_container">
       <img
@@ -29,18 +29,61 @@ import NavDropdown from "@components/shared/NavDropdown.astro";
 </header>
 
 <style>
+  /* Header sticky principal */
+  .header-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 100;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(0);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Estados del header */
+  .header-sticky.header-hidden {
+    transform: translateY(-100%);
+  }
+
+  .header-sticky.header-visible {
+    transform: translateY(0);
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Cuando está en el top de la página */
+  .header-sticky.header-at-top {
+    background: rgba(255, 255, 255, 1);
+    backdrop-filter: none;
+    box-shadow: 1px 0 19px rgb(0 0 0 / 31%);
+  }
+
   .header-main_container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 25px 30px;
-    box-shadow: 1px 0 19px rgb(0 0 0 / 31%);
+    transition: all 0.3s ease;
+  }
+
+  /* Padding reducido cuando se hace scroll */
+  .header-sticky:not(.header-at-top) .header-main_container {
+    padding: 15px 30px;
   }
 
   .header-logo_container img {
     display: block;
     max-width: 100%;
     height: auto;
+    transition: all 0.3s ease;
+  }
+
+  /* Logo más pequeño cuando se hace scroll */
+  .header-sticky:not(.header-at-top) .header-logo_container img {
+    transform: scale(0.9);
   }
 
   .navigation-dropdown {
@@ -51,6 +94,11 @@ import NavDropdown from "@components/shared/NavDropdown.astro";
     .header-main_container {
       padding: 20px 10px;
     }
+
+    .header-sticky:not(.header-at-top) .header-main_container {
+      padding: 12px 10px;
+    }
+    
     .header-logo_container {
       width: 142px;
     }
@@ -64,5 +112,86 @@ import NavDropdown from "@components/shared/NavDropdown.astro";
     .navigation-list {
       display: none;
     }
+
+    .header-main_container {
+      padding: 16px 15px;
+    }
+
+    .header-sticky:not(.header-at-top) .header-main_container {
+      padding: 10px 15px;
+    }
+  }
+
+  /* Animaciones para dispositivos con movimiento reducido */
+  @media (prefers-reduced-motion: reduce) {
+    .header-sticky,
+    .header-main_container,
+    .header-logo_container img {
+      transition: none;
+    }
   }
 </style>
+
+<script>
+  // Header scroll behavior
+  document.addEventListener('DOMContentLoaded', function() {
+    const header = document.getElementById('main-header') as HTMLElement;
+    let lastScrollTop = 0;
+    let isScrolling = false;
+    
+    // Threshold para activar el comportamiento
+    const scrollThreshold = 100;
+    
+    function handleScroll() {
+      if (isScrolling) return;
+      
+      isScrolling = true;
+      requestAnimationFrame(() => {
+        const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Determinar si estamos en el top de la página
+        if (currentScrollTop <= 10) {
+          header.classList.add('header-at-top');
+          header.classList.remove('header-hidden', 'header-visible');
+        } else {
+          header.classList.remove('header-at-top');
+          
+          // Determinar dirección del scroll
+          if (currentScrollTop > lastScrollTop && currentScrollTop > scrollThreshold) {
+            // Scrolleando hacia abajo - ocultar header
+            header.classList.add('header-hidden');
+            header.classList.remove('header-visible');
+          } else if (currentScrollTop < lastScrollTop) {
+            // Scrolleando hacia arriba - mostrar header
+            header.classList.remove('header-hidden');
+            header.classList.add('header-visible');
+          }
+        }
+        
+        lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop;
+        isScrolling = false;
+      });
+    }
+    
+    // Throttle del evento scroll para mejor performance
+    let ticking = false;
+    function optimizedScroll() {
+      if (!ticking) {
+        requestAnimationFrame(handleScroll);
+        ticking = true;
+        setTimeout(() => { ticking = false; }, 10);
+      }
+    }
+    
+    // Event listeners
+    window.addEventListener('scroll', optimizedScroll, { passive: true });
+    
+    // Inicializar estado
+    handleScroll();
+    
+    // Manejar resize para recalcular
+    window.addEventListener('resize', () => {
+      setTimeout(handleScroll, 100);
+    });
+  });
+</script>

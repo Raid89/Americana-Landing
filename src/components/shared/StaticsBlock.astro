@@ -5,7 +5,7 @@ const { value, title, text, index } = Astro.props;
 
 
 <div class="statistic-details">
-      <span class="statistic-value" data-value={value} id={`stat-value-${index}`}>+ 0</span>
+      <span class="statistic-value" data-stat="number" data-value={value} id={`stat-value-${index}`}>+ 0</span>
       <h3>{title}</h3>
       <p>{text}</p>
 </div>

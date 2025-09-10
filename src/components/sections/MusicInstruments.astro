@@ -1,0 +1,421 @@
+---
+import { Image } from "astro:assets";
+import ButtonContact from "@components/shared/ButtonContact.astro";
+
+const instruments = [
+  {
+    name: "Piano",
+    icon: "🎹",
+    description: "Desde clásico hasta moderno, aprende a tocar el instrumento más versátil",
+    levels: ["Principiante", "Intermedio", "Avanzado"],
+    duration: "Clases de 60 min",
+    color: "#FF6363"
+  },
+  {
+    name: "Guitarra",
+    icon: "🎸",
+    description: "Acústica o eléctrica, domina los acordes y melodías que más te gustan",
+    levels: ["Principiante", "Intermedio", "Avanzado"],
+    duration: "Clases de 45 min",
+    color: "#FFB366"
+  },
+  {
+    name: "Violín",
+    icon: "🎻",
+    description: "Descubre la elegancia y expresividad de este instrumento clásico",
+    levels: ["Principiante", "Intermedio", "Avanzado"],
+    duration: "Clases de 50 min",
+    color: "#66B2FF"
+  },
+  {
+    name: "Batería",
+    icon: "🥁",
+    description: "Encuentra tu ritmo y aprende a ser el corazón de cualquier banda",
+    levels: ["Principiante", "Intermedio", "Avanzado"],
+    duration: "Clases de 60 min",
+    color: "#A366FF"
+  },
+  {
+    name: "Canto",
+    icon: "🎤",
+    description: "Desarrolla tu voz y aprende técnicas vocales profesionales",
+    levels: ["Principiante", "Intermedio", "Avanzado"],
+    duration: "Clases de 45 min",
+    color: "#66FFB2"
+  },
+  {
+    name: "Ukulele",
+    icon: "🎶",
+    description: "Un instrumento alegre y fácil de aprender para todas las edades",
+    levels: ["Principiante", "Intermedio"],
+    duration: "Clases de 40 min",
+    color: "#FF66B2"
+  }
+];
+---
+
+<section id="music-instruments" class="music-instruments" data-animate="grid">
+  <div class="instruments-header" data-grid="header">
+    <h2>Instrumentos que Enseñamos</h2>
+    <p>Encuentra tu pasión musical con nuestros cursos especializados</p>
+  </div>
+
+  <div class="instruments-grid">
+    {instruments.map((instrument, index) => (
+      <div 
+        class="instrument-card" 
+        data-grid="item"
+        style={`--accent-color: ${instrument.color}`}
+      >
+        <div class="instrument-icon">
+          <span>{instrument.icon}</span>
+        </div>
+        <div class="instrument-content">
+          <h3>{instrument.name}</h3>
+          <p class="instrument-description">{instrument.description}</p>
+          
+          <div class="instrument-details">
+            <div class="detail-item">
+              <span class="detail-label">Niveles:</span>
+              <div class="levels">
+                {instrument.levels.map(level => (
+                  <span class="level-badge">{level}</span>
+                ))}
+              </div>
+            </div>
+            <div class="detail-item">
+              <span class="detail-label">Duración:</span>
+              <span class="duration">{instrument.duration}</span>
+            </div>
+          </div>
+        </div>
+        <div class="instrument-cta">
+          <ButtonContact 
+            href="#contactSection" 
+            text="Más información" 
+            className="instrument-btn"
+          />
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="instruments-footer animate-fade-in" data-animate>
+    <div class="footer-content">
+      <h3>¿No encuentras tu instrumento?</h3>
+      <p>También ofrecemos clases personalizadas de otros instrumentos. ¡Contáctanos y cuéntanos qué te gustaría aprender!</p>
+      <ButtonContact 
+        href="#contactSection" 
+        text="Consultar otros instrumentos" 
+        className="footer-btn"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  @import "@styles/animations.css";
+
+  .music-instruments {
+    padding: 120px 100px;
+    background: linear-gradient(180deg, #FDFBFA 0%, #F8F6F5 100%);
+    position: relative;
+  }
+
+  .instruments-header {
+    text-align: center;
+    margin-bottom: 80px;
+
+    h2 {
+      font-size: 64px;
+      font-weight: 600;
+      margin: 0 0 20px 0;
+      background: linear-gradient(135deg, #212529, #FF6363);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      font-size: 20px;
+      color: #666;
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+
+  .instruments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 40px;
+    margin-bottom: 80px;
+  }
+
+  .instrument-card {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    animation-delay: var(--delay);
+  }
+
+  .instrument-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent-color);
+  }
+
+  .instrument-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    border-color: var(--accent-color);
+  }
+
+  .instrument-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+
+    span {
+      font-size: 40px;
+      filter: brightness(1.2);
+    }
+  }
+
+  .instrument-content {
+    margin-bottom: 30px;
+
+    h3 {
+      font-size: 28px;
+      font-weight: 600;
+      margin: 0 0 15px 0;
+      color: #212529;
+    }
+
+    .instrument-description {
+      font-size: 16px;
+      line-height: 24px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+  }
+
+  .instrument-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .detail-label {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .levels {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .level-badge {
+    background: rgba(255, 99, 99, 0.1);
+    color: var(--accent-color);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+    border: 1px solid rgba(255, 99, 99, 0.2);
+  }
+
+  .duration {
+    color: var(--accent-color);
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .instrument-cta .instrument-btn {
+    width: 100%;
+    background: var(--accent-color) !important;
+    border: none !important;
+    transition: transform 0.2s ease;
+  }
+
+  .instrument-cta .instrument-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .instruments-footer {
+    text-align: center;
+    background: white;
+    padding: 60px;
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    border: 2px solid #FF6363;
+
+    h3 {
+      font-size: 32px;
+      font-weight: 600;
+      margin: 0 0 20px 0;
+      color: #212529;
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 28px;
+      color: #666;
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .footer-btn {
+    background: linear-gradient(135deg, #FF6363, #FF8282) !important;
+    border: none !important;
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 99, 99, 0.3);
+  }
+
+  @media screen and (max-width: 1600px) {
+    .music-instruments {
+      padding: 100px 60px;
+    }
+
+    .instruments-grid {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+  }
+
+  @media screen and (max-width: 1300px) {
+    .music-instruments {
+      padding: 80px 40px;
+    }
+
+    .instruments-header h2 {
+      font-size: 48px;
+    }
+
+    .instruments-grid {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .instrument-card {
+      padding: 30px;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    .music-instruments {
+      padding: 60px 30px;
+    }
+
+    .instruments-header h2 {
+      font-size: 36px;
+    }
+
+    .instruments-header p {
+      font-size: 18px;
+    }
+
+    .instruments-grid {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .music-instruments {
+      padding: 60px 20px;
+    }
+
+    .instruments-header h2 {
+      font-size: 32px;
+    }
+
+    .instruments-header p {
+      font-size: 16px;
+    }
+
+    .instruments-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .instrument-card {
+      padding: 25px;
+    }
+
+    .instrument-content h3 {
+      font-size: 24px;
+    }
+
+    .instrument-description {
+      font-size: 15px;
+    }
+
+    .instruments-footer {
+      padding: 40px 20px;
+    }
+
+    .instruments-footer h3 {
+      font-size: 24px;
+    }
+
+    .instruments-footer p {
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .music-instruments {
+      padding: 40px 15px;
+    }
+
+    .instruments-header h2 {
+      font-size: 28px;
+    }
+
+    .instrument-card {
+      padding: 20px;
+    }
+
+    .instrument-icon {
+      width: 60px;
+      height: 60px;
+      
+      span {
+        font-size: 30px;
+      }
+    }
+
+    .instruments-footer {
+      padding: 30px 15px;
+    }
+  }
+</style>

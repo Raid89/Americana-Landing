@@ -1,0 +1,161 @@
+---
+import StaticsBlock from "@components/shared/StaticsBlock.astro";
+
+const musicStatistics = [
+    {
+        title: "Estudiantes de música",
+        value: 850,
+        text: "Músicos en formación han descubierto su pasión y desarrollado sus habilidades con nosotros, desde principiantes hasta niveles avanzados."
+    },
+    {
+        title: "Horas de práctica guiada",
+        value: 45000,
+        text: "Sesiones de música personalizadas, donde cada estudiante desarrolla su técnica y expresividad musical a su propio ritmo."
+    },
+    {
+        title: "Recitales y presentaciones",
+        value: 120,
+        text: "Oportunidades para que nuestros estudiantes demuestren su progreso y ganen confianza tocando frente a una audiencia."
+    },
+]
+---
+
+<section class="music-statistics" data-animate="stats">
+  {musicStatistics.map((stat, i) => (
+    <div data-stat="block">
+      <StaticsBlock value={stat.value} title={stat.title} text={stat.text} index={i} />
+    </div>
+  ))}
+</section>
+
+<style>
+.music-statistics {
+    margin-top: 150px;
+    background: linear-gradient(135deg, #FF6363, #FF8282, #FFB366);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 95px;
+    padding: 40px 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+.music-statistics::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,50 Q30,30 40,50 T60,50" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/><circle cx="70" cy="30" r="3" fill="rgba(255,255,255,0.1)"/><path d="M10,70 Q20,50 30,70 T50,70" stroke="rgba(255,255,255,0.1)" stroke-width="2" fill="none"/></svg>') repeat;
+    pointer-events: none;
+}
+
+.statistic-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #FFF;
+    gap: 14px;
+    position: relative;
+    z-index: 1;
+
+    .statistic-value {
+        font-size: 34px;
+        font-weight: 600;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h3 {
+        font-size: 26px;
+        font-weight: 500;
+        margin: 0;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    p {
+        font-size: 18px;
+        line-height: 24px;
+        margin: 0;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .music-statistics {
+        gap: 50px;
+        padding: 30px 30px;
+    }
+
+    .statistic-details {
+        h3 {
+            font-size: 22px;
+        }
+        p {
+            font-size: 16px;
+        }
+        .statistic-value {
+            font-size: 28px;
+        }
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .music-statistics {
+        gap: 30px;
+        padding: 25px 20px;
+        margin-top: 100px;
+    }
+
+    .statistic-details {
+        gap: 10px;
+        h3 {
+            font-size: 18px;
+        }
+        p {
+            font-size: 14px;
+            line-height: 18px;
+        }
+        .statistic-value {
+            font-size: 24px;
+        }
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .music-statistics {
+        gap: 30px;
+        padding: 25px 20px;
+        margin-top: 100px;
+    }
+
+    .statistic-details {
+        gap: 10px;
+        h3 {
+            font-size: 14px;
+        }
+        p {
+            font-size: 12px;
+            line-height: 16px;
+        }
+        .statistic-value {
+            font-size: 20px;
+        }
+    }
+}
+
+@media screen and (max-width: 800px)  {
+    .music-statistics {
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 40px;
+    }
+
+    .statistic-details {
+        max-width: 300px;
+    }
+}
+</style>
