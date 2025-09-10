@@ -19,6 +19,7 @@ const InformationItems = [
         <p style="margin-bottom: 0px">Creemos que todos pueden aprender un inglés real, útil y conversacional. Nuestro método pone al estudiante en el centro del proceso, con clases prácticas adaptadas a sus necesidades y objetivos.</p>
         <p style="margin-bottom: 0px">Enseñamos con <span style="color:#FF6363">pasión, creatividad y cercanía</span> porque entendemos que cada estudiante es único, y cada avance es un paso hacia nuevas oportunidades.</p>
     `,
+    color: "#FF6363"
   },
   {
     title: "Nuestra Misión",
@@ -30,6 +31,7 @@ const InformationItems = [
         <p style="margin-bottom: 0px">Nos enfocamos en formar comunicadores seguros, conscientes y preparados para los desafíos del mundo actual, ofreciendo experiencias de aprendizaje dinámicas y personalizadas.</p>
         <p style="margin-bottom: 0px">Enseñar es una responsabilidad que asumimos con compromiso y cercanía. Cada clase es una herramienta práctica para el crecimiento personal y profesional de quienes confían en nosotros.</p>
     `,
+    color: "#66B2FF"
   },
   {
     title: "Nuestra Visión",
@@ -41,147 +43,323 @@ const InformationItems = [
         <p style="margin-bottom: 0px">Queremos liderar una nueva forma de aprender inglés: auténtica, flexible y conectada con las exigencias del mundo moderno.</p>
         <p style="margin-bottom: 0px">Imaginamos un entorno desde donde nuestros estudiantes usen el idioma como una herramienta para crear oportunidades, construir puentes globales y alcanzar sus metras con seguridad y propósito</p>
     `,
+    color: "#FFB366"
   },
 ];
 ---
 
-<div id="information-active" class="information-item view-transition-target">
-</div>
-<!-- Items ocultos que vamos a clonar -->
-<div id="information-templates" style="display: none;" data-animate>
-  {
-    InformationItems.map((item, index) => (
-      <div class="information-item animate-fade-in" data-index={index}>
-        <div class="information-image_dots">
-          <div class="information-image_container">
-            <Image
-              src={item.image}
-              alt={item.title}
-              width={1000}
-              height={667}
-              class="information-image"
-            />
-          </div>
+<section id="information-section" class="information-section" data-animate="showcase">
+  <div class="section-header">
+    <h2>Conoce Americana Academy</h2>
+    <p>Descubre quiénes somos y por qué somos la mejor opción para tu formación</p>
+  </div>
 
-          <div class="information-dots-container">
-            {InformationItems.map((_, index) => (
-              <button
-                class="information-dot"
-                data-index={index}
-                aria-label={`Ir al slide ${index + 1}`}
+  <div id="information-active" class="information-item view-transition-target">
+  </div>
+
+  <!-- Items ocultos que vamos a clonar -->
+  <div id="information-templates" style="display: none;">
+    {
+      InformationItems.map((item, index) => (
+        <div class="information-item" data-index={index} data-showcase="container" style={`--accent-color: ${item.color}`}>
+          <div class="information-image_dots" data-showcase="media">
+            <div class="information-image_container">
+              <Image
+                src={item.image}
+                alt={item.title}
+                width={1000}
+                height={667}
+                class="information-image"
               />
-            ))}
-          </div>
-        </div>
+              <div class="image-overlay"></div>
+            </div>
 
-        <div class="information-text_container">
-          <h2 class="information-title">{item.title}</h2>
-          <div class="information-subtitle" set:html={item.subtitle}>
-            <Image src={item.icon} alt={item.title} width={64} height={64} />
+            <div class="information-dots-container">
+              {InformationItems.map((_, index) => (
+                <button
+                  class="information-dot"
+                  data-index={index}
+                  aria-label={`Ir al slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
-          <div class="information-paragraph" set:html={item.paragraph} />
-          <ButtonContact href="#contactSection" text="Contactanos" />
+
+          <div class="information-text_container" data-showcase="content">
+            <div class="text-header">
+              <h2 class="information-title" data-showcase="title">{item.title}</h2>
+              <div class="information-subtitle" data-showcase="subtitle" set:html={item.subtitle}>
+                <div class="icon-container">
+                  <Image src={item.icon} alt={item.title} width={64} height={64} />
+                </div>
+              </div>
+            </div>
+            <div class="information-paragraph" data-showcase="text" set:html={item.paragraph} />
+            <div class="cta-container" data-showcase="cta">
+              <ButtonContact href="#contactSection" text="Contactanos" className="modern-cta" />
+            </div>
+          </div>
         </div>
-      </div>
-    ))
-  }
-</div>
+      ))
+    }
+  </div>
+</section>
 
 <style>
-  @import "@styles/animations.css";
+  .information-section {
+    padding: 120px 100px;
+    background: linear-gradient(180deg, #F8F6F5 0%, #FDFBFA 50%, #F8F6F5 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .information-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="%23FF6363" opacity="0.1"/><circle cx="90" cy="20" r="1.5" fill="%2366B2FF" opacity="0.1"/><circle cx="20" cy="80" r="1.2" fill="%23FFB366" opacity="0.1"/></svg>') repeat;
+    pointer-events: none;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-header h2 {
+    font-size: 64px;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+    background: linear-gradient(135deg, #212529, #FF6363);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-header p {
+    font-size: 20px;
+    color: #666;
+    margin: 0;
+    font-weight: 500;
+  }
+
   .information-item {
-    padding: 120px 0px;
     display: flex;
     justify-content: center;
     max-width: 1280px;
-    gap: 170px;
+    gap: 70px;
     margin: auto;
+    background: white;
+    border-radius: 30px;
+    padding: 60px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.5s ease;
+  }
+
+  .information-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent-color, #FF6363);
+  }
+
+  .information-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+    border-color: var(--accent-color, #FF6363);
   }
 
   .information-image_dots {
     width: 50%;
     max-width: 516px;
+    position: relative;
   }
 
-  @media (max-width: 1500px) {
-    .information-item {
-      gap: 70px;
-      padding: 120px 80px;
-    }
+  .information-image_container {
+    aspect-ratio: 555/496;
+    max-width: 516px;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
   }
 
-  @media (max-width: 1300px) {
-    .information-item {
-      gap: 70px;
-      padding: 120px 80px;
-    }
+  .information-image_container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
   }
 
-  @media (max-width: 1000px) {
-    .information-item {
-      gap: 35px;
-      flex-direction: column;
-      align-items: center;
-      padding: 120px 30px;
-    }
+  .information-image_container > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 100% 10%;
+    transition: all 0.3s ease;
   }
 
-  @media (max-width: 600px) or (max-height: 500px) {
-    .information-item {
-      flex-direction: column-reverse;
-      padding: 0px 40px;
-      gap: 0px;
-      height: 100dvh;
-    }
+  .information-image_container:hover > img {
+    transform: scale(1.05);
+  }
+
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, var(--accent-color, #FF6363), transparent);
+    opacity: 0.1;
+    transition: opacity 0.3s ease;
+  }
+
+  .information-image_container:hover .image-overlay {
+    opacity: 0.2;
+  }
+
+  .information-dots-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .information-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    border: 2px solid var(--accent-color, #FF6363);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .information-dot:hover {
+    background: rgba(255, 99, 99, 0.3);
+    transform: scale(1.2);
+  }
+
+  .information-dot.active {
+    background: var(--accent-color, #FF6363);
+    box-shadow: 0 4px 15px rgba(255, 99, 99, 0.4);
   }
 
   .information-text_container {
     width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
   }
 
-  @media (max-width: 1300px) {
-    .information-image_dots,
-    .information-text_container {
-      width: 100%;
-    }
-  }
-
-  @media (max-width: 1000px) {
-    .information-text_container {
-      text-align: center;
-    }
+  .text-header {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
 
   .information-title {
-    margin-top: 0px;
-    font-size: 64px;
+    font-size: 48px;
     font-weight: 600;
+    margin: 0;
+    background: linear-gradient(135deg, #212529, var(--accent-color, #FF6363));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .information-subtitle {
-    font-size: 40px;
+    font-size: 28px;
     font-weight: 500;
     display: flex;
     align-items: center;
-    text-wrap: nowrap;
-    gap: 10px;
-    margin-bottom: 25px;
+    gap: 15px;
+    color: #333;
+  }
 
-    & > img {
-      width: 35px;
-      height: 35px;
-    }
+  .icon-container {
+    width: 50px;
+    height: 50px;
+    background: var(--accent-color, #FF6363);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(255, 99, 99, 0.3);
+    flex-shrink: 0;
+  }
+
+  .icon-container img {
+    width: 28px !important;
+    height: 28px !important;
+    filter: brightness(0) invert(1);
   }
 
   .information-paragraph {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 400;
-    margin-bottom: 30px;
+    line-height: 28px;
+    color: #555;
+    flex-grow: 1;
+  }
+
+  .cta-container {
+    margin-top: 20px;
+  }
+
+  .modern-cta {
+    background: linear-gradient(135deg, var(--accent-color, #FF6363), #FF8282) !important;
+    border: none !important;
+    padding: 15px 30px !important;
+    border-radius: 25px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 8px 25px rgba(255, 99, 99, 0.3) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .modern-cta:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 12px 35px rgba(255, 99, 99, 0.4) !important;
+  }
+
+  @media (max-width: 1500px) {
+    .information-section {
+      padding: 100px 60px;
+    }
+
+    .information-item {
+      gap: 50px;
+      padding: 50px;
+    }
   }
 
   @media (max-width: 1300px) {
+    .information-section {
+      padding: 80px 40px;
+    }
+
+    .information-item {
+      gap: 40px;
+      padding: 40px;
+    }
+
+    .section-header h2 {
+      font-size: 48px;
+    }
+
     .information-title {
-      font-size: 34px;
+      font-size: 36px;
     }
 
     .information-subtitle {
@@ -190,76 +368,89 @@ const InformationItems = [
 
     .information-paragraph {
       font-size: 16px;
-    }
-  }
-
-  @media (max-width: 1300px) {
-    .information-title {
-      font-size: 36px;
-    }
-
-    .information-subtitle {
-      font-size: 26px;
-    }
-
-    .information-paragraph {
-      font-size: 18px;
-    }
-  }
-
-  @media (max-width: 1100px) {
-    .information-paragraph {
-      font-size: 14px;
+      line-height: 26px;
     }
   }
 
   @media (max-width: 1000px) {
-    .information-subtitle {
+    .information-section {
+      padding: 60px 30px;
+    }
+
+    .information-item {
       flex-direction: column;
+      align-items: center;
+      padding: 30px;
+      gap: 30px;
+    }
+
+    .information-image_dots,
+    .information-text_container {
+      width: 100%;
+    }
+
+    .information-text_container {
+      text-align: center;
+    }
+
+    .information-subtitle {
+      justify-content: center;
     }
   }
 
-  .information-image_container {
-    aspect-ratio: 555/496;
-    max-width: 516px;
-    border-radius: 38px;
-    overflow: hidden;
-    box-shadow: 0px 0px 17px 6px #00000047;
-  }
+  @media (max-width: 768px) {
+    .information-section {
+      padding: 40px 20px;
+    }
 
-  .information-image_container > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 100% 10%;
+    .section-header h2 {
+      font-size: 36px;
+    }
+
+    .section-header p {
+      font-size: 18px;
+    }
+
+    .information-item {
+      padding: 25px;
+    }
+
+    .information-title {
+      font-size: 28px;
+    }
+
+    .information-subtitle {
+      font-size: 20px;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .information-paragraph {
+      font-size: 15px;
+      line-height: 24px;
+    }
+
+    .icon-container {
+      width: 40px;
+      height: 40px;
+    }
+
+    .icon-container img {
+      width: 20px !important;
+      height: 20px !important;
+    }
   }
 
   @media (max-width: 600px) or (max-height: 500px) {
+    .information-item {
+      flex-direction: column-reverse;
+      padding: 20px;
+      gap: 20px;
+    }
+
     .information-image_container {
       display: none;
     }
-  }
-
-  .information-dots-container {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 40px;
-  }
-
-  .information-dot {
-    width: 18px;
-    height: 18px;
-    border-radius: 9999px;
-    background-color: #fff;
-    border: 3px solid #ff6363;
-    z-index: 1000;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-
-  .information-dot.active {
-    background-color: #ff6363;
   }
 </style>
 

@@ -9,9 +9,14 @@ import Statistics from "@components/sections/Statistics.astro";
 ---
 
 <head>
-  <script type="module" src="/animations-init.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script type="module">
-    import '/src/scripts/gsapAnimations.js';
+    import('/src/scripts/gsapAnimations.js').then(module => {
+      console.log('GSAP animations loaded for main page');
+    }).catch(error => {
+      console.error('Error loading GSAP animations:', error);
+    });
   </script>
 </head>
 

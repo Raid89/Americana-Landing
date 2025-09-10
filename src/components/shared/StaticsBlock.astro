@@ -4,10 +4,10 @@ const { value, title, text, index } = Astro.props;
 
 
 
-<div class="statistic-details">
-      <span class="statistic-value" data-stat="number" data-value={value} id={`stat-value-${index}`}>+ 0</span>
-      <h3>{title}</h3>
-      <p>{text}</p>
+<div class="statistic-details" data-stats="card" data-index={index}>
+      <span class="statistic-value" data-stats="number" data-value={value} id={`stat-value-${index}`}>0</span>
+      <h3 data-stats="title">{title}</h3>
+      <p data-stats="text">{text}</p>
 </div>
 
 <style>
@@ -29,23 +29,37 @@ const { value, title, text, index } = Astro.props;
     text-align: center;
     color: #FFF;
     gap: 14px;
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
 
-    .statistic-value {
-        font-size: 34px;
-        font-weight: 600;
-    }
+.statistic-details:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
 
-    h3 {
-        font-size: 26px;
-        font-weight: 500;
-        margin: 0;
-    }
+.statistic-details .statistic-value {
+    font-size: 34px;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
 
-    p {
-        font-size: 18px;
-        line-height: 24px;
-        margin: 0;
-    }
+.statistic-details h3 {
+    font-size: 26px;
+    font-weight: 500;
+    margin: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.statistic-details p {
+    font-size: 18px;
+    line-height: 24px;
+    margin: 0;
+    opacity: 0.95;
 }
 
 @media screen and (max-width: 1500px) {

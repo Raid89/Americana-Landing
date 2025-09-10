@@ -211,16 +211,17 @@ class AdvancedScrollAnimations {
     const statSections = gsap.utils.toArray(selector);
     
     statSections.forEach((section) => {
-      const statBlocks = section.querySelectorAll('[data-stat="block"]');
+      const statCards = section.querySelectorAll('[data-stats="card"]');
       
-      if (statBlocks.length > 0) {
-        gsap.set(statBlocks, { 
+      if (statCards.length > 0) {
+        gsap.set(statCards, { 
           opacity: 0, 
-          y: 60,
+          y: 80,
           scale: 0.9
         });
 
-        gsap.to(statBlocks, {
+        // Animación de entrada de las cards
+        gsap.to(statCards, {
           opacity: 1,
           y: 0,
           scale: 1,
@@ -234,136 +235,207 @@ class AdvancedScrollAnimations {
           }
         });
 
-        // Animar números
-        statBlocks.forEach((block) => {
-          const numberElement = block.querySelector('[data-stat="number"]');
+        // Animar números con contador
+        statCards.forEach((card) => {
+          const numberElement = card.querySelector('[data-stats="number"]');
           if (numberElement) {
-            const finalNumber = parseInt(numberElement.textContent.replace(/\D/g, ''));
-            if (finalNumber && !isNaN(finalNumber)) {
+            const targetValue = parseInt(numberElement.getAttribute('data-value'));
+            if (targetValue && !isNaN(targetValue)) {
               const obj = { number: 0 };
 
               gsap.to(obj, {
-                number: finalNumber,
-                duration: 2,
+                number: targetValue,
+                duration: 2.5,
                 ease: this.config.easing.smooth,
                 onUpdate: () => {
-                  numberElement.textContent = `+ ${Math.floor(obj.number).toLocaleString()}`;
+                  const formattedNumber = Math.floor(obj.number).toLocaleString();
+                  numberElement.textContent = `+ ${formattedNumber}`;
                 },
                 scrollTrigger: {
-                  trigger: block,
+                  trigger: card,
                   start: this.config.triggers.normal,
                   toggleActions: "play none none reverse"
                 }
               });
             }
           }
+
+          // Animar título y texto de la estadística
+          const title = card.querySelector('[data-stats="title"]');
+          const text = card.querySelector('[data-stats="text"]');
+          
+          if (title || text) {
+            gsap.set([title, text].filter(Boolean), { 
+              opacity: 0, 
+              y: 20 
+            });
+
+            gsap.to([title, text].filter(Boolean), {
+              opacity: 1,
+              y: 0,
+              duration: this.config.timing.fast,
+              ease: this.config.easing.smooth,
+              stagger: 0.1,
+              delay: 0.3,
+              scrollTrigger: {
+                trigger: card,
+                start: this.config.triggers.normal,
+                toggleActions: "play none none reverse"
+              }
+            });
+          }
         });
       }
     });
   }
 
-  // Animación de beneficios
+  // Animación de beneficios y formularios de contacto
   animateBenefits(selector) {
     const benefitSections = gsap.utils.toArray(selector);
     
     benefitSections.forEach((section) => {
-      const header = section.querySelector('[data-grid="header"]');
-      const cards = section.querySelectorAll('[data-benefit="card"]');
+      const formContainer = section.querySelector('[data-benefit="form"]');
+      const listContainer = section.querySelector('[data-benefit="list"]');
       
-      // Animar header
-      if (header) {
-        const headerElements = header.querySelectorAll('h2, p, .global-stat');
-        gsap.set(headerElements, { opacity: 0, y: 40 });
+      // Animar formulario
+      if (formContainer) {
+        const title = formContainer.querySelector('[data-benefit="title"]');
+        const subtitle = formContainer.querySelector('[data-benefit="subtitle"]');
+        const content = formContainer.querySelector('[data-benefit="content"]');
         
-        gsap.to(headerElements, {
-          opacity: 1,
-          y: 0,
-          duration: this.config.timing.medium,
-          ease: this.config.easing.smooth,
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: header,
-            start: this.config.triggers.normal,
-            toggleActions: "play none none reverse"
-          }
-        });
-      }
-
-      // Animar cards
-      if (cards.length > 0) {
-        gsap.set(cards, { 
+        const formElements = [title, subtitle, content].filter(Boolean);
+        
+        gsap.set(formElements, { 
           opacity: 0,
-          y: 80,
-          scale: 0.9
+          x: -80,
+          scale: 0.95
         });
 
-        gsap.to(cards, {
+        gsap.to(formElements, {
           opacity: 1,
-          y: 0,
+          x: 0,
           scale: 1,
           duration: this.config.timing.medium,
           ease: this.config.easing.smooth,
           stagger: 0.15,
           scrollTrigger: {
-            trigger: cards[0],
+            trigger: formContainer,
             start: this.config.triggers.normal,
             toggleActions: "play none none reverse"
           }
         });
+      }
+
+      // Animar lista de beneficios
+      if (listContainer) {
+        const listTitle = listContainer.querySelector('[data-benefit="list-title"]');
+        const items = listContainer.querySelectorAll('[data-benefit="item"]');
+        
+        // Animar título de la lista
+        if (listTitle) {
+          gsap.set(listTitle, { 
+            opacity: 0,
+            x: 80,
+            scale: 0.95
+          });
+
+          gsap.to(listTitle, {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: this.config.timing.medium,
+            ease: this.config.easing.smooth,
+            scrollTrigger: {
+              trigger: listTitle,
+              start: this.config.triggers.normal,
+              toggleActions: "play none none reverse"
+            }
+          });
+        }
+
+        // Animar items de beneficios
+        if (items.length > 0) {
+          gsap.set(items, { 
+            opacity: 0,
+            x: 60,
+            scale: 0.9
+          });
+
+          gsap.to(items, {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            duration: this.config.timing.fast,
+            ease: this.config.easing.smooth,
+            stagger: 0.1,
+            scrollTrigger: {
+              trigger: items[0],
+              start: this.config.triggers.normal,
+              toggleActions: "play none none reverse"
+            }
+          });
+        }
       }
     });
   }
 
-  // Animación de showcase con 3D effect
+  // Animación de showcase con efectos dinámicos (para Information section)
   animateShowcase(selector) {
     const showcases = gsap.utils.toArray(selector);
     
     showcases.forEach((showcase) => {
-      const header = showcase.querySelector('[data-grid="header"]');
-      const items = showcase.querySelectorAll('[data-showcase="item"]');
+      const mediaContainer = showcase.querySelector('[data-showcase="media"]');
+      const contentContainer = showcase.querySelector('[data-showcase="content"]');
       
-      // Animar header
-      if (header) {
-        const headerElements = header.querySelectorAll('h2, p');
-        gsap.set(headerElements, { opacity: 0, y: 40 });
-        
-        gsap.to(headerElements, {
-          opacity: 1,
-          y: 0,
-          duration: this.config.timing.medium,
-          ease: this.config.easing.smooth,
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: header,
-            start: this.config.triggers.normal,
-            toggleActions: "play none none reverse"
-          }
-        });
-      }
-      
-      // Animar items
-      items.forEach((item, index) => {
-        const isEven = index % 2 === 0;
-        
-        gsap.set(item, { 
+      if (mediaContainer) {
+        gsap.set(mediaContainer, { 
           opacity: 0,
-          x: isEven ? -100 : 100,
+          x: -100,
           scale: 0.9
         });
 
-        gsap.to(item, {
+        gsap.to(mediaContainer, {
           opacity: 1,
           x: 0,
           scale: 1,
           duration: this.config.timing.medium,
           ease: this.config.easing.smooth,
           scrollTrigger: {
-            trigger: item,
+            trigger: mediaContainer,
             start: this.config.triggers.normal,
             toggleActions: "play none none reverse"
           }
         });
-      });
+      }
+
+      if (contentContainer) {
+        const title = contentContainer.querySelector('[data-showcase="title"]');
+        const subtitle = contentContainer.querySelector('[data-showcase="subtitle"]');
+        const text = contentContainer.querySelector('[data-showcase="text"]');
+        const cta = contentContainer.querySelector('[data-showcase="cta"]');
+
+        const elements = [title, subtitle, text, cta].filter(Boolean);
+        
+        gsap.set(elements, { 
+          opacity: 0,
+          x: 100,
+          scale: 0.95
+        });
+
+        gsap.to(elements, {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: this.config.timing.medium,
+          ease: this.config.easing.smooth,
+          stagger: 0.15,
+          scrollTrigger: {
+            trigger: contentContainer,
+            start: this.config.triggers.normal,
+            toggleActions: "play none none reverse"
+          }
+        });
+      }
     });
   }
 

@@ -29,146 +29,358 @@ const opinions = [
 ];
 ---
 
-<div id="opinionsSection" class="opinions-main_container">
-  <h3 class="opinions-title">Lo que dicen nuestros <br /> estudiantes</h3>
-  <div class="opinions-carousel">
+<section id="opinionsSection" class="opinions-section" data-animate="grid">
+  <div class="opinions-header" data-grid="header">
+    <h2 class="opinions-title">Lo que dicen nuestros <br /> estudiantes</h2>
+    <p>Historias reales de transformación y éxito en Americana Academy</p>
+  </div>
+  
+  <div class="opinions-carousel" data-grid="container">
     {
-      opinions.map((opinion) => (
-        <div class="opinions-item animate-slide-up" data-animate>
-          <div>
-            <Image
-              src={opinion.photo}
-              alt={opinion.name}
-              width={200}
-              height={200}
-            />
+      opinions.map((opinion, index) => (
+        <div class="opinions-item" data-grid="item" data-index={index} style={`--delay: ${index * 0.1}s`}>
+          <div class="opinion-header">
+            <div class="profile-image">
+              <Image
+                src={opinion.photo}
+                alt={opinion.name}
+                width={200}
+                height={200}
+              />
+            </div>
+            <div class="rating">
+              <span>⭐⭐⭐⭐⭐</span>
+            </div>
+          </div>
+
+          <div class="opinion-content">
             <p class="opinions-paragraph">{opinion.opinion}</p>
           </div>
 
-          <div>
+          <div class="opinion-footer">
             <p class="opinions-name">{opinion.name}</p>
             <p class="opinions-location">{opinion.location}</p>
           </div>
+
+          <div class="opinion-decoration"></div>
         </div>
       ))
     }
   </div>
-</div>
+
+  <div class="opinions-cta" data-grid="cta">
+    <div class="cta-content">
+      <h3>🌟 ¿Quieres ser parte de estas historias de éxito?</h3>
+      <p>Únete a miles de estudiantes que han transformado su futuro con nosotros</p>
+      <a href="#contactSection" class="cta-button">
+        <span>🚀</span>
+        Comenzar Mi Transformación
+      </a>
+    </div>
+  </div>
+</section>
 
 <style>
-    @import "@styles/animations.css";
+  .opinions-section {
+    padding: 120px 100px;
+    background: linear-gradient(180deg, #F8F6F5 0%, #FDFBFA 50%, #F8F6F5 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .opinions-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1.5" fill="%23FF6363" opacity="0.1"/><circle cx="80" cy="40" r="1" fill="%2366B2FF" opacity="0.1"/><circle cx="40" cy="80" r="1.2" fill="%23FFB366" opacity="0.1"/></svg>') repeat;
+    pointer-events: none;
+  }
+
+  .opinions-header {
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+    z-index: 1;
+  }
+
   .opinions-title {
-    font-size: 71px;
+    font-size: 64px;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+    background: linear-gradient(135deg, #212529, #FF6363);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     text-align: center;
     width: 100%;
   }
 
-  p {
-    margin: 0px;
-  }
-
-  .opinions-carousel {
-    display: flex;
-    padding: 30px 120px;
-    gap: 60px;
-    align-items: start;
-    justify-content: space-between;
-  }
-
-  .opinions-item {
-    width: 350px;
-    height: 500px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 30px 50px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 5px 10px 8px 0px #00000045;
-  }
-
-  .opinions-paragraph {
-    margin-top: 30px;
+  .opinions-header p {
     font-size: 20px;
+    color: #666;
+    margin: 0;
     font-weight: 500;
   }
 
+  .opinions-carousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-bottom: 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .opinions-item {
+    background: white;
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    animation-delay: var(--delay);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    min-height: 450px;
+  }
+
+  .opinions-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FF6363, #FF8282);
+  }
+
+  .opinions-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+    border-color: #FF6363;
+  }
+
+  .opinion-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .opinions-item:hover .profile-image {
+    transform: scale(1.05);
+    border-color: #FF6363;
+  }
+
+  .profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .rating {
+    font-size: 16px;
+    opacity: 0.8;
+  }
+
+  .opinion-content {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+
+  .opinions-paragraph {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+    color: #333;
+    margin: 0;
+    font-style: italic;
+    position: relative;
+  }
+
+  .opinions-paragraph::before {
+    content: '"';
+    font-size: 60px;
+    color: #FF6363;
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    opacity: 0.3;
+  }
+
+  .opinions-paragraph::after {
+    content: '"';
+    font-size: 60px;
+    color: #FF6363;
+    position: absolute;
+    bottom: -35px;
+    right: -15px;
+    opacity: 0.3;
+  }
+
+  .opinion-footer {
+    text-align: center;
+    border-top: 2px solid #f5f5f5;
+    padding-top: 20px;
+  }
+
   .opinions-name {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
+    color: #212529;
+    margin: 0 0 5px 0;
   }
 
   .opinions-location {
-    margin-top: 4px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    margin: 0;
   }
 
-  @media (max-width: 1500px) {
+  .opinion-decoration {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 60px;
+    height: 60px;
+    background: #FF6363;
+    border-radius: 50%;
+    opacity: 0.1;
+    transition: transform 0.3s ease;
+  }
+
+  .opinions-item:hover .opinion-decoration {
+    transform: scale(1.2);
+  }
+
+  .opinions-cta {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-content {
+    background: linear-gradient(135deg, #FF6363, #FF8282);
+    color: white;
+    padding: 60px;
+    border-radius: 30px;
+    box-shadow: 0 20px 40px rgba(255, 99, 99, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="70" cy="30" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="70" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+    pointer-events: none;
+  }
+
+  .cta-content h3 {
+    font-size: 36px;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-content p {
+    font-size: 18px;
+    line-height: 28px;
+    margin: 0 0 40px 0;
+    opacity: 0.95;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    color: #FF6363;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.4);
+  }
+
+  @media screen and (max-width: 1500px) {
+    .opinions-section {
+      padding: 100px 60px;
+    }
+
     .opinions-carousel {
-      padding: 30px 60px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
     }
 
     .opinions-item {
-      height: 400px;
-      padding: 30px 30px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 5px 10px 8px 0px #00000045;
-    }
-
-    .opinions-item > div > img {
-      width: 150px;
-      height: 150px;
-    }
-
-    .opinions-paragraph {
-      margin-top: 15px;
-      font-size: 18px;
-    }
-
-    .opinions-name {
-      font-size: 20px;
-    }
-
-    .opinions-location {
-      margin-top: 4px;
-      font-weight: 600;
-      font-size: 14px;
+      padding: 35px;
+      min-height: 420px;
     }
   }
 
-  @media (max-width: 1100px) {
+  @media screen and (max-width: 1100px) {
+    .opinions-section {
+      padding: 80px 40px;
+    }
+
     .opinions-title {
       font-size: 50px;
     }
 
     .opinions-carousel {
-      overflow: auto;
-      max-width: 100%;
-      scroll-snap-type: x mandatory;
-      gap: 50px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
     }
 
     .opinions-item {
-      min-width: 300px;
-      height: 400px;
-      padding: 30px 30px;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 5px 10px 8px 0px #00000045;
-      scroll-snap-align: center;
+      padding: 30px;
+      min-height: 400px;
     }
 
-    .opinions-item > div > img {
-      width: 150px;
-      height: 150px;
+    .profile-image {
+      width: 80px;
+      height: 80px;
     }
 
     .opinions-paragraph {
-      margin-top: 15px;
-      font-size: 18px;
+      font-size: 16px;
+      line-height: 26px;
     }
 
     .opinions-name {
@@ -176,15 +388,77 @@ const opinions = [
     }
 
     .opinions-location {
-      margin-top: 4px;
-      font-weight: 600;
       font-size: 14px;
     }
   }
 
-  @media (max-width: 800px) {
+  @media screen and (max-width: 900px) {
+    .opinions-section {
+      padding: 60px 30px;
+    }
+
     .opinions-title {
-      font-size: 34px;
+      font-size: 36px;
+    }
+
+    .opinions-header p {
+      font-size: 18px;
+    }
+
+    .opinions-carousel {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .cta-content {
+      padding: 40px 30px;
+    }
+
+    .cta-content h3 {
+      font-size: 28px;
+    }
+
+    .cta-content p {
+      font-size: 16px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .opinions-section {
+      padding: 40px 20px;
+    }
+
+    .opinions-title {
+      font-size: 32px;
+    }
+
+    .opinions-carousel {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .opinions-item {
+      padding: 25px;
+      min-height: 350px;
+    }
+
+    .opinions-paragraph {
+      font-size: 15px;
+      line-height: 24px;
+    }
+
+    .cta-content {
+      padding: 30px 20px;
+    }
+
+    .cta-content h3 {
+      font-size: 24px;
+    }
+
+    .cta-button {
+      width: 100%;
+      max-width: 280px;
+      justify-content: center;
     }
   }
 </style>

@@ -24,7 +24,7 @@ const statistics = [
 
 
 
-<section class="statistics">
+<section class="statistics" data-animate="stats">
   {statistics.map((stat, i) => (
     <StaticsBlock value={stat.value} title={stat.title} text={stat.text} index={i} />
   ))}
@@ -33,12 +33,26 @@ const statistics = [
 <style>
 .statistics {
     margin-top: 150px;
-    background-color: #FF8282;
+    background: linear-gradient(135deg, #FF8282 0%, #FF6363 100%);
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 95px;
-    padding: 20px 50px;
+    padding: 40px 50px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(255, 99, 99, 0.3);
+}
+
+.statistics::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="30" cy="30" r="2"/></g></g></svg>');
+    pointer-events: none;
 }
 
 .statistic-details {
