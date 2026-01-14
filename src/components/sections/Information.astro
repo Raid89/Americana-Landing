@@ -15,8 +15,8 @@ const InformationItems = [
     image: ProfesoraIngles,
     icon: eeuuFlag,
     paragraph: `
-        <p style="margin-bottom: 0px"><span style="color:#FF6363">Americana Academy</span> nació en 2018 con una misión clara: enseñar inglés de forma dinámica, auténtica y personalizada.</p>
-        <p style="margin-bottom: 0px">Creemos que todos pueden aprender un inglés real, útil y conversacional. Nuestro método pone al estudiante en el centro del proceso, con clases prácticas adaptadas a sus necesidades y objetivos.</p>
+        <p style="margin-bottom: 0px"><span style="color:#FF6363">Americana Academy</span> nació en 2018 con una misión clara: enseñar lenguajes y música de forma dinámica, auténtica y personalizada.</p>
+        <p style="margin-bottom: 0px">Creemos que todos pueden dominar el inglés y el español y desarrollar su talento musical, de una forma práctica, cercana y útil para la vida. Nuestro método pone al estudiante en el centro del proceso, con clases prácticas adaptadas a sus necesidades y objetivos.</p>
         <p style="margin-bottom: 0px">Enseñamos con <span style="color:#FF6363">pasión, creatividad y cercanía</span> porque entendemos que cada estudiante es único, y cada avance es un paso hacia nuevas oportunidades.</p>
     `,
     color: "#FF6363"
@@ -27,7 +27,7 @@ const InformationItems = [
     image: ProfesorIngles,
     icon: excelencia,
     paragraph: `
-        <p style="margin-bottom: 0px"><span style="color:#FF6363">Americana Academy</span> nace con una misión clara: empoderar a profesionales, emprendedores y creativos para dominar el inglés de forma real, práctica y auténtica.</p>
+        <p style="margin-bottom: 0px"><span style="color:#FF6363">Americana Academy</span> nace con una misión clara: empoderar a profesionales, emprendedores y creativos para dominar el inglés, el español y la música de forma real, práctica y auténtica.</p>
         <p style="margin-bottom: 0px">Nos enfocamos en formar comunicadores seguros, conscientes y preparados para los desafíos del mundo actual, ofreciendo experiencias de aprendizaje dinámicas y personalizadas.</p>
         <p style="margin-bottom: 0px">Enseñar es una responsabilidad que asumimos con compromiso y cercanía. Cada clase es una herramienta práctica para el crecimiento personal y profesional de quienes confían en nosotros.</p>
     `,
@@ -39,8 +39,8 @@ const InformationItems = [
     image: TorreDeLibros,
     icon: tierra,
     paragraph: `
-        <p style="margin-bottom: 0px">Aspiramos a ser la academia de inglés de referencia para quienes buscan <span style="color:#FF6363">avanzar, destacar y transformar</span> su futuro a través del lenguaje.</p>
-        <p style="margin-bottom: 0px">Queremos liderar una nueva forma de aprender inglés: auténtica, flexible y conectada con las exigencias del mundo moderno.</p>
+        <p style="margin-bottom: 0px">Aspiramos a ser la academia de  idiomas y música para quienes buscan <span style="color:#FF6363">avanzar, destacar y transformar</span> su futuro a través del lenguaje y la música.</p>
+        <p style="margin-bottom: 0px">Queremos liderar una nueva manera de aprender idiomas y música: una experiencia auténtica, flexible y en sintonía con las demandas del mundo actual.</p>
         <p style="margin-bottom: 0px">Imaginamos un entorno desde donde nuestros estudiantes usen el idioma como una herramienta para crear oportunidades, construir puentes globales y alcanzar sus metras con seguridad y propósito</p>
     `,
     color: "#FFB366"
@@ -459,7 +459,10 @@ const InformationItems = [
     "#information-templates .information-item"
   );
   const active = document.getElementById("information-active");
+  const section = document.getElementById("information-section");
   let currentIndex = 0;
+  let autoplayInterval = null;
+  let isHovering = false;
 
   function getClone(index) {
     return templates[index].cloneNode(true);
@@ -508,12 +511,48 @@ const InformationItems = [
     }
   }
 
+  function startAutoplay() {
+    if (autoplayInterval) clearInterval(autoplayInterval);
+    autoplayInterval = setInterval(() => {
+      if (!isHovering) {
+        const nextIndex = (currentIndex + 1) % templates.length;
+        updateSlide(nextIndex);
+      }
+    }, 10000);
+  }
+
+  function stopAutoplay() {
+    if (autoplayInterval) {
+      clearInterval(autoplayInterval);
+      autoplayInterval = null;
+    }
+  }
+
   // 🧩 Inicializa primer slide correctamente
   updateSlide(0);
 
-  // ⏱ Intervalo automático
-  setInterval(() => {
-    const nextIndex = (currentIndex + 1) % templates.length;
-    updateSlide(nextIndex);
-  }, 10000);
+  // ⏱ Agregar eventos de hover
+  section.addEventListener("mouseenter", () => {
+    isHovering = true;
+    stopAutoplay();
+  });
+
+  section.addEventListener("mouseleave", () => {
+    isHovering = false;
+    startAutoplay();
+  });
+
+  // Para dispositivos táctiles
+  section.addEventListener("touchstart", () => {
+    isHovering = true;
+    stopAutoplay();
+  });
+
+  section.addEventListener("touchend", () => {
+    isHovering = false;
+    startAutoplay();
+  });
+
+  // Inicia el autoplay
+  startAutoplay();
 </script>

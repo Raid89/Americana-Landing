@@ -1,5 +1,5 @@
 ---
-import Logotipo from "@images/logotipo.webp";
+import Logotipo from "@images/LogoSinFondoOriginal.png";
 import Navigation from "@components/shared/Navigation.astro";
 import NavDropdown from "@components/shared/NavDropdown.astro";
 ---
@@ -9,9 +9,9 @@ import NavDropdown from "@components/shared/NavDropdown.astro";
     <a class="header-logo_container" href="/">
       <img
         src={Logotipo.src}
-        width={Logotipo.width}
+        width={60}
         height={Logotipo.height}
-        alt="Logo Voice Lab"
+        alt="Logo Americana Academy"
         loading="eager"
         fetchpriority="high"
         decoding="async"
@@ -71,6 +71,8 @@ import NavDropdown from "@components/shared/NavDropdown.astro";
     padding: 25px 30px;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
+    max-width: 1980px;
+    margin: auto;
   }
 
   /* Padding reducido cuando se hace scroll */
