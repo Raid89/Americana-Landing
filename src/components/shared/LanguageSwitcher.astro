@@ -1,0 +1,74 @@
+---
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "../../i18n";
+
+const { locale, t } = useTranslations(Astro.currentLocale);
+const targetLocale = locale === "es" ? "en" : "es";
+const routePath = Astro.url.pathname.replace(/^\/en(?=\/|$)/, "").replace(/^\//, "");
+const targetPath = `${getRelativeLocaleUrl(targetLocale, routePath)}${Astro.url.search}${Astro.url.hash}`;
+---
+
+<div class="language-switcher" aria-label={t("language.label")}>
+  <span class="language-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="M3 12h18M12 3c2.5 2.5 3.7 5.5 3.7 9s-1.2 6.5-3.7 9c-2.5-2.5-3.7-5.5-3.7-9S9.5 5.5 12 3Z"></path>
+    </svg>
+  </span>
+  <span class="current-language">{locale.toUpperCase()}</span>
+  <span class="divider" aria-hidden="true"></span>
+  <a
+    href={targetPath}
+    lang={targetLocale}
+    hreflang={targetLocale}
+    data-language-link
+    data-locale={targetLocale}
+    aria-label={`${t("language.label")}: ${t(`language.${targetLocale}`)}`}
+  >
+    {targetLocale.toUpperCase()}
+  </a>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>("[data-language-link]").forEach((link) => {
+    if (link.dataset.languageBound === "true") return;
+    link.dataset.languageBound = "true";
+    link.addEventListener("click", () => {
+      const locale = link.dataset.locale;
+      if (!locale) return;
+      localStorage.setItem("americana-locale", locale);
+      document.cookie = `americana-locale=${locale}; Path=/; Max-Age=31536000; SameSite=Lax`;
+      if (window.location.hash) {
+        const destination = new URL(link.href, window.location.href);
+        destination.hash = window.location.hash;
+        link.href = destination.toString();
+      }
+    });
+  });
+</script>
+
+<style>
+  .language-switcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border: 1px solid rgba(255, 99, 99, 0.22);
+    border-radius: 999px;
+    background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(255,240,240,.9));
+    box-shadow: 0 4px 14px rgba(255, 99, 99, .12);
+    color: #343434;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+  .language-icon { width: 18px; height: 18px; color: #ff6363; display: flex; }
+  .language-icon svg { width: 100%; height: 100%; }
+  .current-language { color: #ff6363; }
+  .divider { width: 1px; height: 14px; background: rgba(33,37,41,.18); }
+  a { color: #616161; text-decoration: none; transition: color .2s ease, transform .2s ease; }
+  a:hover { color: #ff6363; transform: translateY(-1px); }
+  a:focus-visible { outline: 2px solid #ff6363; outline-offset: 4px; border-radius: 4px; }
+  @media (max-width: 900px) { .language-switcher { padding: 6px 8px; gap: 6px; } }
+</style>

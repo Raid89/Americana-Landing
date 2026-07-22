@@ -7,42 +7,32 @@ import TorreDeLibros from "@images/torre-de-libros.jpg";
 import eeuuFlag from "@images/eeuu.png";
 import excelencia from "@images/excelencia.png";
 import tierra from "@images/planeta-tierra.png";
+import { useTranslations } from "../../i18n";
+const { t } = useTranslations(Astro.currentLocale);
 
 const InformationItems = [
   {
-    title: "Sobre Nosotros",
-    subtitle: `<span>Somos Americana Academy<span style="color:#FF6363">.</span></span>`,
+    title: t("information.about.title"),
+    subtitle: t("information.about.subtitle"),
     image: ProfesoraIngles,
     icon: eeuuFlag,
-    paragraph: `
-        <p style="margin-bottom: 0px"><span style="color:#FF6363">Americana Academy</span> nació en 2018 con una misión clara: enseñar lenguajes y música de forma dinámica, auténtica y personalizada.</p>
-        <p style="margin-bottom: 0px">Creemos que todos pueden dominar el inglés y el español y desarrollar su talento musical, de una forma práctica, cercana y útil para la vida. Nuestro método pone al estudiante en el centro del proceso, con clases prácticas adaptadas a sus necesidades y objetivos.</p>
-        <p style="margin-bottom: 0px">Enseñamos con <span style="color:#FF6363">pasión, creatividad y cercanía</span> porque entendemos que cada estudiante es único, y cada avance es un paso hacia nuevas oportunidades.</p>
-    `,
+    paragraph: t("information.about.body"),
     color: "#FF6363"
   },
   {
-    title: "Nuestra Misión",
-    subtitle: `<span>Tu <span style="color:#FF6363">Éxito</span>, Nuestra Meta<span style="color:#FF6363">.</span></span>`,
+    title: t("information.mission.title"),
+    subtitle: t("information.mission.subtitle"),
     image: ProfesorIngles,
     icon: excelencia,
-    paragraph: `
-        <p style="margin-bottom: 0px"><span style="color:#FF6363">Americana Academy</span> nace con una misión clara: empoderar a profesionales, emprendedores y creativos para dominar el inglés, el español y la música de forma real, práctica y auténtica.</p>
-        <p style="margin-bottom: 0px">Nos enfocamos en formar comunicadores seguros, conscientes y preparados para los desafíos del mundo actual, ofreciendo experiencias de aprendizaje dinámicas y personalizadas.</p>
-        <p style="margin-bottom: 0px">Enseñar es una responsabilidad que asumimos con compromiso y cercanía. Cada clase es una herramienta práctica para el crecimiento personal y profesional de quienes confían en nosotros.</p>
-    `,
+    paragraph: t("information.mission.body"),
     color: "#66B2FF"
   },
   {
-    title: "Nuestra Visión",
-    subtitle: `<span>Inglés con Futuro<span style="color:#FF6363">.</span></span>`,
+    title: t("information.vision.title"),
+    subtitle: t("information.vision.subtitle"),
     image: TorreDeLibros,
     icon: tierra,
-    paragraph: `
-        <p style="margin-bottom: 0px">Aspiramos a ser la academia de  idiomas y música para quienes buscan <span style="color:#FF6363">avanzar, destacar y transformar</span> su futuro a través del lenguaje y la música.</p>
-        <p style="margin-bottom: 0px">Queremos liderar una nueva manera de aprender idiomas y música: una experiencia auténtica, flexible y en sintonía con las demandas del mundo actual.</p>
-        <p style="margin-bottom: 0px">Imaginamos un entorno desde donde nuestros estudiantes usen el idioma como una herramienta para crear oportunidades, construir puentes globales y alcanzar sus metras con seguridad y propósito</p>
-    `,
+    paragraph: t("information.vision.body"),
     color: "#FFB366"
   },
 ];
@@ -50,8 +40,8 @@ const InformationItems = [
 
 <section id="information-section" class="information-section" data-animate="showcase">
   <div class="section-header">
-    <h2>Conoce Americana Academy</h2>
-    <p>Descubre quiénes somos y por qué somos la mejor opción para tu formación</p>
+    <h2>{t("information.heading")}</h2>
+    <p>{t("information.intro")}</p>
   </div>
 
   <div id="information-active" class="information-item view-transition-target">
@@ -79,7 +69,7 @@ const InformationItems = [
                 <button
                   class="information-dot"
                   data-index={index}
-                  aria-label={`Ir al slide ${index + 1}`}
+                  aria-label={`${t("information.slide")} ${index + 1}`}
                 />
               ))}
             </div>
@@ -96,7 +86,7 @@ const InformationItems = [
             </div>
             <div class="information-paragraph" data-showcase="text" set:html={item.paragraph} />
             <div class="cta-container" data-showcase="cta">
-              <ButtonContact href="#contactSection" text="Contactanos" className="modern-cta" />
+              <ButtonContact href="#contactSection" text={t("nav.contact")} className="modern-cta" />
             </div>
           </div>
         </div>

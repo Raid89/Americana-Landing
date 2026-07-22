@@ -3,13 +3,19 @@ import { Image } from "astro:assets";
 import Logotipo from "@images/logotipo-col.webp";
 import { Icon } from "astro-icon/components";
 import ButtonContact from "./ButtonContact.astro";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "../../i18n";
+
+const { locale, t } = useTranslations(Astro.currentLocale);
+const home = getRelativeLocaleUrl(locale);
 
 const navLinks = [
-  { href: "#information-active", text: "Conócenos" },
-  { href: "/music", text: "Música" },
-  { href: "/languages", text: "Idiomas" },
-  { href: "/#opinionsSection", text: "Opiniones" },
-  { href: "#contactSection", text: "Contactanos", isButton: true },
+  { href: `${home}#information-active`, text: t("nav.about") },
+  { href: getRelativeLocaleUrl(locale, "music"), text: t("nav.music") },
+  { href: getRelativeLocaleUrl(locale, "languages"), text: t("nav.languages") },
+  { href: `${home}#opinionsSection`, text: t("nav.opinions") },
+  { href: "#contactSection", text: t("nav.contact"), isButton: true },
 ];
 ---
 
@@ -20,7 +26,7 @@ const navLinks = [
 <button 
   class="navigation_dropdown-button" 
   type="button" 
-  aria-label="Abrir menú de navegación"
+  aria-label={t("nav.open")}
   aria-expanded="false"
   aria-controls="dropdown-menu"
 >
@@ -42,21 +48,22 @@ const navLinks = [
         src={Logotipo}
         widths={[142, Logotipo.width]}
         sizes={`(max-width: 1000px) 142px, ${Logotipo.width}px`}
-        alt="Logo Americana Academia"
+        alt="Americana Academy logo"
       />
     </div>
     <button 
       class="navigation_dropdown-close-button" 
       type="button"
-      aria-label="Cerrar menú de navegación"
+      aria-label={t("nav.close")}
     >
       <Icon name="cruz-pequena" />
     </button>
   </div>
 
   <!-- Navegación principal -->
-  <nav class="header-navigation" aria-label="Navegación principal">
-    <h2 id="dropdown-title" class="sr-only">Menú de navegación</h2>
+  <nav class="header-navigation" aria-label={t("nav.main")}>
+    <h2 id="dropdown-title" class="sr-only">{t("nav.menu")}</h2>
+    <div class="mobile-language-switcher"><LanguageSwitcher /></div>
     {
       navLinks.map((link) => (
         <div class="nav-item">
@@ -362,6 +369,12 @@ const navLinks = [
     gap: 12px;
     padding: 40px 28px;
     justify-content: flex-start;
+  }
+
+  .mobile-language-switcher {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 8px;
   }
 
   .nav-item {

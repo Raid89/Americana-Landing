@@ -1,21 +1,23 @@
 ---
 import StaticsBlock from "@components/shared/StaticsBlock.astro";
+import { useTranslations } from "../../i18n";
+const { t } = useTranslations(Astro.currentLocale);
 
 const musicStatistics = [
     {
-        title: "Estudiantes de música",
+        title: t("music.stats.students.title"),
         value: 850,
-        text: "Músicos en formación han descubierto su pasión y desarrollado sus habilidades con nosotros, desde principiantes hasta niveles avanzados."
+        text: t("music.stats.students.text")
     },
     {
-        title: "Horas de práctica guiada",
+        title: t("music.stats.hours.title"),
         value: 45000,
-        text: "Sesiones de música personalizadas, donde cada estudiante desarrolla su técnica y expresividad musical a su propio ritmo."
+        text: t("music.stats.hours.text")
     },
     {
-        title: "Recitales y presentaciones",
+        title: t("music.stats.recitals.title"),
         value: 120,
-        text: "Oportunidades para que nuestros estudiantes demuestren su progreso y ganen confianza tocando frente a una audiencia."
+        text: t("music.stats.recitals.text")
     },
 ]
 ---

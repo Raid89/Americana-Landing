@@ -3,7 +3,7 @@ import Layout from "src/layout/Layout.astro";
 import Seo from "src/layout/Seo.astro";
 ---
 
-<html lang="en">
+<html lang={Astro.currentLocale ?? "es"}>
   <Seo />
   <Layout />
 </html>

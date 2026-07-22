@@ -8,6 +8,14 @@ export default defineConfig({
   output: 'server',
   adapter: vercel({}),
 
+  i18n: {
+    locales: ['es', 'en'],
+    defaultLocale: 'es',
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
+
   integrations: [icon()],
   
   // Optimizaciones de build para performance

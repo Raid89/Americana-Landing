@@ -4,6 +4,10 @@ import Youtube from "@images/youtube-white.png";
 import Facebook from "@images/facebook-white.png";
 import Instagram from "@images/instagram-white.png";
 import { Image } from "astro:assets";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "../../i18n";
+const { locale, t } = useTranslations(Astro.currentLocale);
+const home = getRelativeLocaleUrl(locale);
 ---
 
 <footer>
@@ -11,7 +15,7 @@ import { Image } from "astro:assets";
     <div class="footer-logo">
       <Image width={200} src={LogoTipo} alt="Logo" />
       <div class="footer-social-networks logo-section">
-        <p>Síguenos:</p>
+        <p>{t("footer.follow")}</p>
 
         <div class="social-icons">
           <a href="https://www.youtube.com/@americana.academy" target="_blank">
@@ -31,8 +35,7 @@ import { Image } from "astro:assets";
           </a>
         </div>
         <p class="footer-copyright">
-          Copyright © 2025 Americana Academy.<br />Todos los derechos
-          reservados.
+          Copyright © 2025 Americana Academy.<br />{t("footer.rights")}
         </p>
       </div>
     </div>
@@ -41,28 +44,28 @@ import { Image } from "astro:assets";
 
     <div class="footer-links">
       <ul class="footer-list">
-        <h3>Nuestros Servicios</h3>
-        <li><a href="/#hero">Inicio</a></li>
-        <li><a href="/languages">Clases de idiomas</a></li>
-        <li><a href="/music">Clases de música</a></li>
+        <h3>{t("footer.services")}</h3>
+        <li><a href={`${home}#hero`}>{t("footer.home")}</a></li>
+        <li><a href={getRelativeLocaleUrl(locale, "languages")}>{t("footer.languageClasses")}</a></li>
+        <li><a href={getRelativeLocaleUrl(locale, "music")}>{t("footer.musicClasses")}</a></li>
       </ul>
       <ul class="footer-list">
-        <h3>Compañía</h3>
-        <li><a href="/#information-active">Nosotros</a></li>
-        <li><a href="#statistics">Términos y Condiciones</a></li>
-        <li><a href="#information">Politica de privacidad</a></li>
+        <h3>{t("footer.company")}</h3>
+        <li><a href={`${home}#information-active`}>{t("footer.about")}</a></li>
+        <li><a href="#statistics">{t("footer.terms")}</a></li>
+        <li><a href="#information">{t("footer.privacy")}</a></li>
       </ul>
       <ul class="footer-list">
-        <h3>Contáctanos</h3>
-        <li><a href="#contactSection">Formulario de contacto</a></li>
-        <li><a href="https://wa.me/+573217631101" target="_blank">Whatsapp</a></li>
+        <h3>{t("nav.contact")}</h3>
+        <li><a href="#contactSection">{t("footer.contactForm")}</a></li>
+        <li><a href="https://wa.me/+573217631101" target="_blank">WhatsApp</a></li>
       </ul>
     </div>
 
     <div class="separator"></div>
 
     <div class="footer-social-networks only-section">
-      <p>Síguenos:</p>
+      <p>{t("footer.follow")}</p>
       <div class="social-icons">
         <a href="https://www.youtube.com/@americana.academy" target="_blank">
           <Image src={Youtube} alt="Youtube" />
@@ -81,7 +84,7 @@ import { Image } from "astro:assets";
         </a>
       </div>
       <p class="footer-copyright">
-        Copyright © 2025 Americana Academy.<br />Todos los derechos reservados.
+        Copyright © 2025 Americana Academy.<br />{t("footer.rights")}
       </p>
     </div>
   </div>

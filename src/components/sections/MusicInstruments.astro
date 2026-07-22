@@ -1,54 +1,45 @@
 ---
 import { Image } from "astro:assets";
 import ButtonContact from "@components/shared/ButtonContact.astro";
+import { useTranslations } from "../../i18n";
+const { t } = useTranslations(Astro.currentLocale);
+const allLevels = [t("music.beginner"), t("music.intermediate"), t("music.advanced")];
 
 const instruments = [
   {
     name: "Piano",
     icon: "🎹",
-    description: "Desde clásico hasta moderno, aprende a tocar el instrumento más versátil",
-    levels: ["Principiante", "Intermedio", "Avanzado"],
-    duration: "Clases de 60 min",
+    description: t("music.piano.description"), levels: allLevels, duration: t("music.class60"),
     color: "#FF6363"
   },
   {
-    name: "Guitarra",
+    name: t("music.guitar"),
     icon: "🎸",
-    description: "Acústica o eléctrica, domina los acordes y melodías que más te gustan",
-    levels: ["Principiante", "Intermedio", "Avanzado"],
-    duration: "Clases de 45 min",
+    description: t("music.guitar.description"), levels: allLevels, duration: t("music.class45"),
     color: "#FFB366"
   },
   {
-    name: "Violín",
+    name: t("music.violin"),
     icon: "🎻",
-    description: "Descubre la elegancia y expresividad de este instrumento clásico",
-    levels: ["Principiante", "Intermedio", "Avanzado"],
-    duration: "Clases de 50 min",
+    description: t("music.violin.description"), levels: allLevels, duration: t("music.class50"),
     color: "#66B2FF"
   },
   {
-    name: "Batería",
+    name: t("music.drums"),
     icon: "🥁",
-    description: "Encuentra tu ritmo y aprende a ser el corazón de cualquier banda",
-    levels: ["Principiante", "Intermedio", "Avanzado"],
-    duration: "Clases de 60 min",
+    description: t("music.drums.description"), levels: allLevels, duration: t("music.class60"),
     color: "#A366FF"
   },
   {
-    name: "Canto",
+    name: t("music.singing"),
     icon: "🎤",
-    description: "Desarrolla tu voz y aprende técnicas vocales profesionales",
-    levels: ["Principiante", "Intermedio", "Avanzado"],
-    duration: "Clases de 45 min",
+    description: t("music.singing.description"), levels: allLevels, duration: t("music.class45"),
     color: "#66FFB2"
   },
   {
     name: "Ukulele",
     icon: "🎶",
-    description: "Un instrumento alegre y fácil de aprender para todas las edades",
-    levels: ["Principiante", "Intermedio"],
-    duration: "Clases de 40 min",
+    description: t("music.ukulele.description"), levels: [t("music.beginner"), t("music.intermediate")], duration: t("music.class40"),
     color: "#FF66B2"
   }
 ];
@@ -56,8 +47,8 @@ const instruments = [
 
 <section id="music-instruments" class="music-instruments" data-animate="grid">
   <div class="instruments-header" data-grid="header">
-    <h2>Instrumentos que Enseñamos</h2>
-    <p>Encuentra tu pasión musical con nuestros cursos especializados</p>
+    <h2>{t("music.instruments.heading")}</h2>
+    <p>{t("music.instruments.intro")}</p>
   </div>
 
   <div class="instruments-grid">
@@ -76,7 +67,7 @@ const instruments = [
           
           <div class="instrument-details">
             <div class="detail-item">
-              <span class="detail-label">Niveles:</span>
+              <span class="detail-label">{t("music.levels")}</span>
               <div class="levels">
                 {instrument.levels.map(level => (
                   <span class="level-badge">{level}</span>
@@ -84,7 +75,7 @@ const instruments = [
               </div>
             </div>
             <div class="detail-item">
-              <span class="detail-label">Duración:</span>
+              <span class="detail-label">{t("music.duration")}</span>
               <span class="duration">{instrument.duration}</span>
             </div>
           </div>
@@ -92,7 +83,7 @@ const instruments = [
         <div class="instrument-cta">
           <ButtonContact 
             href="#contactSection" 
-            text="Más información" 
+            text={t("music.more")}
             className="instrument-btn"
           />
         </div>
@@ -102,11 +93,11 @@ const instruments = [
 
   <div class="instruments-footer animate-fade-in" data-animate>
     <div class="footer-content">
-      <h3>¿No encuentras tu instrumento?</h3>
-      <p>También ofrecemos clases personalizadas de otros instrumentos. ¡Contáctanos y cuéntanos qué te gustaría aprender!</p>
+      <h3>{t("music.other.title")}</h3>
+      <p>{t("music.other.text")}</p>
       <ButtonContact 
         href="#contactSection" 
-        text="Consultar otros instrumentos" 
+        text={t("music.other.cta")}
         className="footer-btn"
       />
     </div>

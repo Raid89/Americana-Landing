@@ -1,11 +1,15 @@
 ---
 import ButtonContact from "./ButtonContact.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "../../i18n";
+const { locale, t } = useTranslations(Astro.currentLocale);
+const home = getRelativeLocaleUrl(locale);
 const navLinks = [
-  { href: "/#information-active", text: "Conócenos" },
-  { href: "/music", text: "Música" },
-  { href: "/languages", text: "Idiomas" },
-  { href: "/#opinionsSection", text: "Opiniones" },
-  { href: "#contactSection", text: "Contactanos", isButton: true },
+  { href: `${home}#information-active`, text: t("nav.about") },
+  { href: getRelativeLocaleUrl(locale, "music"), text: t("nav.music") },
+  { href: getRelativeLocaleUrl(locale, "languages"), text: t("nav.languages") },
+  { href: `${home}#opinionsSection`, text: t("nav.opinions") },
+  { href: "#contactSection", text: t("nav.contact"), isButton: true },
 ];
 ---
 

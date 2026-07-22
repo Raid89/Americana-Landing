@@ -1,10 +1,9 @@
 ---
-import Layout from "src/layout/Layout.astro";
 import LayoutLanguages from "src/layout/LayoutLanguages.astro";
 import Seo from "src/layout/Seo.astro";
 ---
 
-<html lang="en">
+<html lang={Astro.currentLocale ?? "es"}>
   <Seo />
   <LayoutLanguages />
 </html>

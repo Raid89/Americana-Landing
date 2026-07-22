@@ -5,32 +5,31 @@ import Facebook from "@images/facebook-red.svg"
 import Instagram from "@images/instagram-red.svg"
 import Tiktok from "@images/tiktok-red.png"
 import { Image } from "astro:assets"
+import { useTranslations } from "../../i18n"
+const { t } = useTranslations(Astro.currentLocale)
+const socialAlt = (name: string) => Astro.currentLocale === "en" ? `${name} icon` : `Icono de ${name}`
 
 
 const socialNetworks = [
     {
         href: "https://api.whatsapp.com/send/?phone=%2B573217631101&text&type=phone_number&app_absent=0",
         icon: Whatsapp,
-        alt: "Icono de Whatsapp",
-        title: "Icono de Whatsapp"
+        alt: socialAlt("WhatsApp"), title: socialAlt("WhatsApp")
     },
     {
         href: "https://www.facebook.com/share/15fVDjX8DL/?mibextid=wwXIfr",
         icon: Facebook,
-        alt: "Icono de Facebook",
-        title: "Icono de Facebook"
+        alt: socialAlt("Facebook"), title: socialAlt("Facebook")
     },
     {
         href: "https://www.instagram.com/americana.academy?igsh=cDQ3cTF4bDZpcTkx&utm_source=qr",
         icon: Instagram,
-        alt: "Icono de Instagram",
-        title: "Icono de Instagram"
+        alt: socialAlt("Instagram"), title: socialAlt("Instagram")
     },
     {
         href: "https://www.tiktok.com/@americana.academy?_r=1&_t=ZS-934MfdlUxuh",
         icon: Tiktok,
-        alt: "Icono de Tiktok",
-        title: "Icono de Tiktok"
+        alt: socialAlt("TikTok"), title: socialAlt("TikTok")
     }
 ]
 
@@ -38,14 +37,14 @@ const socialNetworks = [
 
 
 
-<form id="contactForm" class="contact-form">
-  <input class="contact-input" name="name" placeholder="Nombre" required />
-  <input class="contact-input" name="email" placeholder="Correo" required type="email" />
-  <textarea class="contact-input" name="message" placeholder="Tu mensaje" required></textarea>
-  <button type="submit" class="contact-button">Contáctanos</button>
+<form id="contactForm" class="contact-form" data-success={t("form.success")} data-error={t("form.error")}>
+  <input class="contact-input" name="name" aria-label={t("form.name")} placeholder={t("form.name")} required />
+  <input class="contact-input" name="email" aria-label={t("form.email")} placeholder={t("form.email")} required type="email" />
+  <textarea class="contact-input" name="message" aria-label={t("form.message")} placeholder={t("form.message")} required></textarea>
+  <button type="submit" class="contact-button">{t("nav.contact")}</button>
   <div class="contact-divider">
     <div class="divider-line"></div>
-    <span>Da el primer paso</span>
+    <span>{t("form.firstStep")}</span>
     <div class="divider-line"></div>
   </div>
   <div class="social-networks">
@@ -148,10 +147,10 @@ const socialNetworks = [
       console.log(res);
 
       if (res.ok) {
-        alert("Mensaje enviado 🎉");
+        alert((form.dataset.success ?? "Message sent") as string);
         form.reset();
       } else {
-        alert("Error al enviar 😓");
+        alert((form.dataset.error ?? "Unable to send message") as string);
       }
     });
   }

@@ -1,22 +1,24 @@
 ---
 import StaticsBlock from "@components/shared/StaticsBlock.astro";
+import { useTranslations } from "../../i18n";
+const { t } = useTranslations(Astro.currentLocale);
 
 
 const statistics = [
     {
-        title: "Estudiantes impactados",
+        title: t("statistics.students.title"),
         value: 10000,
-        text: "Estudiantes de más de 15 países confiaron en Voice Lab para transformar su relación con los idiomas y ganar confianza al comunicarse."
+        text: t("statistics.students.text")
     },
     {
-        title: "Horas de clase impartidas",
+        title: t("statistics.hours.title"),
         value: 250000,
-        text: "Sesiones dinámicas, personalizadas y enfocadas en resultados reales. Cada clase cuenta y deja huella."
+        text: t("statistics.hours.text")
     },
     {
-        title: "Certificaciones en el último año",
+        title: t("statistics.certifications.title"),
         value: 1200,
-        text: "Respaldamos el esfuerzo de nuestras estudiantes con avales reales para su desarrollo académico y profesional."
+        text: t("statistics.certifications.text")
     },
 ]
 ---

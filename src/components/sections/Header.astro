@@ -2,16 +2,19 @@
 import Logotipo from "@images/LogoSinFondoOriginal.png";
 import Navigation from "@components/shared/Navigation.astro";
 import NavDropdown from "@components/shared/NavDropdown.astro";
+import LanguageSwitcher from "@components/shared/LanguageSwitcher.astro";
+import { getRelativeLocaleUrl } from "astro:i18n";
+const locale = Astro.currentLocale ?? "es";
 ---
 
 <header id="main-header" class="header-sticky">
   <div class="header-main_container">
-    <a class="header-logo_container" href="/">
+    <a class="header-logo_container" href={getRelativeLocaleUrl(locale)}>
       <img
         src={Logotipo.src}
         width={60}
         height={Logotipo.height}
-        alt="Logo Americana Academy"
+        alt="Americana Academy logo"
         loading="eager"
         fetchpriority="high"
         decoding="async"
@@ -20,6 +23,10 @@ import NavDropdown from "@components/shared/NavDropdown.astro";
 
     <div class="navigation-list">
       <Navigation />
+    </div>
+
+    <div class="language-switcher-wrap">
+      <LanguageSwitcher />
     </div>
 
     <div class="navigation-dropdown">
@@ -118,6 +125,9 @@ import NavDropdown from "@components/shared/NavDropdown.astro";
   }
 
   @media screen and (max-width: 700px) {
+    .language-switcher-wrap {
+      display: none;
+    }
     .navigation-dropdown {
       display: block;
     }

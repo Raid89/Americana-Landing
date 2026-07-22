@@ -1,28 +1,57 @@
 ---
 import Logotipo from "@images/logotipo.webp";
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+const locale = Astro.currentLocale === "en" ? "en" : "es";
+const isEnglish = locale === "en";
+const route = Astro.url.pathname.replace(/^\/en(?=\/|$)/, "").replace(/^\//, "");
+const section = route.startsWith("music") ? "music" : route.startsWith("languages") ? "languages" : "home";
+const seoCopy = {
+  es: {
+    home: ["Americana Academy - Educación online moderna", "Impulsa tu desarrollo personal y profesional con clases dinámicas y personalizadas de idiomas y música."],
+    music: ["Clases de música online | Americana Academy", "Aprende piano, guitarra, violín, batería, canto y más con clases personalizadas y profesores especializados."],
+    languages: ["Clases de inglés conversacional online | Americana Academy", "Aprende inglés con clases conversacionales dinámicas y personalizadas, un enfoque práctico y profesores expertos."],
+    keywords: "clases online, academia de inglés, inglés conversacional, clases de música, aprendizaje personalizado",
+  },
+  en: {
+    home: ["Americana Academy | Modern Online Education", "Advance your personal and professional growth through dynamic, personalized language and music classes."],
+    music: ["Online Music Lessons | Americana Academy", "Learn piano, guitar, violin, drums, voice, and more through personalized lessons with expert instructors."],
+    languages: ["Online Conversational English Classes | Americana Academy", "Learn English through dynamic, personalized conversation classes, practical instruction, and expert teachers."],
+    keywords: "online classes, English academy, conversational English, music lessons, personalized learning",
+  },
+} as const;
+const copy = seoCopy[locale];
+const [pageTitle, pageDescription] = copy[section];
 
 // SEO Configuration
 const siteConfig = {
-  title: "Americana Academy - Clases de Inglés Online Conversacional",
-  description: "Aprende inglés online con clases conversacionales dinámicas y personalizadas. ✓ 10,000+ estudiantes ✓ Enfoque práctico ✓ Profesores expertos. ¡Contáctanos hoy!",
+  title: pageTitle,
+  description: pageDescription,
   canonical: Astro.url.href,
   siteName: "Americana Academy",
-  locale: "es_ES",
+  locale: isEnglish ? "en_US" : "es_CO",
   type: "website"
 };
 
 const openGraph = {
-  title: "Americana Academy - Inglés Conversacional Online",
-  description: "Transforma tu futuro con clases de inglés online personalizadas. Método dinámico y práctico para profesionales y emprendedores.",
-  image: "/logotipo.webp",
+  title: pageTitle,
+  description: pageDescription,
+  image: Logotipo.src,
   url: Astro.url.href
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org", "@type": "EducationalOrganization", name: "Americana Academy",
+  description: pageDescription, url: Astro.url.origin, logo: `${Astro.url.origin}${Logotipo.src}`, foundingDate: "2018",
+  address: { "@type": "PostalAddress", addressCountry: "CO" },
+  contactPoint: { "@type": "ContactPoint", contactType: "customer service", availableLanguage: ["Spanish", "English"] },
 };
 
 const twitter = {
   card: "summary_large_image",
   title: siteConfig.title,
   description: siteConfig.description,
-  image: "/logotipo.webp"
+  image: Logotipo.src
 };
 ---
 
@@ -35,10 +64,13 @@ const twitter = {
   <!-- SEO Meta Tags -->
   <title>{siteConfig.title}</title>
   <meta name="description" content={siteConfig.description} />
-  <meta name="keywords" content="clases de inglés online, inglés conversacional, academia de inglés, aprender inglés, curso de inglés, inglés para profesionales, inglés dinámico, clases personalizadas" />
+  <meta name="keywords" content={copy.keywords} />
   <meta name="author" content="Americana Academy" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href={siteConfig.canonical} />
+  <link rel="alternate" hreflang="es" href={getRelativeLocaleUrl("es", route)} />
+  <link rel="alternate" hreflang="en" href={getRelativeLocaleUrl("en", route)} />
+  <link rel="alternate" hreflang="x-default" href={getRelativeLocaleUrl("es", route)} />
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content={siteConfig.type} />
@@ -48,6 +80,7 @@ const twitter = {
   <meta property="og:image" content={openGraph.image} />
   <meta property="og:site_name" content={siteConfig.siteName} />
   <meta property="og:locale" content={siteConfig.locale} />
+  <meta property="og:locale:alternate" content={isEnglish ? "es_CO" : "en_US"} />
   
   <!-- Twitter -->
   <meta property="twitter:card" content={twitter.card} />
@@ -61,31 +94,7 @@ const twitter = {
   <meta name="msapplication-TileColor" content="#FF6363" />
   
   <!-- Business/Organization Schema -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "EducationalOrganization",
-      "name": "Americana Academy",
-      "description": "Academia de inglés online especializada en clases conversacionales dinámicas y personalizadas",
-      "url": "https://americana-academy.com",
-      "logo": "https://americana-academy.com/logotipo.webp",
-      "foundingDate": "2018",
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "Online"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "customer service",
-        "availableLanguage": ["Spanish", "English"]
-      },
-      "offers": {
-        "@type": "Offer",
-        "name": "Clases de Inglés Conversacional Online",
-        "description": "Clases personalizadas de inglés conversacional para profesionales y emprendedores"
-      }
-    }
-  </script>
+  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />

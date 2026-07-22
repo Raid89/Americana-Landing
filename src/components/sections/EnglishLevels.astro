@@ -1,71 +1,18 @@
 ---
 import ButtonContact from "@components/shared/ButtonContact.astro";
-
-const englishLevels = [
-  {
-    level: "A1",
-    name: "Principiante",
-    description: "Perfecto para comenzar desde cero. Aprende vocabulario básico, frases esenciales y fundamentos de gramática.",
-    duration: "3-4 meses",
-    skills: ["Saludos y presentaciones", "Números y fechas", "Familia y trabajo", "Compras básicas"],
-    color: "#66FFB2",
-    icon: "🌱"
-  },
-  {
-    level: "A2",
-    name: "Elemental",
-    description: "Desarrolla confianza en conversaciones cotidianas. Expande vocabulario y mejora la comprensión auditiva.",
-    duration: "4-5 meses",
-    skills: ["Descripciones simples", "Experiencias pasadas", "Planes futuros", "Opiniones básicas"],
-    color: "#66B2FF",
-    icon: "🚀"
-  },
-  {
-    level: "B1",
-    name: "Intermedio",
-    description: "Comunícate con fluidez en situaciones familiares. Maneja conversaciones más complejas y naturales.",
-    duration: "5-6 meses",
-    skills: ["Debates y discusiones", "Textos complejos", "Trabajo y estudios", "Viajes y cultura"],
-    color: "#FFB366",
-    icon: "💪"
-  },
-  {
-    level: "B2",
-    name: "Intermedio Alto",
-    description: "Domina conversaciones profesionales y académicas. Comprende textos técnicos y participa en debates.",
-    duration: "6-7 meses",
-    skills: ["Presentaciones formales", "Negociaciones", "Literatura y medios", "Expresión de emociones"],
-    color: "#FF6363",
-    icon: "🎯"
-  },
-  {
-    level: "C1",
-    name: "Avanzado",
-    description: "Expresa ideas complejas con precisión. Comprende matices culturales y referencias implícitas.",
-    duration: "7-8 meses",
-    skills: ["Comunicación sofisticada", "Análisis crítico", "Liderazgo en inglés", "Escritura profesional"],
-    color: "#A366FF",
-    icon: "👑"
-  },
-  {
-    level: "C2",
-    name: "Experto",
-    description: "Dominio nativo del idioma. Comprende todo tipo de textos y se expresa con naturalidad en cualquier contexto.",
-    duration: "8+ meses",
-    skills: ["Fluidez nativa", "Sutilezas lingüísticas", "Excelencia académica", "Maestría comunicativa"],
-    color: "#FF66B2",
-    icon: "🏆"
-  }
-];
+import { useTranslations } from "../../i18n";
+import { getEnglishLevels } from "../../i18n/content";
+const { locale, t } = useTranslations(Astro.currentLocale);
+const englishLevels = getEnglishLevels(locale);
 ---
 
 <section id="english-levels" class="english-levels" data-animate="grid">
   <div class="levels-header" data-grid="header">
-    <h2>Niveles de Inglés</h2>
-    <p>Encuentra tu nivel perfecto y avanza a tu propio ritmo</p>
+    <h2>{t("englishLevels.heading")}</h2>
+    <p>{t("englishLevels.intro")}</p>
     <div class="framework-badge">
       <span>📚</span>
-      <p>Basado en el Marco Común Europeo (CEFR)</p>
+      <p>{t("englishLevels.framework")}</p>
     </div>
   </div>
 
@@ -90,11 +37,11 @@ const englishLevels = [
 
         <div class="level-duration">
           <span class="duration-icon">⏱️</span>
-          <span class="duration-text">Duración estimada: {level.duration}</span>
+          <span class="duration-text">{t("englishLevels.duration")} {level.duration}</span>
         </div>
 
         <div class="level-skills">
-          <h4>Aprenderás a:</h4>
+          <h4>{t("englishLevels.learn")}</h4>
           <ul>
             {level.skills.map(skill => (
               <li>
@@ -107,7 +54,7 @@ const englishLevels = [
 
         <ButtonContact 
           href="#contactSection" 
-          text={`Empezar nivel ${level.level}`}
+          text={`${t("englishLevels.start")} ${level.level}`}
           className="level-btn"
         />
       </div>
@@ -119,12 +66,12 @@ const englishLevels = [
       <div class="test-content">
         <span class="test-icon">🎯</span>
         <div class="test-text">
-          <h3>¿No estás seguro de tu nivel?</h3>
-          <p>Realiza nuestro test de nivelación gratuito y descubre por dónde empezar</p>
+          <h3>{t("englishLevels.unsure")}</h3>
+          <p>{t("englishLevels.testText")}</p>
         </div>
         <ButtonContact 
           href="#contactSection" 
-          text="Hacer test gratuito"
+          text={t("englishLevels.test")}
           className="test-btn"
         />
       </div>

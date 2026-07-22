@@ -3,25 +3,27 @@ import { Image } from "astro:assets";
 import Opinion1 from "@images/opinion1.png";
 import Opinion2 from "@images/opinion2.png";
 import Opinion3 from "@images/opinion3.png";
+import { useTranslations } from "../../i18n";
+const { t } = useTranslations(Astro.currentLocale);
 
 const opinions = [
   {
     opinion:
-      "“Aprender aquí me ha abierto muchas puertas. ¡Una experiencia espectacular!” ",
+      t("opinions.one"),
     name: "Laura Garzón",
     location: "Bogotá D.C.",
     photo: Opinion1,
   },
   {
     opinion:
-      "“Las clases son dinámicas y efectivas. Los profesores realmente se preocupan por tu progreso.”",
+      t("opinions.two"),
     name: "Gabriela Mosquera",
     location: "Santiago de Chile",
     photo: Opinion2,
   },
   {
     opinion:
-      "“Sin lugar a dudas la mejor academia de ingles. He escalado laboralmente gracias a Americana Academy” ",
+      t("opinions.three"),
     name: "Erick Garcia",
     location: "La Plata",
     photo: Opinion3,
@@ -31,8 +33,8 @@ const opinions = [
 
 <section id="opinionsSection" class="opinions-section" data-animate="grid">
   <div class="opinions-header" data-grid="header">
-    <h2 class="opinions-title">Lo que dicen nuestros <br /> estudiantes</h2>
-    <p>Historias reales de transformación y éxito en Americana Academy</p>
+    <h2 class="opinions-title" set:html={t("opinions.title")} />
+    <p>{t("opinions.intro")}</p>
   </div>
   
   <div class="opinions-carousel" data-grid="container">
@@ -70,11 +72,11 @@ const opinions = [
 
   <div class="opinions-cta" data-grid="cta">
     <div class="cta-content">
-      <h3>🌟 ¿Quieres ser parte de estas historias de éxito?</h3>
-      <p>Únete a miles de estudiantes que han transformado su futuro con nosotros</p>
+      <h3>{t("opinions.ctaTitle")}</h3>
+      <p>{t("opinions.ctaText")}</p>
       <a href="#contactSection" class="cta-button">
         <span>🚀</span>
-        Comenzar Mi Transformación
+        {t("opinions.cta")}
       </a>
     </div>
   </div>
@@ -462,4 +464,3 @@ const opinions = [
     }
   }
 </style>
-

@@ -2,27 +2,26 @@
 import ContactForm from "@components/shared/ContactForm.astro";
 import Check from "@images/check.svg";
 import { Image } from "astro:assets";
+import { useTranslations } from "../../i18n";
+const { t } = useTranslations(Astro.currentLocale);
 
 const ourBenefits = [
-  "Método personalizado que se adapta a tu ritmo.",
-  "Clases dinámicas con enfoque conversacional.",
-  "Profesores certificados y cercanos.",
-  "Flexibilidad horaria (online o presencial).",
-  "Resultados reales y acompañamiento constante.",
+  t("contact.benefit1"), t("contact.benefit2"), t("contact.benefit3"),
+  t("contact.benefit4"), t("contact.benefit5"),
 ];
 ---
 
 <section id="contactSection" class="contact-section" data-animate="benefits">
   <div class="section-header">
-    <h2>¿Listo para dar el siguiente paso?</h2>
-    <p>Transforma tu futuro con nosotros. Comienza tu viaje educativo hoy mismo.</p>
+    <h2>{t("contact.heading")}</h2>
+    <p>{t("contact.intro")}</p>
   </div>
 
   <div class="contact-content">
     <div class="form-container" data-benefit="form">
       <div class="form-header">
-        <h3 data-benefit="title">Contáctanos</h3>
-        <h4 data-benefit="subtitle">Estamos aquí para ayudarte a comenzar</h4>
+        <h3 data-benefit="title">{t("contact.title")}</h3>
+        <h4 data-benefit="subtitle">{t("contact.subtitle")}</h4>
       </div>
       <div class="form-inputs-container" data-benefit="content">
         <ContactForm />
@@ -31,14 +30,14 @@ const ourBenefits = [
 
     <div class="benefits-container" data-benefit="list">
       <div class="benefits-header">
-        <h3 data-benefit="list-title">¿Por qué elegir Americana Academy?</h3>
+        <h3 data-benefit="list-title">{t("contact.why")}</h3>
       </div>
       <ul class="benefits-list" data-benefit="items">
         {
           ourBenefits.map((benefit, index) => (
             <li data-benefit="item" data-index={index} style={`--delay: ${index * 0.1}s`}>
               <div class="benefit-icon">
-                <Image src={Check} alt="icono de checkeado" />
+                <Image src={Check} alt="" />
               </div>
               <span class="benefit-text">{benefit}</span>
             </li>
@@ -48,7 +47,7 @@ const ourBenefits = [
       <div class="benefits-cta">
         <div class="cta-highlight">
           <span class="highlight-icon">🎯</span>
-          <p><strong>+10,000 estudiantes</strong> han transformado su futuro con nosotros</p>
+          <p><strong>{t("contact.students")}</strong> {t("contact.transformed")}</p>
         </div>
       </div>
     </div>

@@ -1,21 +1,23 @@
 ---
 import StaticsBlock from "@components/shared/StaticsBlock.astro";
+import { useTranslations } from "../../i18n";
+const { t } = useTranslations(Astro.currentLocale);
 
 const languageStatistics = [
     {
-        title: "Estudiantes de inglés activos",
+        title: t("languages.stats.students.title"),
         value: 2400,
-        text: "Estudiantes han mejorado significativamente su inglés conversacional, ganando confianza para comunicarse en entornos académicos y profesionales."
+        text: t("languages.stats.students.text")
     },
     {
-        title: "Horas de conversación",
+        title: t("languages.stats.hours.title"),
         value: 85000,
-        text: "Sesiones de práctica conversacional en inglés, donde cada estudiante desarrolla fluidez y naturalidad al comunicarse en situaciones reales."
+        text: t("languages.stats.hours.text")
     },
     {
-        title: "Certificaciones CEFR obtenidas",
+        title: t("languages.stats.certifications.title"),
         value: 580,
-        text: "Estudiantes han obtenido certificaciones oficiales de inglés, validando su progreso con estándares internacionales reconocidos."
+        text: t("languages.stats.certifications.text")
     },
 ]
 ---

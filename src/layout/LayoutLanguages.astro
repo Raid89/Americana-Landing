@@ -8,6 +8,8 @@ import EnglishMethodology from "@components/sections/EnglishMethodology.astro";
 import EnglishBenefits from "@components/sections/EnglishBenefits.astro";
 import LanguageStatistics from "@components/sections/LanguageStatistics.astro";
 import Opinions from "@components/sections/Opinions.astro";
+import { useTranslations } from "../i18n";
+const { t } = useTranslations(Astro.currentLocale);
 ---
 
 <head>
@@ -213,8 +215,8 @@ import Opinions from "@components/sections/Opinions.astro";
   <Header />
   <div style="max-width: 1920px; margin: auto">
       <LanguagesHero 
-        title="Domina el Inglés con Confianza" 
-        description="Clases conversacionales dinámicas y personalizadas. <br> Aprende inglés práctico que realmente usarás en la vida real."
+        title={t("languages.hero.title")}
+        description={t("languages.hero.description")}
       />
   </div>
   <LanguageStatistics />
@@ -247,4 +249,3 @@ import Opinions from "@components/sections/Opinions.astro";
     }
   }
 </style>
-

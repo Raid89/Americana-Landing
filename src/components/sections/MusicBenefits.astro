@@ -1,39 +1,35 @@
 ---
+import { useTranslations } from "../../i18n";
+const { t } = useTranslations(Astro.currentLocale);
 const musicBenefits = [
   {
     icon: "🧠",
-    title: "Desarrollo Cognitivo",
-    description: "La música estimula el desarrollo neuronal, mejora la memoria y potencia la capacidad de concentración y aprendizaje.",
+    title: t("music.benefit1.title"), description: t("music.benefit1.text"),
     color: "#FF6363"
   },
   {
     icon: "💫",
-    title: "Expresión Creativa",
-    description: "Aprende a expresar emociones y sentimientos a través de la música, desarrollando tu creatividad artística.",
+    title: t("music.benefit2.title"), description: t("music.benefit2.text"),
     color: "#66B2FF"
   },
   {
     icon: "🤝",
-    title: "Habilidades Sociales",
-    description: "Tocar en grupo fomenta el trabajo en equipo, la comunicación y la construcción de relaciones duraderas.",
+    title: t("music.benefit3.title"), description: t("music.benefit3.text"),
     color: "#FFB366"
   },
   {
     icon: "😌",
-    title: "Bienestar Emocional",
-    description: "La música reduce el estrés, mejora el estado de ánimo y proporciona una vía saludable para el manejo emocional.",
+    title: t("music.benefit4.title"), description: t("music.benefit4.text"),
     color: "#A366FF"
   },
   {
     icon: "🎯",
-    title: "Disciplina y Constancia",
-    description: "El aprendizaje musical desarrolla la disciplina, paciencia y perseverancia necesarias para el crecimiento personal.",
+    title: t("music.benefit5.title"), description: t("music.benefit5.text"),
     color: "#66FFB2"
   },
   {
     icon: "🌟",
-    title: "Confianza Personal",
-    description: "Dominar un instrumento aumenta la autoestima, la confianza en uno mismo y la sensación de logro personal.",
+    title: t("music.benefit6.title"), description: t("music.benefit6.text"),
     color: "#FF66B2"
   }
 ];
@@ -41,8 +37,8 @@ const musicBenefits = [
 
 <section id="music-benefits" class="music-benefits" data-animate="benefits">
   <div class="benefits-header" data-grid="header">
-    <h2>¿Por Qué Aprender Música?</h2>
-    <p>Descubre los increíbles beneficios que la música aporta a tu vida</p>
+    <h2>{t("music.benefits.heading")}</h2>
+    <p>{t("music.benefits.intro")}</p>
   </div>
 
   <div class="benefits-grid">
@@ -66,16 +62,16 @@ const musicBenefits = [
 
   <div class="benefits-cta" data-grid="cta">
     <div class="cta-content">
-      <h3>🎵 ¿Listo para comenzar tu viaje musical?</h3>
-      <p>No importa tu edad o nivel de experiencia. En Americana Academy, todos pueden aprender música.</p>
+      <h3>{t("music.benefits.ctaTitle")}</h3>
+      <p>{t("music.benefits.ctaText")}</p>
       <div class="cta-buttons">
         <a href="#contactSection" class="cta-primary">
           <span>🎹</span>
-          Reservar Clase de Prueba
+          {t("music.benefits.book")}
         </a>
         <a href="#music-instruments" class="cta-secondary">
           <span>🎸</span>
-          Ver Instrumentos
+          {t("music.benefits.view")}
         </a>
       </div>
     </div>

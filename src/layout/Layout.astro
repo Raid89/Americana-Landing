@@ -6,6 +6,8 @@ import Hero from "@components/sections/Hero.astro";
 import Information from "@components/sections/Information.astro";
 import Opinions from "@components/sections/Opinions.astro";
 import Statistics from "@components/sections/Statistics.astro";
+import { useTranslations } from "../i18n";
+const { t } = useTranslations(Astro.currentLocale);
 ---
 
 <head>
@@ -266,7 +268,7 @@ import Statistics from "@components/sections/Statistics.astro";
 <body class="main-layout">
   <Header />
   <div style="max-width: 1920px; margin: auto">
-      <Hero title={'Aprende online con una academia moderna y flexible'} description={'Cursos y talleres en múltiples áreas. <br> Formación de calidad para impulsar tu desarrollo personal y profesional.'} />
+      <Hero title={t("home.hero.title")} description={t("home.hero.description")} />
   </div>
   <Statistics />
   <div style="max-width: 1920px; margin: auto">
@@ -295,4 +297,3 @@ import Statistics from "@components/sections/Statistics.astro";
     }
   }
 </style>
-

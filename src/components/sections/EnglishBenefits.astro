@@ -1,57 +1,17 @@
 ---
-const englishBenefits = [
-  {
-    icon: "🌍",
-    title: "Oportunidades Globales",
-    description: "Accede a empleos internacionales, programas de intercambio y oportunidades de negocio en cualquier parte del mundo.",
-    stats: "85% de empresas multinacionales requieren inglés",
-    color: "#4A90E2"
-  },
-  {
-    icon: "💼",
-    title: "Crecimiento Profesional",
-    description: "Aumenta tu salario hasta un 30% y accede a posiciones de liderazgo que requieren comunicación en inglés.",
-    stats: "67% más probabilidades de ascenso",
-    color: "#FF6363"
-  },
-  {
-    icon: "🎓",
-    title: "Educación Superior",
-    description: "Estudia en las mejores universidades del mundo y accede a programas académicos de élite internacional.",
-    stats: "Top 100 universidades enseñan en inglés",
-    color: "#66FFB2"
-  },
-  {
-    icon: "🧠",
-    title: "Desarrollo Cognitivo",
-    description: "Mejora tu memoria, concentración y habilidades de resolución de problemas a través del aprendizaje del inglés.",
-    stats: "Retrasa el deterioro cognitivo 4-5 años",
-    color: "#FFB366"
-  },
-  {
-    icon: "✈️",
-    title: "Viajes Sin Barreras",
-    description: "Comunícate con confianza en cualquier destino y disfruta experiencias de viaje más auténticas y enriquecedoras.",
-    stats: "Se habla en 67 países oficialmente",
-    color: "#A366FF"
-  },
-  {
-    icon: "📚",
-    title: "Acceso al Conocimiento",
-    description: "Consume contenido original en inglés: libros, podcasts, cursos online y documentación técnica sin traducciones.",
-    stats: "60% del contenido web está en inglés",
-    color: "#FF66B2"
-  }
-];
+import { useTranslations } from "../../i18n";
+import { getEnglishBenefits } from "../../i18n/content";
+const { locale, t } = useTranslations(Astro.currentLocale);
+const englishBenefits = getEnglishBenefits(locale);
 ---
 
 <section id="english-benefits" class="english-benefits" data-animate="benefits">
   <div class="benefits-header" data-grid="header">
-    <h2>¿Por Qué Aprender Inglés?</h2>
-    <p>Descubre cómo el inglés puede transformar tu futuro personal y profesional</p>
+    <h2>{t("englishBenefits.heading")}</h2>
+    <p>{t("englishBenefits.intro")}</p>
     <div class="global-stat">
       <span class="stat-icon">🌐</span>
-      <p><strong>1.5 mil millones</strong> de personas hablan inglés en el mundo</p>
+      <p><strong>{t("englishBenefits.global")}</strong> {t("englishBenefits.globalText")}</p>
     </div>
   </div>
 
@@ -86,19 +46,19 @@ const englishBenefits = [
       <div class="cta-content">
         <span class="cta-icon">🚀</span>
         <div class="cta-text">
-          <h3>¿Listo para abrir nuevas puertas?</h3>
-          <p>Comienza tu viaje hacia la fluidez en inglés hoy mismo</p>
+          <h3>{t("englishBenefits.ctaTitle")}</h3>
+          <p>{t("englishBenefits.ctaText")}</p>
         </div>
       </div>
       
       <div class="cta-actions">
         <a href="#contactSection" class="cta-primary">
           <span>🎯</span>
-          Empezar ahora
+          {t("englishBenefits.start")}
         </a>
         <a href="#english-levels" class="cta-secondary">
           <span>📋</span>
-          Ver niveles
+          {t("englishBenefits.viewLevels")}
         </a>
       </div>
     </div>
