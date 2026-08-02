@@ -15,7 +15,7 @@ const { t } = useTranslations(Astro.currentLocale);
         <span class="text">{t("hero.badge")}</span>
       </div>
       <h1 data-hero="title">{title}</h1>
-      <h2 data-hero="subtitle" set:html={description} />
+      <ul class="hero-description" data-hero="subtitle" set:html={description} />
       <div class="academy-highlight">
         <span class="academy-icon">✨</span>
         <p>{t("hero.highlight")}</p>
@@ -105,12 +105,46 @@ const { t } = useTranslations(Astro.currentLocale);
     background-clip: text;
   }
 
-  .hero-text h2 {
+  .hero-description {
+    display: grid;
+    gap: 10px;
     font-size: 20px;
     line-height: 30px;
     font-weight: 500;
     margin: 0;
     color: #555;
+    padding: 0;
+    width: min(100%, 780px);
+    text-align: left;
+    list-style: none;
+  }
+
+  .hero-description :global(li) {
+    position: relative;
+    padding: 12px 18px 12px 52px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(255, 99, 99, 0.14);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(33, 37, 41, 0.06);
+  }
+
+  .hero-description :global(li::before) {
+    content: "✓";
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    background: linear-gradient(135deg, #FF6363, #FF8282);
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(255, 99, 99, 0.28);
+    transform: translateY(-50%);
   }
 
   .academy-highlight {
@@ -188,7 +222,7 @@ const { t } = useTranslations(Astro.currentLocale);
         font-size: 50px;
       }
 
-      h2 {
+      .hero-description {
         font-size: 18px;
         line-height: 28px;
       }
@@ -208,7 +242,7 @@ const { t } = useTranslations(Astro.currentLocale);
         font-size: 42px;
       }
 
-      h2 {
+      .hero-description {
         font-size: 17px;
         line-height: 26px;
       }
@@ -230,7 +264,7 @@ const { t } = useTranslations(Astro.currentLocale);
         line-height: 1.1;
       }
 
-      h2 {
+      .hero-description {
         font-size: 16px;
         line-height: 24px;
       }
@@ -253,9 +287,21 @@ const { t } = useTranslations(Astro.currentLocale);
       font-size: 28px;
     }
 
-    .hero-text h2 {
+    .hero-description {
       font-size: 14px;
       line-height: 22px;
+    }
+
+    .hero-description :global(li) {
+      padding: 10px 14px 10px 44px;
+      border-radius: 12px;
+    }
+
+    .hero-description :global(li::before) {
+      left: 13px;
+      width: 22px;
+      height: 22px;
+      font-size: 12px;
     }
 
     .academy-highlight {

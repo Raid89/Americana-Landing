@@ -1,6 +1,7 @@
 ---
 import Contact from "@components/sections/Contact.astro";
 import Footer from "@components/sections/Footer.astro";
+import FloatingWhatsApp from "@components/shared/FloatingWhatsApp.astro";
 import Header from "@components/sections/Header.astro";
 import MusicHero from "@components/sections/MusicHero.astro";
 import MusicInstruments from "@components/sections/MusicInstruments.astro";
@@ -227,6 +228,7 @@ const { t } = useTranslations(Astro.currentLocale);
       <Opinions />
       <Contact />
   </div>
+  <FloatingWhatsApp />
   <Footer />
 </body>
 

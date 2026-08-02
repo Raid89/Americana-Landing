@@ -6,6 +6,7 @@ import Hero from "@components/sections/Hero.astro";
 import Information from "@components/sections/Information.astro";
 import Opinions from "@components/sections/Opinions.astro";
 import Statistics from "@components/sections/Statistics.astro";
+import FloatingWhatsApp from "@components/shared/FloatingWhatsApp.astro";
 import { useTranslations } from "../i18n";
 const { t } = useTranslations(Astro.currentLocale);
 ---
@@ -65,7 +66,9 @@ const { t } = useTranslations(Astro.currentLocale);
         // Animación del Hero
         const heroSection = document.querySelector('[data-animate="hero"]');
         if (heroSection) {
-          const textElements = heroSection.querySelectorAll('h1, h2, p, .academy-badge, .academy-highlight, .cta, button');
+          const textElements = heroSection.querySelectorAll(
+            'h1, h2, p, .hero-description li, .academy-badge, .academy-highlight, .cta, button'
+          );
           
           if (textElements.length > 0) {
             gsap.set(textElements, { 
@@ -276,6 +279,7 @@ const { t } = useTranslations(Astro.currentLocale);
       <Opinions />
       <Contact />
   </div>
+  <FloatingWhatsApp />
   <Footer />
 </body>
 

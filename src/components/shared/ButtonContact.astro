@@ -5,16 +5,20 @@
  * - href: URL de destino
  * - text: Texto del botón
  * - className: Clases adicionales opcionales
+ * - target: Contexto de navegación opcional
+ * - rel: Relación del enlace opcional
  */
 export interface Props {
   href: string;
   text: string;
   className?: string;
+  target?: string;
+  rel?: string;
 }
 
-const { href, text, className = "" } = Astro.props;
+const { href, text, className = "", target, rel } = Astro.props;
 ---
-<a href={href} class={`header-navigation_contact ${className}`}>{text}</a>
+<a href={href} target={target} rel={rel} class={`header-navigation_contact ${className}`}>{text}</a>
 
 <style>
   .header-navigation_contact {
